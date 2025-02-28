@@ -1,0 +1,17 @@
+//Clue Setup
+//Author(s): Mark Duffalo, Luke Pisano
+//Date: 2/27/2025
+//Theme: Wild West
+//Rooms and room cards
+Room, Saloon, S
+Room, Jail, J
+Room, Bank, B
+Room, Hotel, H
+Room, General Store, G
+Room, Church, C
+Room, Forge, F
+Room, Cemetary, D
+Room, Livery Stable, L
+//Other spaces on the board
+Space, Walkway, W
+Space, Unused, X
