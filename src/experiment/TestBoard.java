@@ -14,9 +14,22 @@ public class TestBoard {
 
     public void calcTargets(TestBoardCell startCell, int pathlength) {
         /*
-            To be implemented.
-            calculates legal targets for a move from startCell of length pathlength.
+            TODO calculates legal targets for a move from startCell of length pathlength.
+            create visited tracker that starts at zero
+            for pathlength
+                get adjacent cells
+                append adjacent cells to visited list maybe
+
          */
+        Set<TestBoardCell> allVisited = startCell.getAdjList();
+        Set<TestBoardCell> lastVisited = startCell.getAdjList();
+        allVisited.add(startCell);
+        for (int numVisited = 1; numVisited < pathlength; numVisited++) {
+            for (int cell = 0; cell < lastVisited.size(); cell++) {
+
+            }
+        }
+
     }
 
     /**
