@@ -15,3 +15,9 @@ Room, Livery Stable, L
 //Other spaces on the board
 Space, Walkway, W
 Space, Unused, X
+// Other symbols
+// < ^ > v indicate door direction
+// # Where to write name of room 
+// * Center of room
+// SH/HS secret passage H <-> S
+// CD/DC secret passage C <-> D
