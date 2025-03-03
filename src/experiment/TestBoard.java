@@ -4,8 +4,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class TestBoard {
-	private final int NUMROWS = 4;     // Temporary value until we know what it actually is
-	private final int NUMCOLS = 4;     // Temporary value until we know what it actually is
+	// Constants to set board size
+	private final int NUMROWS = 4;
+	private final int NUMCOLS = 4;
+	
+	// board and sets to store visited / targets
 	private TestBoardCell[][] board;
 	private Set<TestBoardCell> targets;
 	private Set<TestBoardCell> visited;
@@ -53,6 +56,7 @@ public class TestBoard {
 	// recursive algorithm to find all possible cells can end on
 	private void findAllTargets(TestBoardCell cell, int stepsRemaining) {
 		for (TestBoardCell adj : cell.getAdjList()) {
+			// skip if visited or occupied
 			if (visited.contains(adj)) {
 				continue;
 			}
@@ -60,15 +64,16 @@ public class TestBoard {
 				continue;
 			}
 			visited.add(adj);
-
+			
+			
 			if (stepsRemaining == 1) {
-				targets.add(adj);
+				targets.add(adj); // need to end on roll number
 			} else if (adj.getRoom()){
-				targets.add(adj);
+				targets.add(adj); // room don't need to use full roll
 			} else {
-				findAllTargets(adj, stepsRemaining - 1);
+				findAllTargets(adj, stepsRemaining - 1); // repeat until room or 1 left
 			}
-			visited.remove(adj);
+			visited.remove(adj); // remove backtrack 
 		}
 	}
 
