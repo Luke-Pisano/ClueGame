@@ -1,15 +1,15 @@
 package experiment;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class TestBoardCell {
-    public final int _row;
-    public final int _col;
+    public int _row;
+    public int _col;
     private Set<TestBoardCell> adjList;
     private boolean isRoom;         // Whether the cell is a room
     private boolean isOccupied;     // Whether the cell is occupied
-    
-    /**
+     /**
      * Constructor for creating a cell
      *
      * @param row - row of the cell's location
@@ -21,6 +21,8 @@ public class TestBoardCell {
         // By default, assume cell is not a room and is not occupied
         isRoom = false;
         isOccupied = false;
+        adjList = new HashSet<>();
+        
     }
 
     /**

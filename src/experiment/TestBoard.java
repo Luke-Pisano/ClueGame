@@ -3,22 +3,42 @@ package experiment;
 import java.util.Set;
 
 public class TestBoard {
-    private final int NUMROWS = 10;     // Temporary value until we know what it actually is
-    private final int NUMCOLS = 10;     // Temporary value until we know what it actually is
-    private TestBoardCell[][] board = new TestBoardCell[NUMROWS][NUMCOLS];
+    private final int NUMROWS = 4;     // Temporary value until we know what it actually is
+    private final int NUMCOLS = 4;     // Temporary value until we know what it actually is
+    private TestBoardCell[][] board;
     private Set<TestBoardCell> targets;
-    private int row, col;
-    private Boolean isRoom, isOccupied ;
+    private Set<TestBoardCell> visited;
 
     public TestBoard() {
-    	// create cells for the board for NUMROWS by NUMCOLS
-        for (int rowIndex = 0; rowIndex < NUMROWS; rowIndex++) {
-        	for (int colIndex = 0; colIndex < NUMCOLS; colIndex++) {
-        		board[rowIndex][colIndex] = new TestBoardCell(rowIndex, colIndex);
+        board = new TestBoardCell[NUMROWS][NUMCOLS]; // Initialize board array
+        for (int row = 0; row < NUMROWS; row++) {
+            for (int col = 0; col < NUMCOLS; col++) {
+                board[row][col] = new TestBoardCell(row, col);
+            }
+        }
+        calcAdj();
+    }
+    
+    public void calcAdj() {
+        for (int row = 0; row < NUMROWS; row++) {
+        	for (int col = 0; col < NUMCOLS; col++) {
+                TestBoardCell cell = board[row][col];
+                if (row < NUMROWS - 1) {
+                	cell.addAdjacency(board[row + 1][col]);
+                }
+        		if (row > 0) {
+        			cell.addAdjacency(board[row - 1][col]); 
+        		}
+                if (col < NUMCOLS - 1) {
+                	cell.addAdjacency(board[row][col + 1]);
+                }
+                if (col > 0) {
+                	cell.addAdjacency(board[row][col - 1]);
+                }
         	}
-        	
         }
     }
+    
 
     public void calcTargets(TestBoardCell startCell, int pathlength) {
         /*
@@ -34,7 +54,7 @@ public class TestBoard {
         allVisited.add(startCell);
         for (int numVisited = 1; numVisited < pathlength; numVisited++) {
             for (int cell = 0; cell < lastVisited.size(); cell++) {
-
+            	
             }
         }
 
