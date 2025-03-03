@@ -1,5 +1,6 @@
 package experiment;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class TestBoard {
@@ -18,6 +19,7 @@ public class TestBoard {
     }
 
     public void calcTargets(TestBoardCell startCell, int pathlength) {
+    	targets = new HashSet<>();
         /*
             TODO calculates legal targets for a move from startCell of length pathlength.
             create visited tracker that starts at zero
