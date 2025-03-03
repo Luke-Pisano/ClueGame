@@ -69,7 +69,7 @@ public class TestBoard {
     public TestBoardCell getCell(int row, int col) {
         for (int rw = 0; rw < NUMROWS; rw++) {
             for (int cl = 0; cl < NUMCOLS; cl++) {
-                if (board[rw][cl]._row == row && board[rw][cl]._col == col) {
+                if (board[rw][cl].row == row && board[rw][cl].col == col) {
                     return board[rw][cl];
                 }
             }
