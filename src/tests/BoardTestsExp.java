@@ -78,7 +78,7 @@ public class BoardTestsExp {
     // calcTarget tests:
     
     // test targets normal
-    //@Test
+    @Test
     public void testTargetsNormal() {
         TestBoardCell cell = board.getCell(0, 0);
         board.calcTargets(cell, 3); // move 3
@@ -94,7 +94,7 @@ public class BoardTestsExp {
     }
 
     // test targets mixed
-    //@Test
+    @Test
     public void testTargetsMixed() {
         board.getCell(0, 2).setOccupied(true); // mark occupied
         board.getCell(1, 2).setRoom(true); // mark room
@@ -108,7 +108,7 @@ public class BoardTestsExp {
     }
     
     // test if the target is a room
-    //@Test
+   // @Test
     public void testTargetsRoom() {
         board.getCell(2, 2).setRoom(true);
         TestBoardCell cell = board.getCell(1, 1);
@@ -122,7 +122,7 @@ public class BoardTestsExp {
     }
 
     // test if cell occupied
-    //@Test
+    @Test
     public void testTargetsOccupied() {
         board.getCell(1, 1).setOccupied(true); // mark occupied
         TestBoardCell cell = board.getCell(0, 0);
