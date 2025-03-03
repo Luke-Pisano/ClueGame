@@ -1,3 +1,55 @@
+I, Luke Pisano, certify that I participated equitably in the creation of assignment C14A-1 Clue Paths, dated 3/3/25.
+I, Mark Duffalo, certify that I participated equitably in the creation of this assignment C14A-1 Clue Paths 2, dated 3/3/25.
+
+commit 9c7e0dde8ac07fe729af08879c3e31ee76bd8fb9
+Author: Luke Pisano <79476828+Luke-Pisano@users.noreply.github.com>
+Date:   Mon Mar 3 16:45:07 2025 -0700
+
+    Added comments for coding standards to TestBoard.java
+
+commit b22fea66aec039f45ac2748a99f3f9d7a07a8321
+Author: Luke Pisano <79476828+Luke-Pisano@users.noreply.github.com>
+Date:   Mon Mar 3 16:18:51 2025 -0700
+
+    Passes all tests worked together on same device
+
+commit e3b5c3bcf15a9a866a40ef5ca747d0467b63bc09
+Author: Luke Pisano <79476828+Luke-Pisano@users.noreply.github.com>
+Date:   Mon Mar 3 15:21:41 2025 -0700
+
+    Fixed variable name _row _col, compile errors
+
+commit e57a3c478d1e6fbc72bf02a921b7856b23eeab32
+Merge: c53dfb0 3df23a2
+Author: Luke Pisano <79476828+Luke-Pisano@users.noreply.github.com>
+Date:   Mon Mar 3 15:13:21 2025 -0700
+
+    Passing Adjacency tests
+
+commit c53dfb0cd471f771b8379b4877c82b10f73bab4d
+Author: Luke Pisano <79476828+Luke-Pisano@users.noreply.github.com>
+Date:   Mon Mar 3 15:07:49 2025 -0700
+
+    Updated code to pass adjacency tests
+
+commit 3df23a2a9381f2cc7010dde59361ad82b8bc80c1
+Author: Mark Duffalo <markalarski@yahoo.com>
+Date:   Mon Mar 3 14:40:11 2025 -0700
+
+    Changed: refactored instance variable in TestBoardCell.java "_row" to "row" and "_col" to "col" for clarity
+
+commit 244ea274c03eb1cb1021207cd5f8513ed032a2b4
+Author: Luke Pisano <79476828+Luke-Pisano@users.noreply.github.com>
+Date:   Mon Mar 3 13:30:51 2025 -0700
+
+    Added constructor to build board
+
+commit 82f69242ebebc17ec2a97a067b47616f192e6527
+Author: Luke Pisano <79476828+Luke-Pisano@users.noreply.github.com>
+Date:   Mon Mar 3 13:08:17 2025 -0700
+
+    Created new branch for Clue-Path-2 assignment
+
 commit dc31afff4cf234fa2dbcf387d83f5b669aa9f638
 Merge: c6c4837 0860709
 Author: Luke Pisano <79476828+Luke-Pisano@users.noreply.github.com>
