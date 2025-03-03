@@ -1,6 +1,7 @@
 package experiment;
 
 import java.util.Set;
+import java.util.HashSet;
 
 public class TestBoardCell {
     public final int _row;
@@ -21,6 +22,8 @@ public class TestBoardCell {
         // By default, assume cell is not a room and is not occupied
         isRoom = false;
         isOccupied = false;
+        adjList = new HashSet<>();
+
     }
 
     /**

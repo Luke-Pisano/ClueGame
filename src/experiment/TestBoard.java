@@ -9,7 +9,12 @@ public class TestBoard {
     private Set<TestBoardCell> targets;
 
     public TestBoard() {
-        // Empty Constructor
+    	 board = new TestBoardCell[NUMROWS][NUMCOLS];
+         for (int row = 0; row < NUMROWS; row++) {
+             for (int col = 0; col < NUMCOLS; col++) {
+                 board[row][col] = new TestBoardCell(row, col);
+             }
+         }
     }
 
     public void calcTargets(TestBoardCell startCell, int pathlength) {

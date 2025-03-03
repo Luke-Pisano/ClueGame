@@ -3,7 +3,7 @@ package tests;
 import org.junit.Assert;
 import org.junit.Test;
 import java.util.Set;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.Before;
 
 import experiment.TestBoard;
 import experiment.TestBoardCell;
@@ -13,7 +13,7 @@ public class BoardTestsExp {
     TestBoard board;
 
     // Run before each test, @BeforeALL also works
-    @BeforeEach
+    @Before
     public void setUp() {
         board = new TestBoard();
     }
