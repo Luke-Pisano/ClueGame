@@ -7,9 +7,17 @@ public class TestBoard {
     private final int NUMCOLS = 10;     // Temporary value until we know what it actually is
     private TestBoardCell[][] board = new TestBoardCell[NUMROWS][NUMCOLS];
     private Set<TestBoardCell> targets;
+    private int row, col;
+    private Boolean isRoom, isOccupied ;
 
     public TestBoard() {
-        // Empty Constructor
+    	// create cells for the board for NUMROWS by NUMCOLS
+        for (int rowIndex = 0; rowIndex < NUMROWS; rowIndex++) {
+        	for (int colIndex = 0; colIndex < NUMCOLS; colIndex++) {
+        		board[rowIndex][colIndex] = new TestBoardCell(rowIndex, colIndex);
+        	}
+        	
+        }
     }
 
     public void calcTargets(TestBoardCell startCell, int pathlength) {

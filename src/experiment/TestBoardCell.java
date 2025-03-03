@@ -8,7 +8,7 @@ public class TestBoardCell {
     private Set<TestBoardCell> adjList;
     private boolean isRoom;         // Whether the cell is a room
     private boolean isOccupied;     // Whether the cell is occupied
-
+    
     /**
      * Constructor for creating a cell
      *
