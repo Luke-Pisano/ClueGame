@@ -3,8 +3,8 @@ package experiment;
 import java.util.Set;
 
 public class TestBoardCell {
-    public final int _row;
-    public final int _col;
+    public final int row;
+    public final int col;
     private Set<TestBoardCell> adjList;
     private boolean isRoom;         // Whether the cell is a room
     private boolean isOccupied;     // Whether the cell is occupied
@@ -12,12 +12,12 @@ public class TestBoardCell {
     /**
      * Constructor for creating a cell
      *
-     * @param row - row of the cell's location
-     * @param col - column of the cell's location
+     * @param r - row of the cell's location
+     * @param c - column of the cell's location
      */
-    public TestBoardCell(int row, int col) {
-        _row = row;
-        _col = col;
+    public TestBoardCell(int r, int c) {
+        row = r;
+        col = c;
         // By default, assume cell is not a room and is not occupied
         isRoom = false;
         isOccupied = false;
