@@ -10,7 +10,7 @@ Room, Hotel, H
 Room, General Store, G
 Room, Church, C
 Room, Forge, F
-Room, Cemetary, D
+Room, Cemetery, D
 Room, Livery Stable, L
 //Other spaces on the board
 Space, Walkway, W
