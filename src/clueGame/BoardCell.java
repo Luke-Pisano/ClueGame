@@ -13,6 +13,12 @@ public class BoardCell {
 	private char secretPassage;
 	private Set<BoardCell> adjList;
 
+	/**
+	 *
+	 * @param row Row coordinate of cell.
+	 * @param col Column coordinate of cell.
+	 * @param initial Initial of the room type of the cell.
+	 */
 	public BoardCell(int row, int col, char initial) {
 		this.row = row;
 		this.col = col;
@@ -28,14 +34,26 @@ public class BoardCell {
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 *
+	 * @param adj BoardCell to be added to this cell's list of adjacent cells.
+	 */
 	public void addAdj(BoardCell adj) {
 		adjList.add(adj);
 	}
 
+	/**
+	 *
+	 * @return Set of all cells adjacent to this cell.
+	 */
 	public Set<BoardCell> getAdjList() {
 		return adjList;
 	}
 
+	/**
+	 *
+	 * @return Whether the cell is a doorway.
+	 */
 	public boolean isDoorway() {
 		return doorDirection != DoorDirection.NONE;
 	}
