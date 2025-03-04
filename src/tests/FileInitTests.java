@@ -138,6 +138,8 @@ public class FileInitTests {
 		assertEquals( room.getName(), "Walkway" ) ;
 		assertFalse( cell.isRoomCenter() );
 		assertFalse( cell.isLabel() );
+		assertFalse( cell.isDoorway()) ;
+		assertFalse( cell.getSecretPassage() == 'D' );
 
 		// test a closet
 		cell = board.getCell(24, 18);
@@ -146,6 +148,8 @@ public class FileInitTests {
 		assertEquals( room.getName(), "Unused" ) ;
 		assertFalse( cell.isRoomCenter() );
 		assertFalse( cell.isLabel() );
+		assertFalse( cell.isDoorway()) ;
+		assertFalse( cell.getSecretPassage() == 'D' );
 
 	}
 
