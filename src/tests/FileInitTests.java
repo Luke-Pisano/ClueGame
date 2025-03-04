@@ -105,6 +105,7 @@ public class FileInitTests {
 		assertFalse( cell.isLabel() );
 		assertFalse( cell.isRoomCenter() ) ;
 		assertFalse( cell.isDoorway()) ;
+		assertFalse( cell.getSecretPassage() == 'D' );
 
 		// this is a label cell to test
 		cell = board.getCell(2, 13);
