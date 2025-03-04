@@ -1,0 +1,52 @@
+I, Luke Pisano, certify that I participated equitably in the creation of assignment C13A-2 Clue Paths 1, dated 3/3/25.
+I, Mark Duffalo, certify that I participated equitably in the creation of this assignment C13A-2 Clue Paths 1, dated 3/3/25.
+
+commit 2929a7024021926ec796657009cfe1fa791b0185
+Author: Luke Pisano <79476828+Luke-Pisano@users.noreply.github.com>
+Date:   Mon Mar 3 16:23:36 2025 -0700
+
+    Fixed tests so they don't throw error but failure instead
+
+commit 8989cedfd1d1adc58397391e8a8b99b467d5f92f
+Author: Luke Pisano <79476828+Luke-Pisano@users.noreply.github.com>
+Date:   Mon Mar 3 15:26:18 2025 -0700
+
+    Got rid of adjacency errors
+
+commit 0860709ba0f49d92b988dcc6abe365a6e40094fa
+Author: Luke Pisano <79476828+Luke-Pisano@users.noreply.github.com>
+Date:   Fri Feb 28 20:01:15 2025 -0700
+
+    Added additional tests
+
+commit a05ac57023aa48be89514a8c1ba374256319426b
+Author: Mark Duffalo <markalarski@yahoo.com>
+Date:   Fri Feb 28 18:12:55 2025 -0700
+
+    Worked On: did some work on calcTargets() but still need to complete method.
+
+commit 55b2bfeac08b9f28d015ae0f1183904fc524b961
+Author: Mark Duffalo <markalarski@yahoo.com>
+Date:   Fri Feb 28 18:11:10 2025 -0700
+
+    Fix: added correct import for @BeforeEach to work
+
+commit 196e5d7b21cc4a8411cfb49ef7ec106ae7a7c7c2
+Author: Mark Duffalo <markalarski@yahoo.com>
+Date:   Fri Feb 28 15:55:20 2025 -0700
+
+    Initial Commit: TestBoardCell.java should be complete in terms of the Clue Paths 1 assignment. TestBoard.java is started, but the main thing that needs to be implemented is the calcTargets() method. BoardTestsExp.java has been written using assignment examples and should likely be modified. There are also errors in this file that need to be addressed and mostly regard imports.
+
+commit d223c449f008c5d45f785c30db47a3be0836bbab
+Author: Mark Duffalo <markalarski@yahoo.com>
+Date:   Fri Feb 28 14:06:47 2025 -0700
+
+    Create ClueSetup.txt
+    
+    Added File: ClueSetup.txt contains the list of rooms necessary for game setup
+
+commit d67981d0f22d21a2d585ec098c55de5df24cd759
+Author: Luke Pisano <79476828+Luke-Pisano@users.noreply.github.com>
+Date:   Thu Feb 27 13:02:30 2025 -0700
+
+    Inital Commit
