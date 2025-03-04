@@ -1,5 +1,7 @@
 package clueGame;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,6 +50,12 @@ public class Board {
 		roomMap.put('J', new Room("Jail"));
 		roomMap.put('B', new Room("Bank"));
 		roomMap.put('H', new Room("Hotel"));
+		
+		roomMap.put('C', new Room("Conservatory"));
+		roomMap.put('B', new Room("Ballroom"));
+		roomMap.put('R', new Room("Billiard Room"));
+		roomMap.put('D', new Room("Dining Room"));
+		roomMap.put('W', new Room("Walkway"));
      }
      
      public void loadLayoutConfig() {
