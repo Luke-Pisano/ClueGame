@@ -1,0 +1,19 @@
+This file describes how test cells were selected.
+
+FourDoorDirections:
+    The cells chosen ensure that one doorway with each direction is tested as well as one walkway and one room cell that are not doorways.
+
+TestNumberOfDoorways:
+    Every cell is checked to ensure that the total number of doorways is calculated before comparing with the expected value.
+    Since the number of doorways might be changed if we were to redesign the board, the number of total doorways is stored in a static variable and used as the expected variable.
+
+TestRooms:
+    We chose different cells with different attributes to test all outcomes.
+    We chose one cell that is in a room, but is not a doorway, does not have a label, and is not the center of the room and is not a secret passage.
+    We chose one cell that is in a room and has a label.
+    We chose one cell that is in a room and is a doorway.
+    We chose one cell that is in a room and is the center of that room.
+    We chose one cell that is in a room and is a secret passage.
+    We chose one cell that is a walkway and isn't a doorway, doesn't have a label, is not the center of the room, and is not a secret passage.
+    We chose one cell that is a closet and isn't a doorway, doesn't have a label, is not the center of the room, and is not a secret passage.
+    The names of each cell are also tested.
