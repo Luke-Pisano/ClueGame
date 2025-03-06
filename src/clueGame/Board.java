@@ -40,8 +40,6 @@ public class Board {
       * initialize the board (since we are using singleton pattern)
       */
      public void initialize() {
-		grid = new BoardCell[numRows][numColumns]; // Allocate memory
-
 		for (int row = 0; row < numRows; row++) {
 			for (int col = 0; col < numColumns; col++) {
 				grid[row][col] = new BoardCell(row, col);
@@ -62,9 +60,79 @@ public class Board {
 		roomMap.put('D', new Room("Dining Room"));
 		roomMap.put('W', new Room("Walkway"));
      }
-     
-     public void loadLayoutConfig() {
-    	 
+
+	/**
+	 * Loads the Layout Config file which contains the board layout.
+	 */
+	public void loadLayoutConfig() {
+		 try {
+			 File layout = new File(layoutConfigFile);
+
+			 Scanner dimensionReader = new Scanner(layout);
+			 numRows = 0;
+			 numColumns = 0;
+
+			 while (dimensionReader.hasNextLine()) {
+				 String line = dimensionReader.nextLine();
+				 if (!line.trim().isEmpty()) {
+					 ArrayList<String> tokens = tokenize(line, ",");
+					 numColumns = Math.max(numColumns, tokens.size());
+					 numRows++;
+				 }
+			 }
+			 dimensionReader.close();
+
+			 grid = new BoardCell[numRows][numColumns];
+
+			 Scanner reader = new Scanner(layout);
+			 int row = 0;
+			 while (reader.hasNextLine()) {
+				 ArrayList<String> line = tokenize(reader.nextLine(), ",");
+				 if (line.size() > 0) {
+					 for (int col = 0; col < line.size(); col++) {
+						 BoardCell temp = new BoardCell(row, col, 'D');
+						 if (line.get(col).length() > 1) {
+							 switch (line.get(col).charAt(1)) {
+								 case ('<'):
+									 temp.setDoorDirection(DoorDirection.LEFT);
+									 break;
+								 case ('>'):
+									 temp.setDoorDirection(DoorDirection.RIGHT);
+									 break;
+								 case ('^'):
+									 temp.setDoorDirection(DoorDirection.UP);
+									 break;
+								 case ('v'):
+									 temp.setDoorDirection(DoorDirection.DOWN);
+									 break;
+								 case ('#'):
+									 temp.setRoomLabel(true);
+									 break;
+								 case ('*'):
+									 temp.setRoomCenter(true);
+									 break;
+								 default:
+									 // If length > 1 and no other cases occur, this cell must be a secret passage
+									 temp.setSecretPassage(line.get(col).charAt(1));
+									 break;
+							 }
+						 }
+						 try {
+							 grid[row][col] = temp;
+						 } catch (Exception e) {
+							 System.err.println("Error: Grid not initialized properly");
+							 return;
+						 }
+					 }
+				 }
+				 row++;
+			 }
+		 	reader.close();
+		 } catch (FileNotFoundException e) {
+			 System.err.println(e.getMessage());
+			 return;
+		 }
+
      }
 
 	/**
@@ -75,11 +143,24 @@ public class Board {
 	 */
 	 public ArrayList<String> tokenize(String str, String token) {
 			ArrayList<String> result = new ArrayList<String>();
+
+			// Case: if str is null
+			 if (str == null || str.isEmpty()) {
+				 return result; // Return empty list instead of list with empty string
+			 }
+
+			 // Case: if token is longer than the string
+			 if (str.length() < token.length()) {
+				 result.add(str);
+				 return result;
+			 }
+
 			StringBuilder temp = new StringBuilder();
-			for (int idx = 0; idx < str.length(); idx++) {
-				if (str.substring(idx, token.length()).equals(token)) {
+			for (int idx = 0; idx < str.length() - token.length(); idx++) {
+				if (idx <= str.length() - token.length() && str.substring(idx, idx + token.length()).equals(token)) {
 					result.add(temp.toString());
 					temp = new StringBuilder();
+					idx += token.length() - 1;
 				} else {
 					temp.append(str.charAt(idx));
 				}
@@ -95,8 +176,8 @@ public class Board {
 	 */
 	public void setConfigFiles(String string, String string2) {
 		// TODO Auto-generated method stub
-	    this.numRows = 28;
-	    this.numColumns = 25;
+		layoutConfigFile = string;
+		setupConfigFile = string2;
 	}
 
 	/**

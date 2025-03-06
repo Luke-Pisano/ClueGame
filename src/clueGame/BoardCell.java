@@ -89,4 +89,20 @@ public class BoardCell {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	public void setDoorDirection(DoorDirection dir) {
+		doorDirection = dir;
+	}
+
+	public void setSecretPassage(char passage) {
+		secretPassage = passage;
+	}
+
+	public void setRoomLabel(boolean val) {
+		roomLabel = val;
+	}
+
+	public void setRoomCenter(boolean val) {
+		roomCenter = val;
+	}
 }
