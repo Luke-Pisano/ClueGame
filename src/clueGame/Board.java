@@ -2,6 +2,8 @@ package clueGame;
 
 import static org.junit.Assert.assertEquals;
 
+import java.sql.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.io.File;
@@ -64,6 +66,27 @@ public class Board {
      public void loadLayoutConfig() {
     	 
      }
+
+	/**
+	 *
+	 * @param str String to tokenize
+	 * @param token Token to split each String
+	 * @return - ArrayList of all the strings after being split up by the token
+	 */
+	 public ArrayList<String> tokenize(String str, String token) {
+			ArrayList<String> result = new ArrayList<String>();
+			StringBuilder temp = new StringBuilder();
+			for (int idx = 0; idx < str.length(); idx++) {
+				if (str.substring(idx, token.length()).equals(token)) {
+					result.add(temp.toString());
+					temp = new StringBuilder();
+				} else {
+					temp.append(str.charAt(idx));
+				}
+			}
+			result.add(temp.toString());
+			return result;
+	 }
 
 	/**
 	 * Set the files to use for configuration of the game board.
