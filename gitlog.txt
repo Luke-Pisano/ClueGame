@@ -1,5 +1,240 @@
-I, Luke Pisano, certify that I participated equitably in the creation of assignment C14A-1 Clue Paths, dated 3/3/25.
-I, Mark Duffalo, certify that I participated equitably in the creation of this assignment C14A-1 Clue Paths 2, dated 3/3/25.
+I, Luke Pisano, certify that I participated equitably in the creation of assignment C15A-1, dated 03/07/25.
+I, Mark Duffalo, certify that I participated equitably in the creation of this assignment C15A-1, dated 03/07/25.
+
+commit 75453ca3472291c22da3a46b9e691b8ddcba2b7a
+Author: Luke Pisano <79476828+Luke-Pisano@users.noreply.github.com>
+Date:   Fri Mar 7 15:15:44 2025 -0700
+
+    Added comments to full file
+
+commit 9d1f9b43c4aea504827b0c297ba289e7ed57b87a
+Author: Mark Duffalo <markalarski@yahoo.com>
+Date:   Fri Mar 7 14:36:36 2025 -0700
+
+    Feature: Added Comments.
+
+commit d9ad156016cf3f518502b3552bc09f6f0ee139d2
+Author: Luke Pisano <79476828+Luke-Pisano@users.noreply.github.com>
+Date:   Fri Mar 7 14:23:05 2025 -0700
+
+    Removed unused classes
+
+commit 9df79edd2592cbf7ed42b4689ea8f7a2384c7964
+Author: Luke Pisano <79476828+Luke-Pisano@users.noreply.github.com>
+Date:   Fri Mar 7 14:22:38 2025 -0700
+
+    Fixed final test not passing (exception badRoom)
+
+commit db4850888d8889fd710a91a23565f7ce7cd144d8
+Author: Luke Pisano <79476828+Luke-Pisano@users.noreply.github.com>
+Date:   Fri Mar 7 14:04:31 2025 -0700
+
+    Moved loadsetupConfig to try catch in initalize
+
+commit 642347359e33008156ad33b0d9065171adb3ce39
+Merge: 7fee00c 2756067
+Author: Mark Duffalo <markalarski@yahoo.com>
+Date:   Fri Mar 7 13:47:32 2025 -0700
+
+    Merge remote-tracking branch 'origin/Clue-Init-2' into Clue-Init-2
+    
+    # Conflicts:
+    #       src/clueGame/Board.java
+
+commit 7fee00c476633826208f32eec427db183383431f
+Author: Mark Duffalo <markalarski@yahoo.com>
+Date:   Fri Mar 7 13:46:16 2025 -0700
+
+    Fixed: moved loadLayoutConfig call to initialize method.
+
+commit 2756067bdbc789c6ae5b1c16c4a5e8580f1708b2
+Merge: 1f897ce 09e2bd6
+Author: Luke Pisano <79476828+Luke-Pisano@users.noreply.github.com>
+Date:   Fri Mar 7 13:42:42 2025 -0700
+
+    Exception tests pass except badRoom, merged changes
+
+commit 1f897ce5d0251857a0c6ea49cc57c2d433a03d84
+Author: Luke Pisano <79476828+Luke-Pisano@users.noreply.github.com>
+Date:   Fri Mar 7 13:36:41 2025 -0700
+
+    Exception tests except badRoom doesn't pass
+
+commit 09e2bd6c9ecbdc2dcd73add8afe156ee244b30d0
+Author: Mark Duffalo <markalarski@yahoo.com>
+Date:   Fri Mar 7 13:17:16 2025 -0700
+
+    Fixed: moved loadLayoutConfig call to initialize method.
+
+commit 4885a444ec6a4c8aad972e46e4080a3852e03300
+Merge: 5752015 7610b86
+Author: Mark Duffalo <markalarski@yahoo.com>
+Date:   Fri Mar 7 13:13:09 2025 -0700
+
+    Merge remote-tracking branch 'origin/Clue-Init-2' into Clue-Init-2
+    
+    # Conflicts:
+    #       src/clueGame/Board.java
+    #       src/clueGame/Room.java
+    #       src/tests/FileInitTests.java
+
+commit 5752015f4bbc56d999d32b172e47987ec980e00d
+Author: Mark Duffalo <markalarski@yahoo.com>
+Date:   Fri Mar 7 13:05:44 2025 -0700
+
+    Fixed: loadLayoutConfig now sets room center cells and label cells correctly.
+
+commit 0d52c48c88a3f118d32fdff9b81fc48d86d486f9
+Author: Mark Duffalo <markalarski@yahoo.com>
+Date:   Fri Mar 7 13:04:51 2025 -0700
+
+    Feature: Implemented getLabelCell and getCenterCell to properly return the correct cell.
+
+commit b81c39a6b4fbd84e368e34149b31e13c8856ee8c
+Author: Mark Duffalo <markalarski@yahoo.com>
+Date:   Fri Mar 7 13:04:02 2025 -0700
+
+    Fixed: Removed necessary print line.
+
+commit 7610b86f0b25be697328bc291bebe6921b235e71
+Author: Luke Pisano <79476828+Luke-Pisano@users.noreply.github.com>
+Date:   Fri Mar 7 12:47:15 2025 -0700
+
+    Changes made to pass all FileInitTests (need to still do 306 tests and exceptions)
+
+commit 39570c84e54b176f189f73cec15d02753b8b6689
+Author: Luke Pisano <79476828+Luke-Pisano@users.noreply.github.com>
+Date:   Fri Mar 7 11:58:10 2025 -0700
+
+    Fixed fourDoorDirections test for our board
+
+commit 20495cbb9d18e93c15169fd4653d257ffeebf5f1
+Author: Luke Pisano <79476828+Luke-Pisano@users.noreply.github.com>
+Date:   Fri Mar 7 11:15:57 2025 -0700
+
+    Fixed tokenize method
+
+commit 31efda495ecc218e51f5380eaabb9dc60d881c5a
+Author: Luke Pisano <79476828+Luke-Pisano@users.noreply.github.com>
+Date:   Fri Mar 7 10:36:59 2025 -0700
+
+    Added setupconfig method and began solving bugs in csv read
+
+commit cd78330baba21a2db515f5fb003b2be84f9d1ba4
+Author: Mark Duffalo <markalarski@yahoo.com>
+Date:   Thu Mar 6 13:50:34 2025 -0700
+
+    Features: Added test for loadLayoutConfig
+
+commit 575e79eb36782a3328c4a6cc9a1cc0d7334da8c3
+Author: Mark Duffalo <markalarski@yahoo.com>
+Date:   Thu Mar 6 13:49:59 2025 -0700
+
+    Fixes: Tokenize method has been fixed.
+    Moved initialization of numRows and numColumns and grid[][] to handle dynamic dimensions from different csv files.
+    Features: Finished loadLayoutConfig method.
+
+commit e3aad12e93be1e85cb74ac2dd116c2b6f5ab042e
+Author: Mark Duffalo <markalarski@yahoo.com>
+Date:   Thu Mar 6 12:37:23 2025 -0700
+
+    Added tokenize method to be used in file reading with csv type files.
+
+commit 2aecb62301f0236869690604f23762784fd55034
+Author: Mark Duffalo <markalarski@yahoo.com>
+Date:   Tue Mar 4 13:38:27 2025 -0700
+
+    Added imports needed for reading files.
+
+commit c63966dbf99fd033c8ff938243af92bbb1bf54ab
+Author: Luke Pisano <79476828+Luke-Pisano@users.noreply.github.com>
+Date:   Tue Mar 4 13:20:19 2025 -0700
+
+    Fixed failing case in git init 1
+
+commit d2f42d1a14e159dee87409b66485e14851a80dfb
+Author: Mark Duffalo <markalarski@yahoo.com>
+Date:   Mon Mar 3 22:14:56 2025 -0700
+
+    Added Test.txt file to describe reasoning behind why certain cells were tested and what they were tested for.
+
+commit a60b5bda9f63659bc435518aa2d249527a620489
+Author: Mark Duffalo <markalarski@yahoo.com>
+Date:   Mon Mar 3 22:13:03 2025 -0700
+
+    Change: modified testRooms to test that the walkway and unused cells are not doorways or secret passages.
+
+commit 938bae4f3c9b7b94fdbf90dc28cfd69db931ffd9
+Author: Mark Duffalo <markalarski@yahoo.com>
+Date:   Mon Mar 3 22:07:34 2025 -0700
+
+    Change: modified testRooms to test that the standard room location is not a secret passage.
+
+commit 55a19fdfff204342e152b387e1d68ed6cd1bf0e5
+Author: Mark Duffalo <markalarski@yahoo.com>
+Date:   Mon Mar 3 21:55:35 2025 -0700
+
+    Change: modified FourDoorDirections to also test a room-enclosed cell that is not a doorway to test room cells get accurately assigned as not doorways.
+
+commit 0801c7efba71f350e709b179735dece638fe5bc0
+Author: Mark Duffalo <markalarski@yahoo.com>
+Date:   Mon Mar 3 21:45:35 2025 -0700
+
+    Change: added constant for number of doorways and modified tests to use this constant in the case that we need to easily change the number of doorways later.
+
+commit 835d4f4fd792241e155eaea67731b1240ea2b618
+Author: Mark Duffalo <markalarski@yahoo.com>
+Date:   Mon Mar 3 21:27:20 2025 -0700
+
+    Formatting: reformatted file with proper spacing/indentation and added JavaDoc comments to necessary functions.
+
+commit 6ca06c5988bf738d87f7eabd84fe074fcf741470
+Author: Mark Duffalo <markalarski@yahoo.com>
+Date:   Mon Mar 3 21:24:02 2025 -0700
+
+    Formatting: reformatted file with proper spacing/indentation and added JavaDoc comments to necessary functions.
+
+commit 08cc15eea282324fcabc3c442fe7212d601686fc
+Author: Mark Duffalo <markalarski@yahoo.com>
+Date:   Mon Mar 3 21:16:30 2025 -0700
+
+    Formatting: reformatted file with proper spacing/indentation and converted normal comments for function into JavaDoc comments.
+
+commit 8818518f254310d8080de2c48e60943df0a5306b
+Author: Luke Pisano <79476828+Luke-Pisano@users.noreply.github.com>
+Date:   Mon Mar 3 20:08:35 2025 -0700
+
+    Got all tests to get failure need to add tests based on our project
+
+commit cf2153129a1663f9c98bc53ee57388fbbac77e39
+Author: Luke Pisano <79476828+Luke-Pisano@users.noreply.github.com>
+Date:   Mon Mar 3 17:50:29 2025 -0700
+
+    Updated room file for UML
+
+commit 4a9cb1072811da1ec7bd7795dc52d91437529511
+Author: Luke Pisano <79476828+Luke-Pisano@users.noreply.github.com>
+Date:   Mon Mar 3 17:49:27 2025 -0700
+
+    Added all parts of UML diagram to classes
+
+commit cb2469620f26b7609ca9f4ff07dd014531e590e1
+Author: Luke Pisano <79476828+Luke-Pisano@users.noreply.github.com>
+Date:   Mon Mar 3 17:21:15 2025 -0700
+
+    Added starter code for the clue board
+
+commit cf4c3403817a7ce6205a043d5a4aef1029de9a64
+Author: Luke Pisano <79476828+Luke-Pisano@users.noreply.github.com>
+Date:   Mon Mar 3 16:59:59 2025 -0700
+
+    Setup project structure with data directory and created class files without code in them
+
+commit 33e402507e5d6a270f28406f52f4467f4956f08f
+Author: Luke Pisano <79476828+Luke-Pisano@users.noreply.github.com>
+Date:   Mon Mar 3 16:48:21 2025 -0700
+
+    Added Gitlog.txt
 
 commit 9c7e0dde8ac07fe729af08879c3e31ee76bd8fb9
 Author: Luke Pisano <79476828+Luke-Pisano@users.noreply.github.com>
