@@ -103,7 +103,6 @@ public class FileInitTests {
 		BoardCell cell = board.getCell( 2, 2);
 		
 		Room room = board.getRoom( cell ) ;
-//		System.out.println(room.getName());
 		assertTrue( room != null );
 		assertEquals( room.getName(), "Jail" ) ;
 		assertFalse( cell.isLabel() );
@@ -146,7 +145,7 @@ public class FileInitTests {
 		assertFalse( cell.getSecretPassage() == 'D' );
 
 		// test a closet
-		cell = board.getCell(24, 18);
+		cell = board.getCell(10, 13);
 		room = board.getRoom( cell ) ;
 		assertTrue( room != null );
 		assertEquals( room.getName(), "Unused" ) ;

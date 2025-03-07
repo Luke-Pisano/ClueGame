@@ -11,35 +11,35 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Board {
-	 /*
-     * variable and methods used for singleton pattern
-     */
-	 private BoardCell[][] grid;
-	 private int numRows;
-	 private int numColumns;
-	 private String layoutConfigFile;
-	 private String setupConfigFile;
-	 private Map<Character, Room> roomMap;
+	/*
+	 * variable and methods used for singleton pattern
+	 */
+	private BoardCell[][] grid;
+	private int numRows;
+	private int numColumns;
+	private String layoutConfigFile;
+	private String setupConfigFile;
+	private Map<Character, Room> roomMap;
 
-	 private static Board theInstance = new Board();
-     // constructor is private to ensure only one can be created
-     private Board() {
-            super();
-            roomMap = new HashMap<>();
-     }
+	private static Board theInstance = new Board();
+	// constructor is private to ensure only one can be created
+	private Board() {
+		super();
+		roomMap = new HashMap<>();
+	}
 
 	/**
 	 *
 	 * @return The instance of the game board. (There is only one instance of Board).
 	 */
 	public static Board getInstance() {
-            return theInstance;
-     }
+		return theInstance;
+	}
 
 	/**
-      * initialize the board (since we are using singleton pattern)
-      */
-     public void initialize() {
+	 * initialize the board (since we are using singleton pattern)
+	 */
+	public void initialize() {
 		for (int row = 0; row < numRows; row++) {
 			for (int col = 0; col < numColumns; col++) {
 				grid[row][col] = new BoardCell(row, col);
@@ -50,58 +50,57 @@ public class Board {
 
 	public void loadSetupConfig() {
 		try {
-    		File file = new File(setupConfigFile);
+			File file = new File(setupConfigFile);
 			Scanner input = new Scanner(file);
 			while (input.hasNextLine()) {
 				String line = input.nextLine();	            
-	            
-			    ArrayList<String> tokens = tokenize(line, ", ");
-			    
-	            if(tokens.size() != 3) {
-	            	continue;
-	            }
-	            if(tokens.get(0).equals("Room")) {
-	            	Character roomChar = tokens.get(2).charAt(0);
-	            	String roomName = tokens.get(1);
-	        		roomMap.put(roomChar, new Room(roomName));
-	            }
-            }
-            input.close();
+
+				ArrayList<String> tokens = tokenize(line, ", ");
+
+				if(tokens.size() != 3) {
+					continue;
+				}
+				if(tokens.get(0).equals("Room") || tokens.get(0).equals("Space")) {
+					Character roomChar = tokens.get(2).charAt(0);
+					String roomName = tokens.get(1);
+					roomMap.put(roomChar, new Room(roomName));
+				}
+			}
+			input.close();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-     }
+	}
 
 	/**
 	 * Loads the Layout Config file which contains the board layout.
 	 */
 	public void loadLayoutConfig() {
-		 try {
-			 File layout = new File(layoutConfigFile);
+		try {
+			File layout = new File(layoutConfigFile);
 
-			 Scanner dimensionReader = new Scanner(layout);
-			 numRows = 0;
-			 numColumns = 0;
+			Scanner dimensionReader = new Scanner(layout);
+			numRows = 0;
+			numColumns = 0;
 
-			 while (dimensionReader.hasNextLine()) {
-				 String line = dimensionReader.nextLine();
-				 if (!line.trim().isEmpty()) {
-					 ArrayList<String> tokens = tokenize(line, ",");
-					 numColumns = Math.max(numColumns, tokens.size());
-					 numRows++;
-				 }
-			 }
-			 dimensionReader.close();
+			while (dimensionReader.hasNextLine()) {
+				String line = dimensionReader.nextLine();
+				if (!line.trim().isEmpty()) {
+					ArrayList<String> tokens = tokenize(line, ",");
+					numColumns = Math.max(numColumns, tokens.size());
+					numRows++;
+				}
+			}
+			dimensionReader.close();
 
-			 grid = new BoardCell[numRows][numColumns];
+			grid = new BoardCell[numRows][numColumns];
 
 			 Scanner reader = new Scanner(layout);
 			 int row = 0;
 			 while (reader.hasNextLine()) {
 				 ArrayList<String> line = tokenize(reader.nextLine(), ",");
 				 if (line.size() > 0) {
-					 System.out.println(line);
 					 for (int col = 0; col < line.size(); col++) {
 						 BoardCell temp = new BoardCell(row, col, line.get(col).charAt(0));
 						 if (line.get(col).length() > 1) {
@@ -148,7 +147,7 @@ public class Board {
 			 return;
 		 }
 
-     }
+	}
 
 	/**
 	 *
@@ -157,30 +156,30 @@ public class Board {
 	 * @return - ArrayList of all the strings after being split up by the token
 	 */
 	public ArrayList<String> tokenize(String str, String token) {
-	    ArrayList<String> result = new ArrayList<>();
+		ArrayList<String> result = new ArrayList<>();
 
-	    // null or empty string
-	    if (str == null || str.isEmpty()) {
-	        return result;
-	    }
+		// null or empty string
+		if (str == null || str.isEmpty()) {
+			return result;
+		}
 
-	    int start = 0;
-	    int tokenLength = token.length();
+		int start = 0;
+		int tokenLength = token.length();
 
-	    while (true) {
-	        int idx = str.indexOf(token, start);
+		while (true) {
+			int idx = str.indexOf(token, start);
 
-            // if not empty or trailing token
-	        if (idx == -1) {
-	            result.add(str.substring(start));
-	            break;
-	        }
+			// if not empty or trailing token
+			if (idx == -1) {
+				result.add(str.substring(start));
+				break;
+			}
 
-	        result.add(str.substring(start, idx));
-	        start = idx + tokenLength;
-	    }
+			result.add(str.substring(start, idx));
+			start = idx + tokenLength;
+		}
 
-	    return result;
+		return result;
 	}
 	/**
 	 * Set the files to use for configuration of the game board.
@@ -199,7 +198,7 @@ public class Board {
 	 * @return The room object that has the given label.
 	 */
 	public Room getRoom(char c) {
-		
+
 		// TODO Auto-generated method stub
 		return roomMap.get(c);
 	}
