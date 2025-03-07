@@ -89,6 +89,7 @@ public class Board {
 		try {
 			File layout = new File(layoutConfigFile);
 
+			// Read the dimensions of the file. Any size board should be readable as long as the board is a square.
 			Scanner dimensionReader = new Scanner(layout);
 			numRows = 0;
 			numColumns = 0;
@@ -153,6 +154,7 @@ public class Board {
 							try {
 								grid[row][col] = temp;
 							} catch (Exception e) {
+								// if cell is null
 								System.err.println("Error: Grid not initialized properly");
 								return;
 							}
