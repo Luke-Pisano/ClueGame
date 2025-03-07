@@ -120,8 +120,9 @@ public class Board {
 
 		                    char roomInitial = line.get(col).charAt(0);
 
-		                    if (!roomMap.containsKey(roomInitial)) {
-		                        //throw new BadConfigFormatException("Inital doesn't exist at: " + row + ", " + col);
+		                    // only run if inital doesn't match and not empty char
+		                    if (!roomMap.containsKey(roomInitial) && roomInitial != 65279) {
+		                        throw new BadConfigFormatException("Inital doesn't exist at: " + row + ", " + col);
 		                    }
 							BoardCell temp = new BoardCell(row, col, line.get(col).charAt(0));
 							if (line.get(col).length() > 1) {
