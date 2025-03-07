@@ -49,16 +49,32 @@ public class Board {
 	}
 
 	public void loadSetupConfig() {
-		roomMap.put('S', new Room("Saloon"));
-		roomMap.put('J', new Room("Jail"));
-		roomMap.put('B', new Room("Bank"));
-		roomMap.put('H', new Room("Hotel"));
-		
-		roomMap.put('C', new Room("Conservatory"));
-		roomMap.put('B', new Room("Ballroom"));
-		roomMap.put('R', new Room("Billiard Room"));
-		roomMap.put('D', new Room("Dining Room"));
-		roomMap.put('W', new Room("Walkway"));
+		try {
+    		File file = new File(setupConfigFile);
+			Scanner input = new Scanner(file);
+			while (input.hasNextLine()) {
+				String line = input.nextLine();	            
+	            
+			    ArrayList<String> tokens = new ArrayList<>();
+			    String[] parts = line.split(", ");
+			    for (String part : parts) {
+			        tokens.add(part.trim());
+			    }
+			    
+	            if(tokens.size() != 3) {
+	            	continue;
+	            }
+	            if(tokens.get(0).equals("Room")) {
+	            	Character roomChar = tokens.get(2).charAt(0);
+	            	String roomName = tokens.get(1);
+	        		roomMap.put(roomChar, new Room(roomName));
+	            }
+            }
+            input.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
      }
 
 	/**
@@ -92,9 +108,13 @@ public class Board {
 					 for (int col = 0; col < line.size(); col++) {
 						 BoardCell temp = new BoardCell(row, col, 'D');
 						 if (line.get(col).length() > 1) {
-							 switch (line.get(col).charAt(1)) {
+							 int left = 0;
+							 System.out.println(line.get(col).charAt(1));
+							 switch (line.get(col).charAt(1)) {							 
 								 case ('<'):
 									 temp.setDoorDirection(DoorDirection.LEFT);
+								 	 left++;
+								 	 System.out.println(row);
 									 break;
 								 case ('>'):
 									 temp.setDoorDirection(DoorDirection.RIGHT);
@@ -116,6 +136,7 @@ public class Board {
 									 temp.setSecretPassage(line.get(col).charAt(1));
 									 break;
 							 }
+							 System.out.println(left);
 						 }
 						 try {
 							 grid[row][col] = temp;
@@ -169,15 +190,24 @@ public class Board {
 			return result;
 	 }
 
+	 public ArrayList<String> tokenizeTwo(String str, String delimiter) {
+		    ArrayList<String> tokens = new ArrayList<>();
+		    String[] parts = str.split(delimiter);
+		    for (String part : parts) {
+		        tokens.add(part.trim());
+		    }
+		    return tokens;
+		}
+
 	/**
 	 * Set the files to use for configuration of the game board.
 	 * @param string The name of the config file used for layout.
 	 * @param string2 The name of the config file used for setup.
 	 */
-	public void setConfigFiles(String string, String string2) {
+	public void setConfigFiles(String layoutFile, String setupFile) {
 		// TODO Auto-generated method stub
-		layoutConfigFile = string;
-		setupConfigFile = string2;
+		layoutConfigFile = "data/" + layoutFile;
+		setupConfigFile = "data/" + setupFile;
 	}
 
 	/**
@@ -197,7 +227,7 @@ public class Board {
 	 */
 	public int getNumRows() {
 		// TODO Auto-generated method stub
-		return 0;
+		return numRows;
 	}
 
 	/**
@@ -206,7 +236,7 @@ public class Board {
 	 */
 	public int getNumColumns() {
 		// TODO Auto-generated method stub
-		return 0;
+		return numColumns;
 	}
 
 	/**

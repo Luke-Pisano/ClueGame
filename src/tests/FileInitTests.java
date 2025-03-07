@@ -20,9 +20,9 @@ import clueGame.Room;
 public class FileInitTests {
 	// Constants that I will use to test whether the file was loaded correctly
 	public static final int LEGEND_SIZE = 11;
-	public static final int NUM_ROWS = 28;
-	public static final int NUM_COLUMNS = 25;
-	public static final int NUM_DOORWAYS = 17;
+	public static final int NUM_ROWS = 29;
+	public static final int NUM_COLUMNS = 26;
+	public static final int NUM_DOORWAYS = 22;
 
 	// NOTE: I made Board static because I only want to set it up one
 	// time (using @BeforeAll), no need to do setup before each test.
@@ -32,10 +32,10 @@ public class FileInitTests {
 	public static void setUp() {
 		// Board is singleton, get the only instance
 		board = Board.getInstance();
+		// set the file names to use my config files
+		board.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");
 		// Initialize will load BOTH config files
 		board.initialize();
-		// set the file names to use my config files
-		board.setConfigFiles("data/ClueLayout.csv", "data/ClueSetup.txt");
 		// Load the layout config file
 		board.loadLayoutConfig();
 	}
@@ -62,23 +62,23 @@ public class FileInitTests {
 	// These cells are white on the planning spreadsheet
 	@Test
 	public void FourDoorDirections() {
-		BoardCell cell = board.getCell(8, 7);
+		BoardCell cell = board.getCell(2, 6);
 		assertTrue(cell.isDoorway());
 		assertEquals(DoorDirection.LEFT, cell.getDoorDirection());
-		cell = board.getCell(7, 12);
+		cell = board.getCell(6, 13);
 		assertTrue(cell.isDoorway());
 		assertEquals(DoorDirection.UP, cell.getDoorDirection());
-		cell = board.getCell(4, 8);
+		cell = board.getCell(2, 19);
 		assertTrue(cell.isDoorway());
 		assertEquals(DoorDirection.RIGHT, cell.getDoorDirection());
-		cell = board.getCell(16, 9);
+		cell = board.getCell(8, 5);
 		assertTrue(cell.isDoorway());
 		assertEquals(DoorDirection.DOWN, cell.getDoorDirection());
 		// Test that walkways are not doors
-		cell = board.getCell(12, 14);
+		cell = board.getCell(12, 9);
 		assertFalse(cell.isDoorway());
 		// Test room cell that is not a doorway
-		cell = board.getCell(12, 2);
+		cell = board.getCell(4, 12);
 		assertFalse(cell.isDoorway());
 	}
 
@@ -101,7 +101,9 @@ public class FileInitTests {
 	public void testRooms() {
 		// just test a standard room location
 		BoardCell cell = board.getCell( 2, 2);
+		
 		Room room = board.getRoom( cell ) ;
+		System.out.println(room.getName());
 		assertTrue( room != null );
 		assertEquals( room.getName(), "Jail" ) ;
 		assertFalse( cell.isLabel() );
