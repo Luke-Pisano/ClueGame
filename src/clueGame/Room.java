@@ -38,12 +38,10 @@ public class Room {
 	}
 
 	public BoardCell getLabelCell() {
-		// TODO Auto-generated method stub
 		return labelCell;
 	}
 
 	public BoardCell getCenterCell() {
-		// TODO Auto-generated method stub
 		return centerCell;
 	}
 }

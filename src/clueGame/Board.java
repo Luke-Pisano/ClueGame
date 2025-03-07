@@ -43,6 +43,7 @@ public class Board {
 			}
 		}
 		loadSetupConfig();
+		loadLayoutConfig();
 	}
 
 	public void loadSetupConfig() throws BadConfigFormatException {
@@ -132,13 +133,11 @@ public class Board {
 								break;
 								case ('#'):
 									temp.setRoomLabel(true);
-									Room roomWithLabel = getRoom(temp.getInitial());
-									roomWithLabel.setLabelCell(temp);
+									roomMap.get(line.get(col).charAt(0)).setLabelCell(temp);
 								break;
 								case ('*'):
 									temp.setRoomCenter(true);
-									Room roomWithCenter = getRoom(temp.getInitial());
-									roomWithCenter.setCenterCell(temp);
+									roomMap.get(line.get(col).charAt(0)).setCenterCell(temp);
 								break;
 								default:
 									// If length > 1 and no other cases occur, this cell must be a secret passage
@@ -162,7 +161,6 @@ public class Board {
 			System.err.println(e.getMessage());
 			return;
 		}
-
 	}
 
 	/**
