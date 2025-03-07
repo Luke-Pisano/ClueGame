@@ -55,11 +55,7 @@ public class Board {
 			while (input.hasNextLine()) {
 				String line = input.nextLine();	            
 	            
-			    ArrayList<String> tokens = new ArrayList<>();
-			    String[] parts = line.split(", ");
-			    for (String part : parts) {
-			        tokens.add(part.trim());
-			    }
+			    ArrayList<String> tokens = tokenize(line, ", ");
 			    
 	            if(tokens.size() != 3) {
 	            	continue;
@@ -105,16 +101,13 @@ public class Board {
 			 while (reader.hasNextLine()) {
 				 ArrayList<String> line = tokenize(reader.nextLine(), ",");
 				 if (line.size() > 0) {
+					 System.out.println(line);
 					 for (int col = 0; col < line.size(); col++) {
 						 BoardCell temp = new BoardCell(row, col, 'D');
 						 if (line.get(col).length() > 1) {
-							 int left = 0;
-							 System.out.println(line.get(col).charAt(1));
 							 switch (line.get(col).charAt(1)) {							 
 								 case ('<'):
 									 temp.setDoorDirection(DoorDirection.LEFT);
-								 	 left++;
-								 	 System.out.println(row);
 									 break;
 								 case ('>'):
 									 temp.setDoorDirection(DoorDirection.RIGHT);
@@ -136,7 +129,6 @@ public class Board {
 									 temp.setSecretPassage(line.get(col).charAt(1));
 									 break;
 							 }
-							 System.out.println(left);
 						 }
 						 try {
 							 grid[row][col] = temp;
@@ -162,43 +154,32 @@ public class Board {
 	 * @param token Token to split each String
 	 * @return - ArrayList of all the strings after being split up by the token
 	 */
-	 public ArrayList<String> tokenize(String str, String token) {
-			ArrayList<String> result = new ArrayList<String>();
+	public ArrayList<String> tokenize(String str, String token) {
+	    ArrayList<String> result = new ArrayList<>();
 
-			// Case: if str is null
-			 if (str == null || str.isEmpty()) {
-				 return result; // Return empty list instead of list with empty string
-			 }
+	    // null or empty string
+	    if (str == null || str.isEmpty()) {
+	        return result;
+	    }
 
-			 // Case: if token is longer than the string
-			 if (str.length() < token.length()) {
-				 result.add(str);
-				 return result;
-			 }
+	    int start = 0;
+	    int tokenLength = token.length();
 
-			StringBuilder temp = new StringBuilder();
-			for (int idx = 0; idx < str.length() - token.length(); idx++) {
-				if (idx <= str.length() - token.length() && str.substring(idx, idx + token.length()).equals(token)) {
-					result.add(temp.toString());
-					temp = new StringBuilder();
-					idx += token.length() - 1;
-				} else {
-					temp.append(str.charAt(idx));
-				}
-			}
-			result.add(temp.toString());
-			return result;
-	 }
+	    while (true) {
+	        int idx = str.indexOf(token, start);
 
-	 public ArrayList<String> tokenizeTwo(String str, String delimiter) {
-		    ArrayList<String> tokens = new ArrayList<>();
-		    String[] parts = str.split(delimiter);
-		    for (String part : parts) {
-		        tokens.add(part.trim());
-		    }
-		    return tokens;
-		}
+            // if not empty or trailing token
+	        if (idx == -1) {
+	            result.add(str.substring(start));
+	            break;
+	        }
 
+	        result.add(str.substring(start, idx));
+	        start = idx + tokenLength;
+	    }
+
+	    return result;
+	}
 	/**
 	 * Set the files to use for configuration of the game board.
 	 * @param string The name of the config file used for layout.
