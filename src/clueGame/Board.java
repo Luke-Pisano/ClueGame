@@ -39,7 +39,7 @@ public class Board {
 	/**
 	 * initialize the board (since we are using singleton pattern)
 	 */
-	public void initialize() {
+	public void initialize() throws BadConfigFormatException {
 		for (int row = 0; row < numRows; row++) {
 			for (int col = 0; col < numColumns; col++) {
 				grid[row][col] = new BoardCell(row, col);
@@ -53,7 +53,7 @@ public class Board {
 		}
 	}
 
-	public void loadSetupConfig() {
+	public void loadSetupConfig() throws BadConfigFormatException {
 		try {
 			File file = new File(setupConfigFile);
 			Scanner input = new Scanner(file);
@@ -65,10 +65,17 @@ public class Board {
 				if(tokens.size() != 3) {
 					continue;
 				}
-				if(tokens.get(0).equals("Room") || tokens.get(0).equals("Space")) {
-					Character roomChar = tokens.get(2).charAt(0);
-					String roomName = tokens.get(1);
-					roomMap.put(roomChar, new Room(roomName));
+
+				String type = tokens.get(0);
+	            String name = tokens.get(1);
+	            char character = tokens.get(2).charAt(0);
+
+	            if (!type.equals("Room") && !type.equals("Space")) {
+	                throw new BadConfigFormatException("Invalid type " + type);
+	            }
+
+				if(type.equals("Room") || type.equals("Space")) {
+					roomMap.put(character, new Room(name));
 				}
 			}
 			input.close();
@@ -101,56 +108,66 @@ public class Board {
 
 			grid = new BoardCell[numRows][numColumns];
 
-			 Scanner reader = new Scanner(layout);
-			 int row = 0;
-			 while (reader.hasNextLine()) {
-				 ArrayList<String> line = tokenize(reader.nextLine(), ",");
-				 if (line.size() > 0) {
-					 for (int col = 0; col < line.size(); col++) {
-						 BoardCell temp = new BoardCell(row, col, line.get(col).charAt(0));
-						 if (line.get(col).length() > 1) {
-							 switch (line.get(col).charAt(1)) {
-								 case ('<'):
-									 temp.setDoorDirection(DoorDirection.LEFT);
-									 break;
-								 case ('>'):
-									 temp.setDoorDirection(DoorDirection.RIGHT);
-									 break;
-								 case ('^'):
-									 temp.setDoorDirection(DoorDirection.UP);
-									 break;
-								 case ('v'):
-									 temp.setDoorDirection(DoorDirection.DOWN);
-									 break;
-								 case ('#'):
-									 temp.setRoomLabel(true);
-									 roomMap.get(line.get(col).charAt(0)).setLabelCell(temp);
-									 break;
-								 case ('*'):
-									 temp.setRoomCenter(true);
-									 roomMap.get(line.get(col).charAt(0)).setCenterCell(temp);
-									 break;
-								 default:
-									 // If length > 1 and no other cases occur, this cell must be a secret passage
-									 temp.setSecretPassage(line.get(col).charAt(1));
-									 break;
-							 }
-						 }
-						 try {
-							 grid[row][col] = temp;
-						 } catch (Exception e) {
-							 System.err.println("Error: Grid not initialized properly");
-							 return;
-						 }
-					 }
-				 }
-				 row++;
-			 }
-		 	reader.close();
-		 } catch (BadConfigFormatException e) {
-			throw new BadConfigFormatException("ERROR: Bad Config file format. Unable to read.");
-		 }
+			try (Scanner reader = new Scanner(layout)) {
+				int row = 0;
+				while (reader.hasNextLine()) {
+					ArrayList<String> line = tokenize(reader.nextLine(), ",");
+					if (line.size() > 0) {
+						for (int col = 0; col < line.size(); col++) {
+		                    if (line.get(col).isEmpty()) {
+		                        throw new BadConfigFormatException("Empty column at: " + row + ", " + col);
+		                    }
 
+		                    char roomInitial = line.get(col).charAt(0);
+
+		                    if (!roomMap.containsKey(roomInitial)) {
+		                        //throw new BadConfigFormatException("Inital doesn't exist at: " + row + ", " + col);
+		                    }
+							BoardCell temp = new BoardCell(row, col, line.get(col).charAt(0));
+							if (line.get(col).length() > 1) {
+								switch (line.get(col).charAt(1)) {
+								case ('<'):
+									temp.setDoorDirection(DoorDirection.LEFT);
+								break;
+								case ('>'):
+									temp.setDoorDirection(DoorDirection.RIGHT);
+								break;
+								case ('^'):
+									temp.setDoorDirection(DoorDirection.UP);
+								break;
+								case ('v'):
+									temp.setDoorDirection(DoorDirection.DOWN);
+								break;
+								case ('#'):
+									temp.setRoomLabel(true);
+									roomMap.get(line.get(col).charAt(0)).setLabelCell(temp);
+								break;
+								case ('*'):
+									temp.setRoomCenter(true);
+									roomMap.get(line.get(col).charAt(0)).setCenterCell(temp);
+								break;
+								default:
+									// If length > 1 and no other cases occur, this cell must be a secret passage
+									temp.setSecretPassage(line.get(col).charAt(1));
+									break;
+								}
+							}
+							try {
+								grid[row][col] = temp;
+							} catch (Exception e) {
+								System.err.println("Error: Grid not initialized properly");
+								return;
+							}
+						}
+					}
+					row++;
+				}
+				reader.close();
+			}
+		} catch (FileNotFoundException e) {
+			System.err.println(e.getMessage());
+			return;
+		}
 	}
 
 	/**
