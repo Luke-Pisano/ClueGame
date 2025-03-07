@@ -11,22 +11,22 @@ public class Board {
 	/*
 	 * variable and methods used for singleton pattern
 	 */
-	private BoardCell[][] grid;
-	private int numRows;
-	private int numColumns;
-	private String layoutConfigFile;
-	private String setupConfigFile;
-	private Map<Character, Room> roomMap;
+	private BoardCell[][] grid; // 2D array holds board grid
+	private int numRows; // Number of rows on the board
+	private int numColumns; // Number of columns on the board
+	private String layoutConfigFile; //layout configuration file
+	private String setupConfigFile; // setup configuration file
+	private Map<Character, Room> roomMap; // Map between character and room
 
 	private static Board theInstance = new Board();
 	// constructor is private to ensure only one can be created
 	private Board() {
 		super();
-		roomMap = new HashMap<>();
+		roomMap = new HashMap<>(); // initalizes the room map
 	}
 
 	/**
-	 *
+	 * Returns the instance of the game board from singleton pattern
 	 * @return The instance of the game board. (There is only one instance of Board).
 	 */
 	public static Board getInstance() {
@@ -37,40 +37,47 @@ public class Board {
 	 * initialize the board (since we are using singleton pattern)
 	 */
 	public void initialize() {
+		// Setups grid based on the dimensions
 		for (int row = 0; row < numRows; row++) {
 			for (int col = 0; col < numColumns; col++) {
-				grid[row][col] = new BoardCell(row, col);
+				grid[row][col] = new BoardCell(row, col); // add BoardCell at each row / col
 			}
 		}
 		try {
-			loadSetupConfig();
-			loadLayoutConfig();
+			loadSetupConfig(); // load setup config for rooms / spaces
+			loadLayoutConfig(); // load layout config for the board
 		} catch (BadConfigFormatException e) {
 			System.err.println(e.getMessage());
 		}
 	}
 
+	/**
+	 * Loads txt setup config file with space and room information
+	 * @throws BadConfigFormatException if file format is incorrect
+	 */
 	public void loadSetupConfig() throws BadConfigFormatException {
 		try {
-			File file = new File(setupConfigFile);
+			File file = new File(setupConfigFile); // load setup config file
 			Scanner input = new Scanner(file);
 			while (input.hasNextLine()) {
 				String line = input.nextLine();	            
 
-				ArrayList<String> tokens = tokenize(line, ", ");
+				ArrayList<String> tokens = tokenize(line, ", "); // split up line by commas
 
 				if(tokens.size() != 3) {
-					continue;
+					continue; // skip lines without 3 tokens (values)
 				}
 
 				String type = tokens.get(0);
 	            String name = tokens.get(1);
 	            char character = tokens.get(2).charAt(0);
 
+	            // if setup config has a bad type value not space, or room
 	            if (!type.equals("Room") && !type.equals("Space")) {
 	                throw new BadConfigFormatException("Invalid type " + type);
 	            }
-
+	            
+	            // store room and space with inital in the map
 				if(type.equals("Room") || type.equals("Space")) {
 					roomMap.put(character, new Room(name));
 				}
@@ -84,10 +91,11 @@ public class Board {
 
 	/**
 	 * Loads the Layout Config file which contains the board layout.
+	 * @throws BadConfigFormatException if layout is incorrect
 	 */
 	public void loadLayoutConfig() throws BadConfigFormatException {
 		try {
-			File layout = new File(layoutConfigFile);
+			File layout = new File(layoutConfigFile); // load layout config file
 
 			// Read the dimensions of the file. Any size board should be readable as long as the board is a square.
 			Scanner dimensionReader = new Scanner(layout);
@@ -97,19 +105,20 @@ public class Board {
 			while (dimensionReader.hasNextLine()) {
 				String line = dimensionReader.nextLine();
 				if (!line.trim().isEmpty()) {
-					ArrayList<String> tokens = tokenize(line, ",");
+					ArrayList<String> tokens = tokenize(line, ","); // split line up at commas
 					numColumns = Math.max(numColumns, tokens.size());
 					numRows++;
 				}
 			}
 			dimensionReader.close();
 
-			grid = new BoardCell[numRows][numColumns];
+			grid = new BoardCell[numRows][numColumns]; // create crid based on columns and rows
 
 			try (Scanner reader = new Scanner(layout)) {
 				int row = 0;
+				// add each value to grid with properties
 				while (reader.hasNextLine()) {
-					ArrayList<String> line = tokenize(reader.nextLine(), ",");
+					ArrayList<String> line = tokenize(reader.nextLine(), ","); // split line at commas
 					if (line.size() > 0) {
 						for (int col = 0; col < line.size(); col++) {
 		                    if (line.get(col).isEmpty()) {
@@ -122,7 +131,11 @@ public class Board {
 		                    if (!roomMap.containsKey(roomInitial) && roomInitial != 65279) {
 		                        throw new BadConfigFormatException("Inital doesn't exist at: " + row + ", " + col);
 		                    }
+		                    
+		                    // create boardCell temp for the current cell
 							BoardCell temp = new BoardCell(row, col, line.get(col).charAt(0));
+							
+							// check if position has additional character indicating special values
 							if (line.get(col).length() > 1) {
 								switch (line.get(col).charAt(1)) {
 								case ('<'):
@@ -139,11 +152,11 @@ public class Board {
 								break;
 								case ('#'):
 									temp.setRoomLabel(true);
-									roomMap.get(line.get(col).charAt(0)).setLabelCell(temp);
+									roomMap.get(line.get(col).charAt(0)).setLabelCell(temp); // Set room label
 								break;
 								case ('*'):
 									temp.setRoomCenter(true);
-									roomMap.get(line.get(col).charAt(0)).setCenterCell(temp);
+									roomMap.get(line.get(col).charAt(0)).setCenterCell(temp); // Set room center
 								break;
 								default:
 									// If length > 1 and no other cases occur, this cell must be a secret passage
@@ -151,6 +164,8 @@ public class Board {
 									break;
 								}
 							}
+							
+							// put cell into grid
 							try {
 								grid[row][col] = temp;
 							} catch (Exception e) {
