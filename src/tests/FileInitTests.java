@@ -112,7 +112,7 @@ public class FileInitTests {
 		assertFalse( cell.getSecretPassage() == 'D' );
 
 		// this is a label cell to test
-		cell = board.getCell(2, 13);
+		cell = board.getCell(1, 13);
 		room = board.getRoom( cell ) ;
 		assertTrue( room != null );
 		assertEquals( room.getName(), "Livery Stable" ) ;
@@ -120,7 +120,7 @@ public class FileInitTests {
 		assertTrue( room.getLabelCell() == cell );
 
 		// this is a room center cell to test
-		cell = board.getCell(7, 22);
+		cell = board.getCell(7, 21);
 		room = board.getRoom( cell ) ;
 		assertTrue( room != null );
 		assertEquals( room.getName(), "Hotel" ) ;
@@ -135,7 +135,7 @@ public class FileInitTests {
 		assertTrue( cell.getSecretPassage() == 'D' );
 
 		// test a walkway
-		cell = board.getCell(5, 0);
+		cell = board.getCell(6, 1);
 		room = board.getRoom( cell ) ;
 		// Note for our purposes, walkways and closets are rooms
 		assertTrue( room != null );

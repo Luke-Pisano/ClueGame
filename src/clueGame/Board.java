@@ -103,7 +103,7 @@ public class Board {
 				 if (line.size() > 0) {
 					 System.out.println(line);
 					 for (int col = 0; col < line.size(); col++) {
-						 BoardCell temp = new BoardCell(row, col, 'D');
+						 BoardCell temp = new BoardCell(row, col, line.get(col).charAt(0));
 						 if (line.get(col).length() > 1) {
 							 switch (line.get(col).charAt(1)) {							 
 								 case ('<'):
