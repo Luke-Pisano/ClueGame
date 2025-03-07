@@ -105,7 +105,7 @@ public class Board {
 					 for (int col = 0; col < line.size(); col++) {
 						 BoardCell temp = new BoardCell(row, col, line.get(col).charAt(0));
 						 if (line.get(col).length() > 1) {
-							 switch (line.get(col).charAt(1)) {							 
+							 switch (line.get(col).charAt(1)) {
 								 case ('<'):
 									 temp.setDoorDirection(DoorDirection.LEFT);
 									 break;
@@ -120,9 +120,11 @@ public class Board {
 									 break;
 								 case ('#'):
 									 temp.setRoomLabel(true);
+									 roomMap.get(line.get(col).charAt(0)).setLabelCell(temp);
 									 break;
 								 case ('*'):
 									 temp.setRoomCenter(true);
+									 roomMap.get(line.get(col).charAt(0)).setCenterCell(temp);
 									 break;
 								 default:
 									 // If length > 1 and no other cases occur, this cell must be a secret passage
