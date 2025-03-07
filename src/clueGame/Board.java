@@ -39,14 +39,14 @@ public class Board {
 	/**
 	 * initialize the board (since we are using singleton pattern)
 	 */
-	public void initialize() throws BadConfigFormatException {
+	public void initialize() {
 		for (int row = 0; row < numRows; row++) {
 			for (int col = 0; col < numColumns; col++) {
 				grid[row][col] = new BoardCell(row, col);
 			}
 		}
-		loadSetupConfig();
 		try {
+			loadSetupConfig();
 			loadLayoutConfig();
 		} catch (BadConfigFormatException e) {
 			System.err.println(e.getMessage());
