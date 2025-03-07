@@ -1,8 +1,5 @@
 package clueGame;
 
-import static org.junit.Assert.assertEquals;
-
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
