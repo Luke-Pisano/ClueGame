@@ -46,7 +46,11 @@ public class Board {
 			}
 		}
 		loadSetupConfig();
-		loadLayoutConfig();
+		try {
+			loadLayoutConfig();
+		} catch (BadConfigFormatException e) {
+			System.err.println(e.getMessage());
+		}
 	}
 
 	public void loadSetupConfig() {
@@ -77,7 +81,7 @@ public class Board {
 	/**
 	 * Loads the Layout Config file which contains the board layout.
 	 */
-	public void loadLayoutConfig() {
+	public void loadLayoutConfig() throws BadConfigFormatException {
 		try {
 			File layout = new File(layoutConfigFile);
 
@@ -143,9 +147,8 @@ public class Board {
 				 row++;
 			 }
 		 	reader.close();
-		 } catch (FileNotFoundException e) {
-			 System.err.println(e.getMessage());
-			 return;
+		 } catch (BadConfigFormatException e) {
+			throw new BadConfigFormatException("ERROR: Bad Config file format. Unable to read.");
 		 }
 
 	}
@@ -184,8 +187,8 @@ public class Board {
 	}
 	/**
 	 * Set the files to use for configuration of the game board.
-	 * @param string The name of the config file used for layout.
-	 * @param string2 The name of the config file used for setup.
+	 * @param layoutFile The name of the config file used for layout.
+	 * @param setupFile The name of the config file used for setup.
 	 */
 	public void setConfigFiles(String layoutFile, String setupFile) {
 		// TODO Auto-generated method stub
