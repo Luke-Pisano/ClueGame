@@ -46,6 +46,7 @@ public class Board {
 			}
 		}
 		loadSetupConfig();
+		loadLayoutConfig();
 	}
 
 	public void loadSetupConfig() {
