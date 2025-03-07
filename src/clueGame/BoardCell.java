@@ -105,4 +105,9 @@ public class BoardCell {
 	public void setRoomCenter(boolean val) {
 		roomCenter = val;
 	}
+
+	public void setOccupied(boolean b) {
+		// TODO Auto-generated method stub
+		
+	}
 }

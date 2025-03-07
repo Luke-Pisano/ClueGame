@@ -6,6 +6,7 @@ import java.util.Map;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.util.Set;
 
 public class Board {
 	/*
@@ -276,5 +277,20 @@ public class Board {
 	public Room getRoom(BoardCell cell) {
 		// TODO Auto-generated method stub
 		return getRoom(cell.getInitial());
+	}
+
+	public Set<BoardCell> getAdjList(int i, int j) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Set<BoardCell> getTargets() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void calcTargets(BoardCell cell, int i) {
+		// TODO Auto-generated method stub
+		
 	}
 }
