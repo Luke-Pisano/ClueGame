@@ -1,8 +1,8 @@
 package clueGame;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -19,7 +19,7 @@ public class Board {
 	private String layoutConfigFile; //layout configuration file
 	private String setupConfigFile; // setup configuration file
 	private Map<Character, Room> roomMap; // Map between character and room
-
+	
 	private static Board theInstance = new Board();
 	// constructor is private to ensure only one can be created
 	private Board() {
@@ -283,12 +283,12 @@ public class Board {
 	public Set<BoardCell> getAdjList(int i, int j) {
 		// TODO Auto-generated method stub
 		// return grid[row][col].getAdjList();
-		return null;
+		return new HashSet<>();
 	}
 
 	public Set<BoardCell> getTargets() {
 		// TODO Auto-generated method stub
-		return null;
+		return new HashSet<>();
 	}
 
 	public void calcTargets(BoardCell cell, int i) {
