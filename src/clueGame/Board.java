@@ -1,5 +1,6 @@
 package clueGame;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -281,6 +282,7 @@ public class Board {
 
 	public Set<BoardCell> getAdjList(int i, int j) {
 		// TODO Auto-generated method stub
+		// return grid[row][col].getAdjList();
 		return null;
 	}
 
