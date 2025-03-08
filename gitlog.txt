@@ -1,5 +1,71 @@
-I, Luke Pisano, certify that I participated equitably in the creation of assignment C15A-1, dated 03/07/25.
-I, Mark Duffalo, certify that I participated equitably in the creation of this assignment C15A-1, dated 03/07/25.
+I, Luke Pisano, certify that I participated equitably in the creation of assignment C15A-2 dated 03/07/25.
+I, Mark Duffalo, certify that I participated equitably in the creation of this assignment C15A-2, dated 03/07/25.
+
+commit d856868157a046918331fca1b0acbb1a39c088dd
+Author: Luke Pisano <79476828+Luke-Pisano@users.noreply.github.com>
+Date:   Fri Mar 7 21:55:35 2025 -0700
+
+    Added changes to spreadsheet with test highlights
+
+commit b58e4a6b0a1958197cb3b6d5ded92b625fd872b4
+Author: Luke Pisano <79476828+Luke-Pisano@users.noreply.github.com>
+Date:   Fri Mar 7 20:02:27 2025 -0700
+
+    Got all tests to fail instead of error
+
+commit 14dd455e39a30a93b017f845e6fb46c2f01f432e
+Author: Mark Duffalo <markalarski@yahoo.com>
+Date:   Fri Mar 7 18:12:18 2025 -0700
+
+    Feature: Finished modifying BoardAdjTargetTest.java to test cases associated with our setup and config files.
+
+commit 991b8bffaf666fbb5fcfaa5183ddb6801d1b73a8
+Author: Mark Duffalo <markalarski@yahoo.com>
+Date:   Fri Mar 7 17:55:58 2025 -0700
+
+    Feature: Continued modifying the tests for non-306 setup and config. All tests have been modified so far besides the last one (testTargetsOccupied).
+
+commit ce44147510a3320ddb1dcce28678cd1e6bc4deeb
+Author: Mark Duffalo <markalarski@yahoo.com>
+Date:   Fri Mar 7 17:39:06 2025 -0700
+
+    Added: copied from 306 equivalent test file and modified portion of file to test non-306 setup and config files.
+
+commit 06270e8ec350435a571c0173fff0d069e5614168
+Author: Mark Duffalo <markalarski@yahoo.com>
+Date:   Fri Mar 7 17:38:00 2025 -0700
+
+    Added: added 306 test file provided by assignment.
+
+commit a422cbc3da9e6ac868bcda5bacc781a9fdb0082a
+Author: Mark Duffalo <markalarski@yahoo.com>
+Date:   Fri Mar 7 17:23:17 2025 -0700
+
+    Feature: Added missing character in the sheet
+
+commit 6f0db5daad6070329ed5086caf14e10ce8a26fb0
+Author: Mark Duffalo <markalarski@yahoo.com>
+Date:   Fri Mar 7 17:14:11 2025 -0700
+
+    Feature: Copied test cases from 306 equivalent file and modified Adjacency tests for our board.
+
+commit ff3094fddb6aba01c845d13c994622ee50ca5707
+Author: Luke Pisano <79476828+Luke-Pisano@users.noreply.github.com>
+Date:   Fri Mar 7 15:29:26 2025 -0700
+
+    Added blank methods so code compiles with 306 test still has many errors
+
+commit 72453c7827e34435128809ad38075d7c14ecd120
+Author: Luke Pisano <79476828+Luke-Pisano@users.noreply.github.com>
+Date:   Fri Mar 7 15:24:02 2025 -0700
+
+    Inital commit for Clue-Board-1
+
+commit 99cce68895bdc8247614939861b38c3ad03233a1
+Author: Luke Pisano <79476828+Luke-Pisano@users.noreply.github.com>
+Date:   Fri Mar 7 15:18:37 2025 -0700
+
+    Added gitlog.txt
 
 commit 75453ca3472291c22da3a46b9e691b8ddcba2b7a
 Author: Luke Pisano <79476828+Luke-Pisano@users.noreply.github.com>
