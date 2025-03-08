@@ -96,6 +96,7 @@ public class FileInitTests {
 	}
 
 	// Test a few room cells to ensure the room initial is correct.
+	// These cells are purple on planning spreadsheet
 	@Test
 	public void testRooms() {
 		// just test a standard room location
@@ -143,7 +144,7 @@ public class FileInitTests {
 		assertFalse( cell.isDoorway()) ;
 		assertFalse( cell.getSecretPassage() == 'D' );
 
-		// test a closet
+		// test a closet space
 		cell = board.getCell(10, 13);
 		room = board.getRoom( cell ) ;
 		assertTrue( room != null );
