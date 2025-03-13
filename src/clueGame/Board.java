@@ -241,7 +241,6 @@ public class Board {
 	 * @return The room object that has the given label.
 	 */
 	public Room getRoom(char c) {
-
 		// TODO Auto-generated method stub
 		return roomMap.get(c);
 	}
@@ -303,17 +302,55 @@ public class Board {
 			for (int col = 0; col < numColumns; col++) {
 				// check if cell above, below, left or right
 				BoardCell cell = grid[row][col];
-				if (row < numRows - 1) {
-					cell.addAdj(grid[row + 1][col]);
-				}
-				if (row > 0) {
-					cell.addAdj(grid[row - 1][col]); 
-				}
-				if (col < numColumns - 1) {
-					cell.addAdj(grid[row][col + 1]);
-				}
-				if (col > 0) {
-					cell.addAdj(grid[row][col - 1]);
+				if (!cell.isRoomCenter() && !cell.isDoorway()) {
+					if (row < numRows - 1) {
+						cell.addAdj(grid[row + 1][col]);
+					}
+					if (row > 0) {
+						cell.addAdj(grid[row - 1][col]);
+					}
+					if (col < numColumns - 1) {
+						cell.addAdj(grid[row][col + 1]);
+					}
+					if (col > 0) {
+						cell.addAdj(grid[row][col - 1]);
+					}
+				} else if (cell.isDoorway()){
+					if (row < numRows - 1 && cell.getDoorDirection() != DoorDirection.RIGHT) {
+						// Add adjacent walkway to adjList
+						cell.addAdj(grid[row + 1][col]);
+					} else {
+						// Add room center to door's adjList and the door to room center's adjList
+						cell.addAdj(getRoom(grid[row + 1][col].getInitial()).getCenterCell());
+						getRoom(grid[row + 1][col].getInitial()).getCenterCell().addAdj(cell);
+					}
+					if (row > 0 && cell.getDoorDirection() != DoorDirection.LEFT) {
+						// Add adjacent walkway to adjList
+						cell.addAdj(grid[row - 1][col]);
+					} else {
+						// Add room center to door's adjList and the door to room center's adjList
+						cell.addAdj(getRoom(grid[row - 1][col].getInitial()).getCenterCell());
+						getRoom(grid[row - 1][col].getInitial()).getCenterCell().addAdj(cell);
+					}
+					if (col < numColumns - 1 && cell.getDoorDirection() != DoorDirection.UP) {
+						// Add adjacent walkway to adjList
+						cell.addAdj(grid[row][col + 1]);
+					} else {
+						// Add room center to door's adjList and the door to room center's adjList
+						cell.addAdj(getRoom(grid[row][col + 1].getInitial()).getCenterCell());
+						getRoom(grid[row][col + 1].getInitial()).getCenterCell().addAdj(cell);
+					}
+					if (col > 0 && cell.getDoorDirection() != DoorDirection.DOWN) {
+						// Add adjacent walkway to adjList
+						cell.addAdj(grid[row][col - 1]);
+					} else {
+						// Add room center to door's adjList and the door to room center's adjList
+						cell.addAdj(getRoom(grid[row][col - 1].getInitial()).getCenterCell());
+						getRoom(grid[row][col - 1].getInitial()).getCenterCell().addAdj(cell);
+					}
+//					if (cell.hasSecretPassage()) {
+//						cell.addAdj(this.getRoom(cell.getSecretPassage()).getCenterCell());
+//					}
 				}
 			}
 		}
