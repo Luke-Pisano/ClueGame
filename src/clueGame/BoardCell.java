@@ -120,4 +120,8 @@ public class BoardCell {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	public boolean hasSecretPassage() {
+		return (secretPassage != '0');
+	}
 }
