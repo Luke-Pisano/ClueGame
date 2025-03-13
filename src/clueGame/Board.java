@@ -184,6 +184,7 @@ public class Board {
 					row++;
 				}
 				reader.close();
+				calcAdj(); // build adj list
 			}
 		} catch (FileNotFoundException e) {
 			System.err.println(e.getMessage());
@@ -287,12 +288,35 @@ public class Board {
 	public Set<BoardCell> getAdjList(int i, int j) {
 		// TODO Auto-generated method stub
 		// return grid[row][col].getAdjList();
-		return new HashSet<>();
+//		BoardCell cell = board.getCell();
+//		return adjList;
+		return grid[i][j].getAdjList();
 	}
 
 	public Set<BoardCell> getTargets() {
 		// TODO Auto-generated method stub
 		return new HashSet<>();
+	}
+	
+	public void calcAdj() {
+		for (int row = 0; row < numRows; row++) {
+			for (int col = 0; col < numColumns; col++) {
+				// check if cell above, below, left or right
+				BoardCell cell = grid[row][col];
+				if (row < numRows - 1) {
+					cell.addAdj(grid[row + 1][col]);
+				}
+				if (row > 0) {
+					cell.addAdj(grid[row - 1][col]); 
+				}
+				if (col < numColumns - 1) {
+					cell.addAdj(grid[row][col + 1]);
+				}
+				if (col > 0) {
+					cell.addAdj(grid[row][col - 1]);
+				}
+			}
+		}
 	}
 
 	public void calcTargets(BoardCell startCell, int pathlength) {
@@ -317,7 +341,7 @@ public class Board {
 			
 			if (stepsRemaining == 1) {
 				targets.add(adj); // need to end on roll number
-			} else if (adj.getRoom()){
+			} else if (adj.isDoorway()){
 				targets.add(adj); // room don't need to use full roll
 			} else {
 				findAllTargets(adj, stepsRemaining - 1); // repeat until room or 1 left
