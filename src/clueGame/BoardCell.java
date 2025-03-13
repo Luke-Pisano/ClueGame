@@ -110,4 +110,14 @@ public class BoardCell {
 		// TODO Auto-generated method stub
 		
 	}
+
+	public boolean getOccupied() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean getRoom() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

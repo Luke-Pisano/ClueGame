@@ -9,6 +9,8 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.Set;
 
+import experiment.TestBoardCell;
+
 public class Board {
 	/*
 	 * variable and methods used for singleton pattern
@@ -19,6 +21,8 @@ public class Board {
 	private String layoutConfigFile; //layout configuration file
 	private String setupConfigFile; // setup configuration file
 	private Map<Character, Room> roomMap; // Map between character and room
+	private Set<BoardCell> targets; // possible target cells
+	private Set<BoardCell> visited; // previous tile visited
 	
 	private static Board theInstance = new Board();
 	// constructor is private to ensure only one can be created
@@ -291,8 +295,34 @@ public class Board {
 		return new HashSet<>();
 	}
 
-	public void calcTargets(BoardCell cell, int i) {
-		// TODO Auto-generated method stub
-		
+	public void calcTargets(BoardCell startCell, int pathlength) {
+		targets = new HashSet<>();
+		visited = new HashSet<>();
+		visited.add(startCell);
+		findAllTargets(startCell, pathlength);
+	}
+
+	// recursive algorithm to find all possible cells can end on
+	private void findAllTargets(BoardCell cell, int stepsRemaining) {
+		for (BoardCell adj : cell.getAdjList()) {
+			// skip if visited or occupied
+			if (visited.contains(adj)) {
+				continue;
+			}
+			if (adj.getOccupied()) {
+				continue;
+			}
+			visited.add(adj);
+			
+			
+			if (stepsRemaining == 1) {
+				targets.add(adj); // need to end on roll number
+			} else if (adj.getRoom()){
+				targets.add(adj); // room don't need to use full roll
+			} else {
+				findAllTargets(adj, stepsRemaining - 1); // repeat until room or 1 left
+			}
+			visited.remove(adj); // remove backtrack 
+		}
 	}
 }
