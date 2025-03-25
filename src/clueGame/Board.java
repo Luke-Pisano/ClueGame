@@ -46,7 +46,7 @@ public class Board {
 		// Setups grid based on the dimensions
 		for (int row = 0; row < numRows; row++) {
 			for (int col = 0; col < numColumns; col++) {
-				grid[row][col] = new BoardCell(row, col); // add BoardCell at each row / col
+				grid[row][col] = new BoardCell(row, col, 'X'); // add BoardCell at each row / col
 			}
 		}
 		try {

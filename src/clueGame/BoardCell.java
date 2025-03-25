@@ -30,10 +30,6 @@ public class BoardCell {
 		this.adjList = new HashSet<>();
 	}
 
-	public BoardCell(int i, int j) {
-		// TODO Auto-generated constructor stub
-	}
-
 	/**
 	 *
 	 * @param adj BoardCell to be added to this cell's list of adjacent cells.
