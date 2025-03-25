@@ -118,7 +118,7 @@ public class Board {
 			}
 			dimensionReader.close();
 
-			grid = new BoardCell[numRows][numColumns]; // create crid based on columns and rows
+			grid = new BoardCell[numRows][numColumns]; // create grid based on columns and rows
 
 			try (Scanner reader = new Scanner(layout)) {
 				int row = 0;
@@ -284,12 +284,10 @@ public class Board {
 		return getRoom(cell.getInitial());
 	}
 
-	public Set<BoardCell> getAdjList(int i, int j) {
+	// Used in test files
+	public Set<BoardCell> getAdjList(int row, int col) {
 		// TODO Auto-generated method stub
-		// return grid[row][col].getAdjList();
-//		BoardCell cell = board.getCell();
-//		return adjList;
-		return grid[i][j].getAdjList();
+		return grid[row][col].getAdjList();
 	}
 
 	public Set<BoardCell> getTargets() {
@@ -322,7 +320,7 @@ public class Board {
 					} else {
 						// Add room center to door's adjList and the door to room center's adjList
 						cell.addAdj(getRoom(grid[row + 1][col].getInitial()).getCenterCell());
-						getRoom(grid[row + 1][col].getInitial()).getCenterCell().addAdj(cell);
+						//getRoom(grid[row + 1][col].getInitial()).getCenterCell().addAdj(cell);
 					}
 					if (row > 0 && cell.getDoorDirection() != DoorDirection.LEFT) {
 						// Add adjacent walkway to adjList
@@ -330,7 +328,7 @@ public class Board {
 					} else {
 						// Add room center to door's adjList and the door to room center's adjList
 						cell.addAdj(getRoom(grid[row - 1][col].getInitial()).getCenterCell());
-						getRoom(grid[row - 1][col].getInitial()).getCenterCell().addAdj(cell);
+						//getRoom(grid[row - 1][col].getInitial()).getCenterCell().addAdj(cell);
 					}
 					if (col < numColumns - 1 && cell.getDoorDirection() != DoorDirection.UP) {
 						// Add adjacent walkway to adjList
@@ -338,7 +336,7 @@ public class Board {
 					} else {
 						// Add room center to door's adjList and the door to room center's adjList
 						cell.addAdj(getRoom(grid[row][col + 1].getInitial()).getCenterCell());
-						getRoom(grid[row][col + 1].getInitial()).getCenterCell().addAdj(cell);
+						//getRoom(grid[row][col + 1].getInitial()).getCenterCell().addAdj(cell);
 					}
 					if (col > 0 && cell.getDoorDirection() != DoorDirection.DOWN) {
 						// Add adjacent walkway to adjList
@@ -346,11 +344,12 @@ public class Board {
 					} else {
 						// Add room center to door's adjList and the door to room center's adjList
 						cell.addAdj(getRoom(grid[row][col - 1].getInitial()).getCenterCell());
-						getRoom(grid[row][col - 1].getInitial()).getCenterCell().addAdj(cell);
+						//getRoom(grid[row][col - 1].getInitial()).getCenterCell().addAdj(cell);
 					}
-//					if (cell.hasSecretPassage()) {
-//						cell.addAdj(this.getRoom(cell.getSecretPassage()).getCenterCell());
-//					}
+					// TODO Implement secret passages
+					//if (cell.hasSecretPassage()) {
+					//	cell.addAdj(this.getRoom(cell.getSecretPassage()).getCenterCell());
+					//}
 				}
 			}
 		}
