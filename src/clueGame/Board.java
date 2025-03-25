@@ -369,7 +369,7 @@ public class Board {
 			if (visited.contains(adj)) {
 				continue;
 			}
-			if (adj.getOccupied()) {
+			if (adj != null && adj.getOccupied()) {
 				continue;
 			}
 			visited.add(adj);
