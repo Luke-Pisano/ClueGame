@@ -304,6 +304,25 @@ public class Board {
 					if (row < numRows - 1 && grid[row + 1][col].getInitial() == 'W') cell.addAdj(grid[row + 1][col]);
 					if (col > 0 && grid[row][col - 1].getInitial() == 'W') cell.addAdj(grid[row][col - 1]);
 					if (col < numColumns - 1 && grid[row][col + 1].getInitial() == 'W') cell.addAdj(grid[row][col + 1]);
+					if (cell.isDoorway()) {
+						switch (cell.getDoorDirection()) {
+						case UP:
+							cell.addAdj(getRoom(grid[row - 1][col].getInitial()).getCenterCell());
+							break;
+						case DOWN:
+							cell.addAdj(getRoom(grid[row + 1][col].getInitial()).getCenterCell());
+							break;
+						case LEFT:
+							cell.addAdj(getRoom(grid[row][col - 1].getInitial()).getCenterCell());
+							break;
+						case RIGHT:
+							cell.addAdj(getRoom(grid[row][col + 1].getInitial()).getCenterCell());
+							break;
+						default: 
+							break;
+					}
+					}
+					
 				} else if (cell.isDoorway()) {
 					switch (cell.getDoorDirection()) {
 						case UP:
@@ -317,6 +336,8 @@ public class Board {
 							break;
 						case RIGHT:
 							cell.addAdj(getRoom(grid[row][col + 1].getInitial()).getCenterCell());
+							break;
+						default: 
 							break;
 					}
 					if (row > 0 && grid[row - 1][col].getInitial() == 'W') cell.addAdj(grid[row - 1][col]);
