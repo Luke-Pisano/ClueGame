@@ -112,7 +112,6 @@ public class BoardAdjTargetTest {
 		assertEquals(3, testList.size());
 		assertTrue(testList.contains(board.getCell(14, 2)));
 		assertTrue(testList.contains(board.getCell(15, 1)));
-	
 	}
 	
 	

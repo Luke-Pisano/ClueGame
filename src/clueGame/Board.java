@@ -298,72 +298,41 @@ public class Board {
 	public void calcAdj() {
 		for (int row = 0; row < numRows; row++) {
 			for (int col = 0; col < numColumns; col++) {
-				// check if cell above, below, left or right
 				BoardCell cell = grid[row][col];
-				
-	            if (cell.getInitial() == 'W') {
-	                if (row > 0 && grid[row - 1][col].getInitial() == 'W') cell.addAdj(grid[row - 1][col]);
-	                if (row < numRows - 1 && grid[row + 1][col].getInitial() == 'W') cell.addAdj(grid[row + 1][col]);
-	                if (col > 0 && grid[row][col - 1].getInitial() == 'W') cell.addAdj(grid[row][col - 1]);
-	                if (col < numColumns - 1 && grid[row][col + 1].getInitial() == 'W') cell.addAdj(grid[row][col + 1]);
-	            }
-	            
-	            if (cell.hasSecretPassage()) {
-	                BoardCell passageTarget = getRoom(cell.getSecretPassage()).getCenterCell();
-	                cell.addAdj(passageTarget);
-	            }
-				/*
-				if (!cell.isRoomCenter() && !cell.isDoorway()) {
-					if (row < numRows - 1) {
+				if (cell.getInitial() == 'W') {
+					if (row < numRows - 1 && grid[row + 1][col].getInitial() != 'X') {
 						cell.addAdj(grid[row + 1][col]);
 					}
-					if (row > 0) {
+					if (row > 0 && grid[row - 1][col].getInitial() != 'X') {
 						cell.addAdj(grid[row - 1][col]);
 					}
-					if (col < numColumns - 1) {
+					if (col < numColumns - 1 && grid[row][col + 1].getInitial() != 'X') {
 						cell.addAdj(grid[row][col + 1]);
 					}
-					if (col > 0) {
+					if (col > 0 && grid[row][col - 1].getInitial() != 'X') {
 						cell.addAdj(grid[row][col - 1]);
 					}
-				} else if (cell.isDoorway()){
-					if (row < numRows - 1 && cell.getDoorDirection() != DoorDirection.RIGHT) {
-						// Add adjacent walkway to adjList
-						cell.addAdj(grid[row + 1][col]);
-					} else {
-						// Add room center to door's adjList and the door to room center's adjList
-						cell.addAdj(getRoom(grid[row + 1][col].getInitial()).getCenterCell());
-						//getRoom(grid[row + 1][col].getInitial()).getCenterCell().addAdj(cell);
+				} else if (cell.isDoorway()) {
+					switch (cell.getDoorDirection()) {
+						case UP:
+							cell.addAdj(grid[row - 1][col]);
+							break;
+						case DOWN:
+							cell.addAdj(grid[row + 1][col]);
+							break;
+						case LEFT:
+							cell.addAdj(grid[row][col - 1]);
+							break;
+						case RIGHT:
+							cell.addAdj(grid[row][col + 1]);
+							break;
 					}
-					if (row > 0 && cell.getDoorDirection() != DoorDirection.LEFT) {
-						// Add adjacent walkway to adjList
-						cell.addAdj(grid[row - 1][col]);
-					} else {
-						// Add room center to door's adjList and the door to room center's adjList
-						cell.addAdj(getRoom(grid[row - 1][col].getInitial()).getCenterCell());
-						//getRoom(grid[row - 1][col].getInitial()).getCenterCell().addAdj(cell);
-					}
-					if (col < numColumns - 1 && cell.getDoorDirection() != DoorDirection.UP) {
-						// Add adjacent walkway to adjList
-						cell.addAdj(grid[row][col + 1]);
-					} else {
-						// Add room center to door's adjList and the door to room center's adjList
-						cell.addAdj(getRoom(grid[row][col + 1].getInitial()).getCenterCell());
-						//getRoom(grid[row][col + 1].getInitial()).getCenterCell().addAdj(cell);
-					}
-					if (col > 0 && cell.getDoorDirection() != DoorDirection.DOWN) {
-						// Add adjacent walkway to adjList
-						cell.addAdj(grid[row][col - 1]);
-					} else {
-						// Add room center to door's adjList and the door to room center's adjList
-						cell.addAdj(getRoom(grid[row][col - 1].getInitial()).getCenterCell());
-						//getRoom(grid[row][col - 1].getInitial()).getCenterCell().addAdj(cell);
-					}
-					// TODO Implement secret passages
-					//if (cell.hasSecretPassage()) {
-					//	cell.addAdj(this.getRoom(cell.getSecretPassage()).getCenterCell());
-					//}
-				}*/
+					cell.addAdj(getRoom(cell.getInitial()).getCenterCell());
+				} else if (cell.hasSecretPassage()) {
+					cell.addAdj(getRoom(cell.getSecretPassage()).getCenterCell());
+				} else {
+					//cell.setAdjList(getRoom(cell.getInitial()).getCenterCell().getAdjList());
+				}
 			}
 		}
 	}
