@@ -299,6 +299,7 @@ public class Board {
 		for (int row = 0; row < numRows; row++) {
 			for (int col = 0; col < numColumns; col++) {
 				BoardCell cell = grid[row][col];
+				BoardCell centerCell = grid[row][col];
 				if (cell.getInitial() == 'W') {
 					if (row > 0 && grid[row - 1][col].getInitial() == 'W') cell.addAdj(grid[row - 1][col]);
 					if (row < numRows - 1 && grid[row + 1][col].getInitial() == 'W') cell.addAdj(grid[row + 1][col]);
@@ -307,19 +308,26 @@ public class Board {
 					if (cell.isDoorway()) {
 						switch (cell.getDoorDirection()) {
 						case UP:
-							cell.addAdj(getRoom(grid[row - 1][col].getInitial()).getCenterCell());
+							centerCell = getRoom(grid[row - 1][col].getInitial()).getCenterCell();
+							cell.addAdj(centerCell);
 							break;
 						case DOWN:
-							cell.addAdj(getRoom(grid[row + 1][col].getInitial()).getCenterCell());
+							centerCell = getRoom(grid[row + 1][col].getInitial()).getCenterCell();
+							cell.addAdj(centerCell);
 							break;
 						case LEFT:
-							cell.addAdj(getRoom(grid[row][col - 1].getInitial()).getCenterCell());
+							centerCell = getRoom(grid[row][col - 1].getInitial()).getCenterCell();
+							cell.addAdj(centerCell);
 							break;
 						case RIGHT:
-							cell.addAdj(getRoom(grid[row][col + 1].getInitial()).getCenterCell());
+							centerCell = getRoom(grid[row][col + 1].getInitial()).getCenterCell();
+							cell.addAdj(centerCell);
 							break;
 						default: 
 							break;
+						}
+						if(!centerCell.getAdjList().contains(cell)) {
+							centerCell.addAdj(cell);
 						}
 					}
 
