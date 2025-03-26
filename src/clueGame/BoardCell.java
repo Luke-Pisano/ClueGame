@@ -10,6 +10,7 @@ public class BoardCell {
 	private DoorDirection doorDirection;
 	private boolean roomLabel;
 	private boolean roomCenter;
+	private boolean isOccupied;
 	private char secretPassage;
 	private Set<BoardCell> adjList = new HashSet<BoardCell>();
 
@@ -27,6 +28,7 @@ public class BoardCell {
 		this.roomLabel = false;
 		this.roomCenter = false;
 		this.secretPassage = '0';
+		this.isOccupied = false;
 	}
 
 	/**
@@ -105,19 +107,12 @@ public class BoardCell {
 		roomCenter = val;
 	}
 
-	public void setOccupied(boolean b) {
-		// TODO Auto-generated method stub
-		
+	public void setOccupied(boolean val) {
+		isOccupied = val;
 	}
 
 	public boolean getOccupied() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	public boolean getRoom() {
-		// TODO Auto-generated method stub
-		return false;
+		return isOccupied;
 	}
 
 	public boolean hasSecretPassage() {
