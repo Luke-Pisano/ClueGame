@@ -326,16 +326,14 @@ public class Board {
 						default: 
 							break;
 						}
-						if(!centerCell.getAdjList().contains(cell)) {
-							centerCell.addAdj(cell);
-						}
+						centerCell.addAdj(cell);
 					}
 
 				}  else if (cell.hasSecretPassage()) {
-					cell.addAdj(getRoom(cell.getSecretPassage()).getCenterCell());
-				} else {
-					//cell.setAdjList(getRoom(cell.getInitial()).getCenterCell().getAdjList());
-				}
+					centerCell = getRoom(cell.getSecretPassage()).getCenterCell();
+					cell.addAdj(centerCell);
+					centerCell.addAdj(cell);
+				} 
 			}
 		}
 	}
