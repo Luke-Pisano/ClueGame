@@ -11,7 +11,7 @@ public class BoardCell {
 	private boolean roomLabel;
 	private boolean roomCenter;
 	private char secretPassage;
-	private Set<BoardCell> adjList;
+	private Set<BoardCell> adjList = new HashSet<BoardCell>();
 
 	/**
 	 *
@@ -26,8 +26,7 @@ public class BoardCell {
 		this.doorDirection = DoorDirection.NONE;
 		this.roomLabel = false;
 		this.roomCenter = false;
-		this.secretPassage = '0'; 
-		this.adjList = new HashSet<>();
+		this.secretPassage = '0';
 	}
 
 	/**
@@ -44,6 +43,10 @@ public class BoardCell {
 	 */
 	public Set<BoardCell> getAdjList() {
 		return adjList;
+	}
+
+	public void setAdjList(Set<BoardCell> adjList) {
+		this.adjList = adjList;
 	}
 
 	/**
