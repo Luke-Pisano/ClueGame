@@ -69,14 +69,14 @@ public class BoardAdjTargetTest {
 	{
 		Set<BoardCell> testList = board.getAdjList(6, 2);
 		assertEquals(4, testList.size());
-		assertTrue(testList.contains(board.getCell(5, 2)));
+		assertTrue(testList.contains(board.getCell(2, 3)));
 		assertTrue(testList.contains(board.getCell(6, 3)));
 
 		// Has second doorway as an adjacent cell, might need to edit later if that is not allowed
 		testList = board.getAdjList(6, 14);
 		assertEquals(4, testList.size());
+		assertTrue(testList.contains(board.getCell(2, 12)));
 		assertTrue(testList.contains(board.getCell(6, 13)));
-		assertTrue(testList.contains(board.getCell(5, 14)));
 		assertTrue(testList.contains(board.getCell(7, 14)));
 		assertTrue(testList.contains(board.getCell(6, 15)));
 	}
