@@ -291,14 +291,18 @@ public class Board {
 	}
 
 	public Set<BoardCell> getTargets() {
-		// TODO Auto-generated method stub
-		return new HashSet<>();
+		return targets;
 	}
 
 	public void calcAdj() {
 		for (int row = 0; row < numRows; row++) {
 			for (int col = 0; col < numColumns; col++) {
 				BoardCell cell = grid[row][col];
+				if (cell.hasSecretPassage()) {
+					BoardCell roomCenter = getRoom(cell.getInitial()).getCenterCell();
+					BoardCell secretCenter = getRoom(cell.getSecretPassage()).getCenterCell();
+					roomCenter.addAdj(secretCenter);
+				}
 				if (cell.getInitial() == 'W') {
 					if (row > 0 && grid[row - 1][col].getInitial() == 'W') cell.addAdj(grid[row - 1][col]);
 					if (row < numRows - 1 && grid[row + 1][col].getInitial() == 'W') cell.addAdj(grid[row + 1][col]);
@@ -362,8 +366,6 @@ public class Board {
 					if (row < numRows - 1 && grid[row + 1][col].getInitial() == 'W') cell.addAdj(grid[row + 1][col]);
 					if (col > 0 && grid[row][col - 1].getInitial() == 'W') cell.addAdj(grid[row][col - 1]);
 					if (col < numColumns - 1 && grid[row][col + 1].getInitial() == 'W') cell.addAdj(grid[row][col + 1]);
-				} else if (cell.hasSecretPassage()) {
-					cell.addAdj(getRoom(cell.getSecretPassage()).getCenterCell());
 				} else if (cell.getInitial() != 'X') {
 					Set<BoardCell> adjList = getRoom(cell.getInitial()).getCenterCell().getAdjList();
 					cell.setAdjList(adjList);
