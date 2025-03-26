@@ -109,7 +109,7 @@ public class BoardAdjTargetTest {
 
 		// Test next to closet and room but not door
 		testList = board.getAdjList(14,1);
-		assertEquals(3, testList.size());
+		assertEquals(2, testList.size());
 		assertTrue(testList.contains(board.getCell(14, 2)));
 		assertTrue(testList.contains(board.getCell(15, 1)));
 	}
