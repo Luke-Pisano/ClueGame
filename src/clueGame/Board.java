@@ -300,34 +300,29 @@ public class Board {
 			for (int col = 0; col < numColumns; col++) {
 				BoardCell cell = grid[row][col];
 				if (cell.getInitial() == 'W') {
-					if (row < numRows - 1 && grid[row + 1][col].getInitial() != 'X') {
-						cell.addAdj(grid[row + 1][col]);
-					}
-					if (row > 0 && grid[row - 1][col].getInitial() != 'X') {
-						cell.addAdj(grid[row - 1][col]);
-					}
-					if (col < numColumns - 1 && grid[row][col + 1].getInitial() != 'X') {
-						cell.addAdj(grid[row][col + 1]);
-					}
-					if (col > 0 && grid[row][col - 1].getInitial() != 'X') {
-						cell.addAdj(grid[row][col - 1]);
-					}
+					if (row > 0 && grid[row - 1][col].getInitial() == 'W') cell.addAdj(grid[row - 1][col]);
+					if (row < numRows - 1 && grid[row + 1][col].getInitial() == 'W') cell.addAdj(grid[row + 1][col]);
+					if (col > 0 && grid[row][col - 1].getInitial() == 'W') cell.addAdj(grid[row][col - 1]);
+					if (col < numColumns - 1 && grid[row][col + 1].getInitial() == 'W') cell.addAdj(grid[row][col + 1]);
 				} else if (cell.isDoorway()) {
 					switch (cell.getDoorDirection()) {
 						case UP:
-							cell.addAdj(grid[row - 1][col]);
+							cell.addAdj(getRoom(grid[row - 1][col].getInitial()).getCenterCell());
 							break;
 						case DOWN:
-							cell.addAdj(grid[row + 1][col]);
+							cell.addAdj(getRoom(grid[row + 1][col].getInitial()).getCenterCell());
 							break;
 						case LEFT:
-							cell.addAdj(grid[row][col - 1]);
+							cell.addAdj(getRoom(grid[row][col - 1].getInitial()).getCenterCell());
 							break;
 						case RIGHT:
-							cell.addAdj(grid[row][col + 1]);
+							cell.addAdj(getRoom(grid[row][col + 1].getInitial()).getCenterCell());
 							break;
 					}
-					cell.addAdj(getRoom(cell.getInitial()).getCenterCell());
+					if (row > 0 && grid[row - 1][col].getInitial() == 'W') cell.addAdj(grid[row - 1][col]);
+					if (row < numRows - 1 && grid[row + 1][col].getInitial() == 'W') cell.addAdj(grid[row + 1][col]);
+					if (col > 0 && grid[row][col - 1].getInitial() == 'W') cell.addAdj(grid[row][col - 1]);
+					if (col < numColumns - 1 && grid[row][col + 1].getInitial() == 'W') cell.addAdj(grid[row][col + 1]);
 				} else if (cell.hasSecretPassage()) {
 					cell.addAdj(getRoom(cell.getSecretPassage()).getCenterCell());
 				} else {
