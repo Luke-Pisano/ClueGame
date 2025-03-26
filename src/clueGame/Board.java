@@ -300,6 +300,19 @@ public class Board {
 			for (int col = 0; col < numColumns; col++) {
 				// check if cell above, below, left or right
 				BoardCell cell = grid[row][col];
+				
+	            if (cell.getInitial() == 'W') {
+	                if (row > 0 && grid[row - 1][col].getInitial() == 'W') cell.addAdj(grid[row - 1][col]);
+	                if (row < numRows - 1 && grid[row + 1][col].getInitial() == 'W') cell.addAdj(grid[row + 1][col]);
+	                if (col > 0 && grid[row][col - 1].getInitial() == 'W') cell.addAdj(grid[row][col - 1]);
+	                if (col < numColumns - 1 && grid[row][col + 1].getInitial() == 'W') cell.addAdj(grid[row][col + 1]);
+	            }
+	            
+	            if (cell.hasSecretPassage()) {
+	                BoardCell passageTarget = getRoom(cell.getSecretPassage()).getCenterCell();
+	                cell.addAdj(passageTarget);
+	            }
+				/*
 				if (!cell.isRoomCenter() && !cell.isDoorway()) {
 					if (row < numRows - 1) {
 						cell.addAdj(grid[row + 1][col]);
@@ -350,7 +363,7 @@ public class Board {
 					//if (cell.hasSecretPassage()) {
 					//	cell.addAdj(this.getRoom(cell.getSecretPassage()).getCenterCell());
 					//}
-				}
+				}*/
 			}
 		}
 	}
