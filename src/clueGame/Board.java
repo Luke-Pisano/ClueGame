@@ -224,75 +224,6 @@ public class Board {
 
 		return result;
 	}
-	/**
-	 * Set the files to use for configuration of the game board.
-	 * @param layoutFile The name of the config file used for layout.
-	 * @param setupFile The name of the config file used for setup.
-	 */
-	public void setConfigFiles(String layoutFile, String setupFile) {
-		// TODO Auto-generated method stub
-		layoutConfigFile = "data/" + layoutFile;
-		setupConfigFile = "data/" + setupFile;
-	}
-
-	/**
-	 *
-	 * @param c The label of the room.
-	 * @return The room object that has the given label.
-	 */
-	public Room getRoom(char c) {
-		// TODO Auto-generated method stub
-		return roomMap.get(c);
-	}
-
-	/**
-	 *
-	 * @return The number of rows contained on the board.
-	 */
-	public int getNumRows() {
-		// TODO Auto-generated method stub
-		return numRows;
-	}
-
-	/**
-	 *
-	 * @return The number of columns contained on the board.
-	 */
-	public int getNumColumns() {
-		// TODO Auto-generated method stub
-		return numColumns;
-	}
-
-	/**
-	 *
-	 * @param i The row of the desired cell.
-	 * @param j The column of the desired cell.
-	 * @return
-	 */
-	public BoardCell getCell(int i, int j) {
-		// TODO Auto-generated method stub
-		return grid[i][j];
-	}
-
-	/**
-	 *
-	 * @param cell The cell to be identified.
-	 * @return The room object that the cell is contained within.
-	 */
-	public Room getRoom(BoardCell cell) {
-		// TODO Auto-generated method stub
-		return getRoom(cell.getInitial());
-	}
-
-	// Used in test files
-	public Set<BoardCell> getAdjList(int row, int col) {
-		// TODO Auto-generated method stub
-		return grid[row][col].getAdjList();
-	}
-
-	public Set<BoardCell> getTargets() {
-		return targets;
-	}
 
 	public void calcAdj() {
 		for (int row = 0; row < numRows; row++) {
@@ -392,8 +323,8 @@ public class Board {
 				continue;
 			}
 			visited.add(adj);
-			
-			
+
+
 			if (stepsRemaining == 1) {
 				targets.add(adj); // need to end on roll number
 			} else if (adj.isDoorway()){
@@ -401,7 +332,77 @@ public class Board {
 			} else {
 				findAllTargets(adj, stepsRemaining - 1); // repeat until room or 1 left
 			}
-			visited.remove(adj); // remove backtrack 
+			visited.remove(adj); // remove backtrack
 		}
+	}
+
+	/**
+	 * Set the files to use for configuration of the game board.
+	 * @param layoutFile The name of the config file used for layout.
+	 * @param setupFile The name of the config file used for setup.
+	 */
+	public void setConfigFiles(String layoutFile, String setupFile) {
+		// TODO Auto-generated method stub
+		layoutConfigFile = "data/" + layoutFile;
+		setupConfigFile = "data/" + setupFile;
+	}
+
+	/**
+	 *
+	 * @param c The label of the room.
+	 * @return The room object that has the given label.
+	 */
+	public Room getRoom(char c) {
+		// TODO Auto-generated method stub
+		return roomMap.get(c);
+	}
+
+	/**
+	 *
+	 * @return The number of rows contained on the board.
+	 */
+	public int getNumRows() {
+		// TODO Auto-generated method stub
+		return numRows;
+	}
+
+	/**
+	 *
+	 * @return The number of columns contained on the board.
+	 */
+	public int getNumColumns() {
+		// TODO Auto-generated method stub
+		return numColumns;
+	}
+
+	/**
+	 *
+	 * @param i The row of the desired cell.
+	 * @param j The column of the desired cell.
+	 * @return
+	 */
+	public BoardCell getCell(int i, int j) {
+		// TODO Auto-generated method stub
+		return grid[i][j];
+	}
+
+	/**
+	 *
+	 * @param cell The cell to be identified.
+	 * @return The room object that the cell is contained within.
+	 */
+	public Room getRoom(BoardCell cell) {
+		// TODO Auto-generated method stub
+		return getRoom(cell.getInitial());
+	}
+
+	// Used in test files
+	public Set<BoardCell> getAdjList(int row, int col) {
+		// TODO Auto-generated method stub
+		return grid[row][col].getAdjList();
+	}
+
+	public Set<BoardCell> getTargets() {
+		return targets;
 	}
 }
