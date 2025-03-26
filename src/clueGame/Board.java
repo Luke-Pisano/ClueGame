@@ -23,7 +23,7 @@ public class Board {
 	private Map<Character, Room> roomMap; // Map between character and room
 	private Set<BoardCell> targets; // possible target cells
 	private Set<BoardCell> visited; // previous tile visited
-	
+
 	private static Board theInstance = new Board();
 	// constructor is private to ensure only one can be created
 	private Board() {
@@ -75,15 +75,15 @@ public class Board {
 				}
 
 				String type = tokens.get(0);
-	            String name = tokens.get(1);
-	            char character = tokens.get(2).charAt(0);
+				String name = tokens.get(1);
+				char character = tokens.get(2).charAt(0);
 
-	            // if setup config has a bad type value not space, or room
-	            if (!type.equals("Room") && !type.equals("Space")) {
-	                throw new BadConfigFormatException("Invalid type " + type);
-	            }
-	            
-	            // store room and space with inital in the map
+				// if setup config has a bad type value not space, or room
+				if (!type.equals("Room") && !type.equals("Space")) {
+					throw new BadConfigFormatException("Invalid type " + type);
+				}
+
+				// store room and space with inital in the map
 				if(type.equals("Room") || type.equals("Space")) {
 					roomMap.put(character, new Room(name));
 				}
@@ -127,20 +127,20 @@ public class Board {
 					ArrayList<String> line = tokenize(reader.nextLine(), ","); // split line at commas
 					if (line.size() > 0) {
 						for (int col = 0; col < line.size(); col++) {
-		                    if (line.get(col).isEmpty()) {
-		                        throw new BadConfigFormatException("Empty column at: " + row + ", " + col);
-		                    }
+							if (line.get(col).isEmpty()) {
+								throw new BadConfigFormatException("Empty column at: " + row + ", " + col);
+							}
 
-		                    char roomInitial = line.get(col).charAt(0);
+							char roomInitial = line.get(col).charAt(0);
 
-		                    // only run if inital doesn't match and not empty char
-		                    if (!roomMap.containsKey(roomInitial) && roomInitial != 65279) {
-		                        throw new BadConfigFormatException("Inital doesn't exist at: " + row + ", " + col);
-		                    }
-		                    
-		                    // create boardCell temp for the current cell
+							// only run if inital doesn't match and not empty char
+							if (!roomMap.containsKey(roomInitial) && roomInitial != 65279) {
+								throw new BadConfigFormatException("Inital doesn't exist at: " + row + ", " + col);
+							}
+
+							// create boardCell temp for the current cell
 							BoardCell temp = new BoardCell(row, col, line.get(col).charAt(0));
-							
+
 							// check if position has additional character indicating special values
 							if (line.get(col).length() > 1) {
 								switch (line.get(col).charAt(1)) {
@@ -158,11 +158,11 @@ public class Board {
 								break;
 								case ('#'):
 									temp.setRoomLabel(true);
-									roomMap.get(line.get(col).charAt(0)).setLabelCell(temp); // Set room label
+								roomMap.get(line.get(col).charAt(0)).setLabelCell(temp); // Set room label
 								break;
 								case ('*'):
 									temp.setRoomCenter(true);
-									roomMap.get(line.get(col).charAt(0)).setCenterCell(temp); // Set room center
+								roomMap.get(line.get(col).charAt(0)).setCenterCell(temp); // Set room center
 								break;
 								default:
 									// If length > 1 and no other cases occur, this cell must be a secret passage
@@ -170,7 +170,7 @@ public class Board {
 									break;
 								}
 							}
-							
+
 							// put cell into grid
 							try {
 								grid[row][col] = temp;
@@ -320,31 +320,10 @@ public class Board {
 							break;
 						default: 
 							break;
+						}
 					}
-					}
-					
-				} else if (cell.isDoorway()) {
-					switch (cell.getDoorDirection()) {
-						case UP:
-							cell.addAdj(getRoom(grid[row - 1][col].getInitial()).getCenterCell());
-							break;
-						case DOWN:
-							cell.addAdj(getRoom(grid[row + 1][col].getInitial()).getCenterCell());
-							break;
-						case LEFT:
-							cell.addAdj(getRoom(grid[row][col - 1].getInitial()).getCenterCell());
-							break;
-						case RIGHT:
-							cell.addAdj(getRoom(grid[row][col + 1].getInitial()).getCenterCell());
-							break;
-						default: 
-							break;
-					}
-					if (row > 0 && grid[row - 1][col].getInitial() == 'W') cell.addAdj(grid[row - 1][col]);
-					if (row < numRows - 1 && grid[row + 1][col].getInitial() == 'W') cell.addAdj(grid[row + 1][col]);
-					if (col > 0 && grid[row][col - 1].getInitial() == 'W') cell.addAdj(grid[row][col - 1]);
-					if (col < numColumns - 1 && grid[row][col + 1].getInitial() == 'W') cell.addAdj(grid[row][col + 1]);
-				} else if (cell.hasSecretPassage()) {
+
+				}  else if (cell.hasSecretPassage()) {
 					cell.addAdj(getRoom(cell.getSecretPassage()).getCenterCell());
 				} else {
 					//cell.setAdjList(getRoom(cell.getInitial()).getCenterCell().getAdjList());
@@ -371,8 +350,8 @@ public class Board {
 				continue;
 			}
 			visited.add(adj);
-			
-			
+
+
 			if (stepsRemaining == 1) {
 				targets.add(adj); // need to end on roll number
 			} else if (adj.isDoorway()){
