@@ -322,6 +322,12 @@ public class Board {
 		targets = new HashSet<>();
 		HashSet<BoardCell> visited = new HashSet<>();
 		visited.add(startCell);
+		if (!startCell.isRoomCenter() && getRoom(startCell) != null) {
+			BoardCell roomCenter = getRoom(startCell).getCenterCell();
+			if (roomCenter != null) {
+				visited.add(roomCenter);
+			}
+		}
 		findAllTargets(startCell, pathlength, visited);
 	}
 
