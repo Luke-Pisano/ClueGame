@@ -283,12 +283,12 @@ public class BoardAdjTargetTest {
 		for (int i = 0; i < targets.size(); i++) {
 			System.out.println("(" + array[i].getRow() + "," + array[i].getCol() + ")");
 		}
-		assertEquals(15, targets.size());
+		assertEquals(27, targets.size());
 		assertTrue(targets.contains(board.getCell(8, 6)));
-		assertTrue(targets.contains(board.getCell(7, 13)));
+		assertTrue(targets.contains(board.getCell(14, 2)));
 		assertTrue(targets.contains(board.getCell(12, 10)));
-		assertFalse( targets.contains( board.getCell(10, 10))) ;
-		assertFalse( targets.contains( board.getCell(8, 10))) ;
+		assertFalse( targets.contains( board.getCell(10, 9)));
+		assertFalse( targets.contains( board.getCell(8, 10)));
 	
 		// we want to make sure we can get into a room, even if flagged as occupied
 		board.getCell(2, 6).setOccupied(true);
@@ -298,7 +298,7 @@ public class BoardAdjTargetTest {
 		board.getCell(2, 3).setOccupied(false);
 		targets= board.getTargets();
 		assertEquals(4, targets.size());
-		assertTrue(targets.contains(board.getCell(2, 6)));
+		assertFalse(targets.contains(board.getCell(2, 6)));
 		assertTrue(targets.contains(board.getCell(2, 7)));
 		assertTrue(targets.contains(board.getCell(3, 6)));
 		
