@@ -120,57 +120,70 @@ public class Board {
 
 			grid = new BoardCell[numRows][numColumns]; // create grid based on columns and rows
 
-			try (Scanner reader = new Scanner(layout)) {
+			try (Scanner reader = new Scanner(layout, "UTF-8")) {
 				int row = 0;
 				// add each value to grid with properties
 				while (reader.hasNextLine()) {
 					ArrayList<String> line = tokenize(reader.nextLine(), ","); // split line at commas
 					if (line.size() > 0) {
 						for (int col = 0; col < line.size(); col++) {
-		                    if (line.get(col).isEmpty()) {
-		                        throw new BadConfigFormatException("Empty column at: " + row + ", " + col);
-		                    }
+							if (line.get(col).isEmpty()) {
+								throw new BadConfigFormatException("Empty column at: " + row + ", " + col);
+							}
 
-		                    char roomInitial = line.get(col).charAt(0);
+							// Handle potential BOM character
+							String cellContent = line.get(col);
+							char roomInitial = cellContent.charAt(0);
+							if (roomInitial == '\uFEFF' && cellContent.length() > 1) {
+								roomInitial = cellContent.charAt(1);
+							}
 
-		                    // only run if inital doesn't match and not empty char
-		                    if (!roomMap.containsKey(roomInitial) && roomInitial != 65279) {
-		                        throw new BadConfigFormatException("Inital doesn't exist at: " + row + ", " + col);
-		                    }
-		                    
-		                    // create boardCell temp for the current cell
-							BoardCell temp = new BoardCell(row, col, line.get(col).charAt(0));
-							
+							System.out.println("Room Initial: " + roomInitial);
+
+							// only run if initial doesn't match and not BOM char
+							if (!roomMap.containsKey(roomInitial) && roomInitial != 65279) {
+								throw new BadConfigFormatException("Initial doesn't exist at: " + row + ", " + col);
+							}
+
+							// create boardCell temp for the current cell
+							BoardCell temp = new BoardCell(row, col, roomInitial);
+
 							// check if position has additional character indicating special values
-							if (line.get(col).length() > 1) {
-								switch (line.get(col).charAt(1)) {
-								case ('<'):
-									temp.setDoorDirection(DoorDirection.LEFT);
-								break;
-								case ('>'):
-									temp.setDoorDirection(DoorDirection.RIGHT);
-								break;
-								case ('^'):
-									temp.setDoorDirection(DoorDirection.UP);
-								break;
-								case ('v'):
-									temp.setDoorDirection(DoorDirection.DOWN);
-								break;
-								case ('#'):
-									temp.setRoomLabel(true);
-									roomMap.get(line.get(col).charAt(0)).setLabelCell(temp); // Set room label
-								break;
-								case ('*'):
-									temp.setRoomCenter(true);
-									roomMap.get(line.get(col).charAt(0)).setCenterCell(temp); // Set room center
-								break;
-								default:
-									// If length > 1 and no other cases occur, this cell must be a secret passage
-									temp.setSecretPassage(line.get(col).charAt(1));
-									break;
+							if (cellContent.length() > 1) {
+								char specialChar = cellContent.charAt(0) == '\uFEFF' && cellContent.length() > 2
+										? cellContent.charAt(2)
+										: (cellContent.length() > 1 ? cellContent.charAt(1) : roomInitial);
+
+								switch (specialChar) {
+									case ('<'):
+										temp.setDoorDirection(DoorDirection.LEFT);
+										break;
+									case ('>'):
+										temp.setDoorDirection(DoorDirection.RIGHT);
+										break;
+									case ('^'):
+										temp.setDoorDirection(DoorDirection.UP);
+										break;
+									case ('v'):
+										temp.setDoorDirection(DoorDirection.DOWN);
+										break;
+									case ('#'):
+										temp.setRoomLabel(true);
+										roomMap.get(roomInitial).setLabelCell(temp); // Set room label
+										break;
+									case ('*'):
+										temp.setRoomCenter(true);
+										roomMap.get(roomInitial).setCenterCell(temp); // Set room center
+										break;
+									default:
+										// If length > 1 and no other cases occur, this cell must be a secret passage
+										if (specialChar != roomInitial) {
+											temp.setSecretPassage(specialChar);
+										}
+										break;
 								}
 							}
-							
+
 							// put cell into grid
 							try {
 								grid[row][col] = temp;
