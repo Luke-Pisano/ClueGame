@@ -22,7 +22,7 @@ public class Board {
 	private String setupConfigFile; // setup configuration file
 	private Map<Character, Room> roomMap; // Map between character and room
 	private Set<BoardCell> targets; // possible target cells
-	private Set<BoardCell> visited; // previous tile visited
+	//private Set<BoardCell> visited; // previous tile visited
 	
 	private static Board theInstance = new Board();
 	// constructor is private to ensure only one can be created
@@ -307,32 +307,40 @@ public class Board {
 
 	public void calcTargets(BoardCell startCell, int pathlength) {
 		targets = new HashSet<>();
-		visited = new HashSet<>();
+		HashSet<BoardCell> visited = new HashSet<>();
 		visited.add(startCell);
-		findAllTargets(startCell, pathlength);
+		findAllTargets(startCell, pathlength, visited);
 	}
 
 	// recursive algorithm to find all possible cells can end on
-	private void findAllTargets(BoardCell cell, int stepsRemaining) {
+	private void findAllTargets(BoardCell cell, int stepsRemaining, HashSet<BoardCell> visited) {
+		visited = new HashSet<>(visited);
 		for (BoardCell adj : cell.getAdjList()) {
 			// skip if visited or occupied
-			if (visited.contains(adj)) {
-				continue;
-			}
-			if (adj != null && adj.getOccupied()) {
+			if (visited.contains(adj) || (adj.getOccupied() && !adj.isRoomCenter())) {
 				continue;
 			}
 			visited.add(adj);
 
-
-			if (stepsRemaining == 1) {
+			if (stepsRemaining == 1 || adj.isRoomCenter()) {
 				targets.add(adj); // need to end on roll number
-			} else if (adj.isDoorway()){
-				targets.add(adj); // room don't need to use full roll
-			} else {
-				findAllTargets(adj, stepsRemaining - 1); // repeat until room or 1 left
+				continue;
+			} else  {
+				findAllTargets(adj, stepsRemaining - 1, visited); // repeat until room or 1 left
 			}
 			visited.remove(adj); // remove backtrack
+		}
+	}
+
+	/**
+	 * Prints a set of BoardCells with format (a,b).
+	 * @param set the set to be printed
+	 */
+	public void printSet(Set set) {
+		BoardCell[] array = targets.toArray(new BoardCell[0]);
+		System.out.println("Printing targets:");
+		for (int i = 0; i < targets.size(); i++) {
+			System.out.println("(" + array[i].getRow() + "," + array[i].getCol() + ")");
 		}
 	}
 
