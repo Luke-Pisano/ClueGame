@@ -39,10 +39,6 @@ public class BoardCell {
 		adjList.add(adj);
 	}
 
-	/**
-	 *
-	 * @return Set of all cells adjacent to this cell.
-	 */
 	public Set<BoardCell> getAdjList() {
 		return adjList;
 	}
@@ -51,10 +47,6 @@ public class BoardCell {
 		this.adjList = adjList;
 	}
 
-	/**
-	 *
-	 * @return Whether the cell is a doorway.
-	 */
 	public boolean isDoorway() {
 		return doorDirection != DoorDirection.NONE;
 	}

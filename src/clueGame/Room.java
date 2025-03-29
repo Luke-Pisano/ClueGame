@@ -21,18 +21,10 @@ public class Room {
 		return name;
 	}
 
-	/**
-	 * Sets the center of the room to a specific cell.
-	 * @param centerCell The center cell of the room.
-	 */
 	public void setCenterCell(BoardCell centerCell) {
 		this.centerCell = centerCell;
 	}
 
-	/**
-	 * Sets the label location to a specific cell.
-	 * @param labelCell The cell where the label of the room should be located.
-	 */
 	public void setLabelCell(BoardCell labelCell) {
 		this.labelCell = labelCell;
 	}
