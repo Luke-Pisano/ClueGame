@@ -138,8 +138,6 @@ public class Board {
 								roomInitial = cellContent.charAt(1);
 							}
 
-							System.out.println("Room Initial: " + roomInitial);
-
 							// only run if initial doesn't match and not BOM char
 							if (!roomMap.containsKey(roomInitial) && roomInitial != 65279) {
 								throw new BadConfigFormatException("Initial doesn't exist at: " + row + ", " + col);
@@ -348,18 +346,6 @@ public class Board {
 				findAllTargets(adj, stepsRemaining - 1, visited); // repeat until room or 1 left
 			}
 			visited.remove(adj); // remove backtrack
-		}
-	}
-
-	/**
-	 * Prints a set of BoardCells with format (a,b).
-	 * @param set the set to be printed
-	 */
-	public void printSet(Set set) {
-		BoardCell[] array = targets.toArray(new BoardCell[0]);
-		System.out.println("Printing targets:");
-		for (int i = 0; i < targets.size(); i++) {
-			System.out.println("(" + array[i].getRow() + "," + array[i].getCol() + ")");
 		}
 	}
 
