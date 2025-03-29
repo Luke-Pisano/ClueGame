@@ -14,7 +14,7 @@ public class Room {
 	}
 
 	public Room(String name2, boolean equals) {
-		// TODO Auto-generated constructor stub
+		// TODO Do we need this?
 	}
 
 	public String getName() {

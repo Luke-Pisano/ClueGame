@@ -72,22 +72,18 @@ public class BoardCell {
 	}
 
 	public DoorDirection getDoorDirection() {
-		// TODO Auto-generated method stub
 		return doorDirection;
 	}
 
 	public boolean isLabel() {
-		// TODO Auto-generated method stub
 		return roomLabel;
 	}
 
 	public boolean isRoomCenter() {
-		// TODO Auto-generated method stub
 		return roomCenter;
 	}
 
 	public char getSecretPassage() {
-		// TODO Auto-generated method stub
 		return secretPassage;
 	}
 

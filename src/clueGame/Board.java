@@ -86,7 +86,6 @@ public class Board {
 			}
 			input.close();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -345,7 +344,6 @@ public class Board {
 	 * @param setupFile The name of the config file used for setup.
 	 */
 	public void setConfigFiles(String layoutFile, String setupFile) {
-		// TODO Auto-generated method stub
 		layoutConfigFile = "data/" + layoutFile;
 		setupConfigFile = "data/" + setupFile;
 	}
@@ -356,7 +354,6 @@ public class Board {
 	 * @return The room object that has the given label.
 	 */
 	public Room getRoom(char c) {
-		// TODO Auto-generated method stub
 		return roomMap.get(c);
 	}
 
@@ -365,7 +362,6 @@ public class Board {
 	 * @return The number of rows contained on the board.
 	 */
 	public int getNumRows() {
-		// TODO Auto-generated method stub
 		return numRows;
 	}
 
@@ -374,7 +370,6 @@ public class Board {
 	 * @return The number of columns contained on the board.
 	 */
 	public int getNumColumns() {
-		// TODO Auto-generated method stub
 		return numColumns;
 	}
 
@@ -385,7 +380,6 @@ public class Board {
 	 * @return
 	 */
 	public BoardCell getCell(int i, int j) {
-		// TODO Auto-generated method stub
 		return grid[i][j];
 	}
 
@@ -395,13 +389,12 @@ public class Board {
 	 * @return The room object that the cell is contained within.
 	 */
 	public Room getRoom(BoardCell cell) {
-		// TODO Auto-generated method stub
+		// TODO Is this needed? Can we just use the other getRoom method?
 		return getRoom(cell.getInitial());
 	}
 
 	// Used in test files
 	public Set<BoardCell> getAdjList(int row, int col) {
-		// TODO Auto-generated method stub
 		return grid[row][col].getAdjList();
 	}
 
