@@ -9,8 +9,6 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.Set;
 
-import experiment.TestBoardCell;
-
 public class Board {
 	/*
 	 * variable and methods used for singleton pattern
