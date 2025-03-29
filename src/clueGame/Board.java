@@ -113,7 +113,7 @@ public class Board {
 
 			grid = new BoardCell[numRows][numColumns];
 
-			try (Scanner reader = new Scanner(layout, "UTF-8")) {
+			try (Scanner reader = new Scanner(layout, "UTF_8")) {
 				int row = 0;
 				// add each value to grid with properties
 				while (reader.hasNextLine()) {
