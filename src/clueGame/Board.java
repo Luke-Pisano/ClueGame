@@ -377,8 +377,8 @@ public class Board {
 		return grid[i][j];
 	}
 
+	// Used in test files
 	public Room getRoom(BoardCell cell) {
-		// TODO Is this needed? Can we just use the other getRoom method?
 		return getRoom(cell.getInitial());
 	}
 
