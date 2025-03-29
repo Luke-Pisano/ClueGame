@@ -12,7 +12,7 @@ public class BoardCell {
 	private boolean roomCenter;
 	private boolean isOccupied;
 	private char secretPassage;
-	private Set<BoardCell> adjList = new HashSet<BoardCell>();
+	private Set<BoardCell> adjList = new HashSet<>();
 
 	/**
 	 *
