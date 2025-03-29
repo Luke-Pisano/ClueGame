@@ -118,7 +118,7 @@ public class Board {
 				// add each value to grid with properties
 				while (reader.hasNextLine()) {
 					ArrayList<String> line = tokenize(reader.nextLine(), ",");
-					if (line.size() > 0) {
+					if (!line.isEmpty()) {
 						for (int col = 0; col < line.size(); col++) {
 							if (line.get(col).isEmpty()) {
 								throw new BadConfigFormatException("Empty column at: " + row + ", " + col);
