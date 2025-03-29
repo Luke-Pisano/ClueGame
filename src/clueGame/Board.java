@@ -226,6 +226,9 @@ public class Board {
 		return result;
 	}
 
+	/**
+	 * Calculate the adjacencies for each cell on the board.
+	 */
 	public void calcAdj() {
 		for (int row = 0; row < numRows; row++) {
 			for (int col = 0; col < numColumns; col++) {
@@ -306,6 +309,11 @@ public class Board {
 		}
 	}
 
+	/**
+	 * Calculate the targets for a given cell and path length.
+	 * @param startCell The cell to start from.
+	 * @param pathlength The number of steps to take.
+	 */
 	public void calcTargets(BoardCell startCell, int pathlength) {
 		targets = new HashSet<>();
 		HashSet<BoardCell> visited = new HashSet<>();
@@ -319,7 +327,12 @@ public class Board {
 		findAllTargets(startCell, pathlength, visited);
 	}
 
-	// recursive algorithm to find all possible cells can end on
+	/**
+	 * Recursive function to find all targets for a given cell and path length.
+	 * @param cell The cell to start from.
+	 * @param stepsRemaining The number of steps to take.
+	 * @param visited The set of visited cells.
+	 */
 	private void findAllTargets(BoardCell cell, int stepsRemaining, HashSet<BoardCell> visited) {
 		visited = new HashSet<>(visited);
 		for (BoardCell adj : cell.getAdjList()) {
@@ -348,46 +361,22 @@ public class Board {
 		setupConfigFile = "data/" + setupFile;
 	}
 
-	/**
-	 *
-	 * @param c The label of the room.
-	 * @return The room object that has the given label.
-	 */
 	public Room getRoom(char c) {
 		return roomMap.get(c);
 	}
 
-	/**
-	 *
-	 * @return The number of rows contained on the board.
-	 */
 	public int getNumRows() {
 		return numRows;
 	}
 
-	/**
-	 *
-	 * @return The number of columns contained on the board.
-	 */
 	public int getNumColumns() {
 		return numColumns;
 	}
 
-	/**
-	 *
-	 * @param i The row of the desired cell.
-	 * @param j The column of the desired cell.
-	 * @return
-	 */
 	public BoardCell getCell(int i, int j) {
 		return grid[i][j];
 	}
 
-	/**
-	 *
-	 * @param cell The cell to be identified.
-	 * @return The room object that the cell is contained within.
-	 */
 	public Room getRoom(BoardCell cell) {
 		// TODO Is this needed? Can we just use the other getRoom method?
 		return getRoom(cell.getInitial());
