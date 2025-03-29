@@ -185,7 +185,6 @@ public class Board {
 					}
 					row++;
 				}
-				reader.close();
 				calcAdj();
 			}
 		} catch (FileNotFoundException e) {
