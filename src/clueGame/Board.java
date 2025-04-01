@@ -23,7 +23,8 @@ public class Board {
 	private Set<BoardCell> targets; // possible target cells
 	private List<Player> players = new ArrayList<>(); // stores players in a list
 	private List<String> weapons = new ArrayList<>(); // stores players in a list
-
+	private List<Card> deck = new ArrayList<>();
+	
 	private static Board theInstance = new Board();
 	// constructor is private to ensure only one can be created
 	private Board() {
@@ -83,6 +84,9 @@ public class Board {
 					String name = tokens.get(1);
 		            char character = tokens.get(2).charAt(0);
 					roomMap.put(character, new Room(name));
+					if(type.equals("Room")) {
+						deck.add(new Card(name, CardType.ROOM));
+					}
 				}
 				
 				if(type.equals("Player")) {
@@ -97,10 +101,12 @@ public class Board {
 					} else {
 						players.add(new ComputerPlayer(playerName, playerColor, playerRow, playerCol));
 					}
+					deck.add(new Card(playerName, CardType.PERSON));
 				}
 				
 				if(type.equals("Weapon")) {
 					weapons.add(tokens.get(1));
+					deck.add(new Card(tokens.get(1), CardType.WEAPON));
 				}
 				
 			}
@@ -420,5 +426,15 @@ public class Board {
 	// get list of players
 	public List<Player> getPlayers() {
 		return players;
+	}
+	
+	// get list of weapons
+	public List<String> getWeapons() {
+		return weapons;
+	}
+	
+	// get list of cards in deck
+	public List<Card> getDeck() {
+		return deck;
 	}
 }

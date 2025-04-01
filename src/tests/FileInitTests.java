@@ -164,33 +164,33 @@ public class FileInitTests {
 	public void testPlayers() {
 		List<Player> players = board.getPlayers();
 
-		assertEquals(players.size(), 6);
+		assertEquals(6, players.size());
 		
-		assertEquals(players.get(0).getName(), "Johnathan Karsh");
-		assertEquals(players.get(2).getName(), "Calamity Jane");
-		assertEquals(players.get(5).getName(), "Jesse James");
+		assertEquals("Johnathan Karsh", players.get(0).getName());
+		assertEquals("Calamity Jane", players.get(2).getName());
+		assertEquals("Jesse James", players.get(5).getName());
 
-		assertEquals(players.get(1).getColor(), "RED");
-		assertEquals(players.get(3).getColor(), "YELLOW");
-		assertEquals(players.get(5).getColor(), "ORANGE");
+		assertEquals("RED", players.get(1).getColor());
+		assertEquals("YELLOW", players.get(3).getColor());
+		assertEquals("ORANGE", players.get(5).getColor());
 		
-		assertEquals(players.get(0).getType(), "HUMAN");
-		assertEquals(players.get(2).getType(), "COMPUTER");
-		assertEquals(players.get(5).getType(), "COMPUTER");
+		assertEquals("HUMAN", players.get(0).getType());
+		assertEquals("COMPUTER", players.get(2).getType());
+		assertEquals("COMPUTER", players.get(5).getType());
 		
-		assertEquals(players.get(2).getRow(), 11);
-		assertEquals(players.get(3).getRow(), 15);
-		assertEquals(players.get(4).getRow(), 28);
+		assertEquals(11, players.get(2).getRow());
+		assertEquals(15, players.get(3).getRow());
+		assertEquals(28, players.get(4).getRow());
 		
-		assertEquals(players.get(1).getColumn(), 18);
-		assertEquals(players.get(3).getColumn(), 0);
-		assertEquals(players.get(4).getColumn(), 7);
+		assertEquals(18, players.get(1).getColumn());
+		assertEquals(0, players.get(3).getColumn());
+		assertEquals(7, players.get(4).getColumn());
 	}
-	
+		
 	// These test that the cards are loaded in correctly
 	@Test
 	public void testCards() {
-		
+		assertEquals(21, board.getDeck().size());
 	}
 	
 	/*
