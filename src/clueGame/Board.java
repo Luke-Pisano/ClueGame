@@ -66,7 +66,7 @@ public class Board {
 
 				ArrayList<String> tokens = tokenize(line, ", ");
 
-				if(tokens.size() != 3) {
+				if(tokens.size() != 3 && tokens.size() != 6) {
 					continue;
 				}
 
@@ -74,13 +74,18 @@ public class Board {
 	            String name = tokens.get(1);
 	            char character = tokens.get(2).charAt(0);
 
-	            if (!type.equals("Room") && !type.equals("Space")) {
+	            if (!type.equals("Room") && !type.equals("Space") && !type.equals("Player")) {
 	                throw new BadConfigFormatException("Invalid type " + type);
 	            }
 
 				if(type.equals("Room") || type.equals("Space")) {
 					roomMap.put(character, new Room(name));
 				}
+				
+				if(type.equals("Player")) {
+					// create player info from setup
+				}
+				
 			}
 			input.close();
 		} catch (FileNotFoundException e) {
