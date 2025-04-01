@@ -1,6 +1,6 @@
 package clueGame;
 
-public class ComputerPlayer {
+public class ComputerPlayer extends Player {
 	public ComputerPlayer() {
 		// some constructor
 	}
