@@ -8,6 +8,8 @@ package tests;
 // Assert.assertEquals
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -17,6 +19,7 @@ import clueGame.Board;
 import clueGame.BoardCell;
 import clueGame.DoorDirection;
 import clueGame.Room;
+import clueGame.Player;
 
 public class FileInitTests {
 	// Constants that I will use to test whether the file was loaded correctly
@@ -159,17 +162,33 @@ public class FileInitTests {
 	// These test that the players are loaded in correctly
 	@Test
 	public void testPlayers() {
+		List<Player> players = board.getPlayers();
+
+		assertEquals(players.size(), 6);
 		
+		assertEquals(players.get(0).getName(), "Johnathan Karsh");
+		assertEquals(players.get(2).getName(), "Calamity Jane");
+		assertEquals(players.get(5).getName(), "Jesse James");
+
+		assertEquals(players.get(1).getColor(), "RED");
+		assertEquals(players.get(3).getColor(), "YELLOW");
+		assertEquals(players.get(5).getColor(), "ORANGE");
+		
+		assertEquals(players.get(0).getType(), "HUMAN");
+		assertEquals(players.get(2).getType(), "COMPUTER");
+		assertEquals(players.get(5).getType(), "COMPUTER");
+		
+		assertEquals(players.get(2).getRow(), 0);
+		assertEquals(players.get(3).getRow(), 0);
+		assertEquals(players.get(4).getRow(), 0);
+		
+		assertEquals(players.get(1).getColumn(), 18);
+		assertEquals(players.get(3).getColumn(), 18);
+		assertEquals(players.get(4).getColumn(), 18);
 	}
 	/*
 	 Tests to Add
 	 
-	  Load in players
- 		Check 6 players loaded in
- 		Check to make sure each player has correct # attributes
- 		Test 1 player is human rest are computers
-	 	Test players start at their locations correctly
-	 	
 	 Test cards
 	 	Test deck contains correct # rooms, weapons, and players
 	 	Test equals

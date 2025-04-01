@@ -31,4 +31,6 @@ public abstract class Player {
 	public int getColumn() {
 		return column;
 	}
+	
+	public abstract String getType();
 }
