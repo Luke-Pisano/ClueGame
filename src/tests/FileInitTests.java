@@ -187,6 +187,11 @@ public class FileInitTests {
 		assertEquals(players.get(4).getColumn(), 7);
 	}
 	
+	// These test that the cards are loaded in correctly
+	@Test
+	public void testCards() {
+		
+	}
 	
 	/*
 	 Tests to Add

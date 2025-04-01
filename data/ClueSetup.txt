@@ -28,3 +28,10 @@ Player, Calamity Jane, GREEN, COMPUTER, 11, 25
 Player, Wild Bill Hickok, YELLOW, COMPUTER, 15, 0
 Player, Annie Oakley, PURPLE, COMPUTER, 28, 7
 Player, Jesse James, ORANGE, COMPUTER, 28, 20
+//Weapons
+Weapon, Revolver
+Weapon, Lasso
+Weapon, Dynamite
+Weapon, Tomahawk
+Weapon, Shovel
+Weapon, Pickaxe

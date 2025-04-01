@@ -22,7 +22,8 @@ public class Board {
 	private Map<Character, Room> roomMap; // Map between character and room
 	private Set<BoardCell> targets; // possible target cells
 	private List<Player> players = new ArrayList<>(); // stores players in a list
-	
+	private List<String> weapons = new ArrayList<>(); // stores players in a list
+
 	private static Board theInstance = new Board();
 	// constructor is private to ensure only one can be created
 	private Board() {
@@ -68,19 +69,19 @@ public class Board {
 
 				ArrayList<String> tokens = tokenize(line, ", ");
 
-				if(tokens.size() != 3 && tokens.size() != 6) {
+				if (line.substring(0,2).equals("//")) {
 					continue;
 				}
 
 				String type = tokens.get(0);
-	            String name = tokens.get(1);
-	            char character = tokens.get(2).charAt(0);
 
-	            if (!type.equals("Room") && !type.equals("Space") && !type.equals("Player")) {
+	            if (!type.equals("Room") && !type.equals("Space") && !type.equals("Player") && !type.equals("Weapon")) {
 	                throw new BadConfigFormatException("Invalid type " + type);
 	            }
 
 				if(type.equals("Room") || type.equals("Space")) {
+					String name = tokens.get(1);
+		            char character = tokens.get(2).charAt(0);
 					roomMap.put(character, new Room(name));
 				}
 				
@@ -96,6 +97,10 @@ public class Board {
 					} else {
 						players.add(new ComputerPlayer(playerName, playerColor, playerRow, playerCol));
 					}
+				}
+				
+				if(type.equals("Weapon")) {
+					weapons.add(tokens.get(1));
 				}
 				
 			}
