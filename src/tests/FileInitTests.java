@@ -178,14 +178,16 @@ public class FileInitTests {
 		assertEquals(players.get(2).getType(), "COMPUTER");
 		assertEquals(players.get(5).getType(), "COMPUTER");
 		
-		assertEquals(players.get(2).getRow(), 0);
-		assertEquals(players.get(3).getRow(), 0);
-		assertEquals(players.get(4).getRow(), 0);
+		assertEquals(players.get(2).getRow(), 11);
+		assertEquals(players.get(3).getRow(), 15);
+		assertEquals(players.get(4).getRow(), 28);
 		
 		assertEquals(players.get(1).getColumn(), 18);
-		assertEquals(players.get(3).getColumn(), 18);
-		assertEquals(players.get(4).getColumn(), 18);
+		assertEquals(players.get(3).getColumn(), 0);
+		assertEquals(players.get(4).getColumn(), 7);
 	}
+	
+	
 	/*
 	 Tests to Add
 	 
