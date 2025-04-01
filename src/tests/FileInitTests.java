@@ -153,7 +153,29 @@ public class FileInitTests {
 		assertFalse( cell.isLabel() );
 		assertFalse( cell.isDoorway()) ;
 		assertFalse( cell.getSecretPassage() == 'D' );
-
+		
 	}
+	
+	/*
+	 Tests to Add
+	 
+	  Load in players
+ 		Check 6 players loaded in
+ 		Check to make sure each player has correct # attributes
+ 		Test 1 player is human rest are computers
+	 	Test players start at their locations correctly
+	 	
+	 Test cards
+	 	Test deck contains correct # rooms, weapons, and players
+	 	Test equals
+	 	Test 21 cards in deck
+	 	Test dealing out cards and selecting answer cards
+	 	Test all players have same amount of cards
+	 	Test cards not dealt twice
+	 	
+	 
+	 
+	 */
+	
 
 }
