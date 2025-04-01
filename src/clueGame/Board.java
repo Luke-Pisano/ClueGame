@@ -358,6 +358,13 @@ public class Board {
 		setupConfigFile = "data/" + setupFile;
 	}
 
+	/**
+	 * deal method for player-1 assignment
+	 */
+	public void deal() {
+		// still yet to implement
+	}
+	
 	public Room getRoom(char c) {
 		return roomMap.get(c);
 	}
