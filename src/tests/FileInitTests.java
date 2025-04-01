@@ -156,6 +156,11 @@ public class FileInitTests {
 		
 	}
 	
+	// These test that the players are loaded in correctly
+	@Test
+	public void testPlayers() {
+		
+	}
 	/*
 	 Tests to Add
 	 

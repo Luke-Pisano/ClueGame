@@ -3,6 +3,7 @@ package clueGame;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -20,6 +21,7 @@ public class Board {
 	private String setupConfigFile; // setup configuration file
 	private Map<Character, Room> roomMap; // Map between character and room
 	private Set<BoardCell> targets; // possible target cells
+	private List<Player> players = new ArrayList<>(); // stores players in a list
 	
 	private static Board theInstance = new Board();
 	// constructor is private to ensure only one can be created
@@ -83,7 +85,17 @@ public class Board {
 				}
 				
 				if(type.equals("Player")) {
-					// create player info from setup
+					String playerName = tokens.get(1);
+					String playerColor = tokens.get(2);
+					String playerType = tokens.get(3);
+					int playerRow = Integer.parseInt(tokens.get(4));
+					int playerCol = Integer.parseInt(tokens.get(5));
+					
+					if(playerType.equals("HUMAN")) {
+						players.add(new HumanPlayer(playerName, playerColor, playerRow, playerCol));
+					} else {
+						players.add(new ComputerPlayer(playerName, playerColor, playerRow, playerCol));
+					}
 				}
 				
 			}
@@ -398,5 +410,10 @@ public class Board {
 
 	public Set<BoardCell> getTargets() {
 		return targets;
+	}
+	
+	// get list of players
+	public List<Player> getPlayers() {
+		return players;
 	}
 }
