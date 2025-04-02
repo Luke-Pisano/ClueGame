@@ -189,7 +189,7 @@ public class FileInitTests {
 		assertEquals(7, players.get(4).getColumn());
 	}
 		
-	// These test that the cards are loaded in correctly
+	// These test that the cards are loaded in and methods work
 	@Test
 	public void testCards() {
 		List<Card> deck = board.getDeck();
@@ -206,17 +206,21 @@ public class FileInitTests {
 		assertFalse(card13.equals(cardToCompare));
 	}
 	
-	/*
-	 Tests to Add
-	 
-	 Test cards
-	 	Test dealing out cards and selecting answer cards
-	 	Test all players have same amount of cards
-	 	Test cards not dealt twice
-	 	
-	 
-	 
-	 */
+	// tests 3 cards pulled for solution
+	@Test
+	public void testAnswerCards() {
+		
+	}
 	
-
+	// tests even cards distibuted
+	@Test
+	public void testCardsDistribution() {
+		
+	}
+	
+	// tests cards each only dealt once
+	@Test
+	public void testCardsUnique() {
+		
+	}
 }
