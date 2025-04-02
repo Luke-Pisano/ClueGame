@@ -234,7 +234,7 @@ public class FileInitTests {
 	    assertEquals(1, playerCount);
 	}
 	
-	// tests even cards distibuted
+	// tests even cards distributed
 	@Test
 	public void testCardsDistribution() {
 	    List<Player> players = board.getPlayers();
