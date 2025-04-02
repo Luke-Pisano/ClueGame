@@ -17,6 +17,8 @@ import org.junit.jupiter.api.Test;
 import clueGame.BadConfigFormatException;
 import clueGame.Board;
 import clueGame.BoardCell;
+import clueGame.Card;
+import clueGame.CardType;
 import clueGame.DoorDirection;
 import clueGame.Room;
 import clueGame.Player;
@@ -190,16 +192,24 @@ public class FileInitTests {
 	// These test that the cards are loaded in correctly
 	@Test
 	public void testCards() {
-		assertEquals(21, board.getDeck().size());
+		List<Card> deck = board.getDeck();
+		assertEquals(21, deck.size());
+		
+		Card cardToCompare = new Card("Saloon", CardType.ROOM);
+				
+		Card card1 = deck.get(0);
+		Card card3 = deck.get(3);
+		Card card13 = deck.get(13);
+
+		assertTrue(card1.equals(cardToCompare));
+		assertFalse(card3.equals(cardToCompare));
+		assertFalse(card13.equals(cardToCompare));
 	}
 	
 	/*
 	 Tests to Add
 	 
 	 Test cards
-	 	Test deck contains correct # rooms, weapons, and players
-	 	Test equals
-	 	Test 21 cards in deck
 	 	Test dealing out cards and selecting answer cards
 	 	Test all players have same amount of cards
 	 	Test cards not dealt twice

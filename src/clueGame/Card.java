@@ -10,7 +10,7 @@ public class Card {
 	}
 	
 	public boolean equals(Card target) {
-		return false;
+        return cardName.equals(target.cardName) && cardType == target.cardType;
 	}
 	
     // Getter for cardName
