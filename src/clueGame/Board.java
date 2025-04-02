@@ -33,7 +33,7 @@ public class Board {
 	// constructor is private to ensure only one can be created
 	private Board() {
 		super();
-		roomMap = new HashMap<>(); // initalizes the room map
+		roomMap = new HashMap<>(); // initializes the room map
 	}
 
 	/**
@@ -54,6 +54,8 @@ public class Board {
 			}
 		}
 		try {
+			deck.clear();
+			players.clear();
 			loadSetupConfig();
 			loadLayoutConfig();
 			deal();
@@ -422,10 +424,12 @@ public class Board {
         int playerCount = players.size();
         int playerIndex = 0;
 
-        for (Card card : shuffledDeck) {
-            players.get(playerIndex).addCard(card);
-            playerIndex = (playerIndex + 1) % playerCount;
-        }
+		if (playerCount > 0) {
+			for (Card card : shuffledDeck) {
+				players.get(playerIndex).addCard(card);
+				playerIndex = (playerIndex + 1) % playerCount;
+			}
+		}
 	}
 	
 	public Room getRoom(char c) {
