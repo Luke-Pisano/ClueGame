@@ -1,9 +1,13 @@
 package clueGame;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class Player {
 	private String name;
 	private String color;
 	private int row, column;
+	private List<Card> hand = new ArrayList<>();
 	
 	public Player(String name, String color, int row, int column) {
 		this.name = name;
@@ -33,4 +37,12 @@ public abstract class Player {
 	}
 	
 	public abstract String getType();
+
+	public void addCard(Card card) {
+		hand.add(card);
+	}
+	
+	public List<Card> getHand() {
+		return hand;
+	}
 }

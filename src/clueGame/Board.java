@@ -1,8 +1,10 @@
 package clueGame;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.io.File;
@@ -22,8 +24,10 @@ public class Board {
 	private Map<Character, Room> roomMap; // Map between character and room
 	private Set<BoardCell> targets; // possible target cells
 	private List<Player> players = new ArrayList<>(); // stores players in a list
-	private List<String> weapons = new ArrayList<>(); // stores players in a list
-	private List<Card> deck = new ArrayList<>();
+	private List<String> weapons = new ArrayList<>(); // stores weapons in a list
+	private List<Card> deck = new ArrayList<>(); // stores all game cards
+	private Set<Card> solution; // stores the solution cards
+
 	
 	private static Board theInstance = new Board();
 	// constructor is private to ensure only one can be created
@@ -52,6 +56,7 @@ public class Board {
 		try {
 			loadSetupConfig();
 			loadLayoutConfig();
+			deal();
 		} catch (BadConfigFormatException e) {
 			System.err.println(e.getMessage());
 		}
@@ -387,10 +392,40 @@ public class Board {
 	}
 
 	/**
-	 * deal method for player-1 assignment
+	 * deal method for cards after setup
 	 */
 	public void deal() {
-		// still yet to implement
+        List<Card> shuffledDeck = new ArrayList<>(deck);
+        Collections.shuffle(shuffledDeck);
+
+        solution = new HashSet<>();
+        Card room = null, weapon = null, person = null;
+
+        Iterator<Card> iterator = shuffledDeck.iterator();
+        while (iterator.hasNext() && (room == null || weapon == null || person == null)) {
+            Card card = iterator.next();
+            if (card.getCardType() == CardType.ROOM && room == null) {
+                room = card;
+                solution.add(room);
+                iterator.remove();
+            } else if (card.getCardType() == CardType.WEAPON && weapon == null) {
+                weapon = card;
+                solution.add(weapon);
+                iterator.remove();
+            } else if (card.getCardType() == CardType.PERSON && person == null) {
+                person = card;
+                solution.add(person);
+                iterator.remove();
+            }
+        }
+
+        int playerCount = players.size();
+        int playerIndex = 0;
+
+        for (Card card : shuffledDeck) {
+            players.get(playerIndex).addCard(card);
+            playerIndex = (playerIndex + 1) % playerCount;
+        }
 	}
 	
 	public Room getRoom(char c) {
@@ -436,5 +471,10 @@ public class Board {
 	// get list of cards in deck
 	public List<Card> getDeck() {
 		return deck;
+	}
+
+	// get solution to game
+	public Set<Card> getSolution() {
+		return solution;
 	}
 }

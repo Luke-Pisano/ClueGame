@@ -8,7 +8,9 @@ package tests;
 // Assert.assertEquals
 import static org.junit.Assert.*;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeAll;
@@ -209,18 +211,57 @@ public class FileInitTests {
 	// tests 3 cards pulled for solution
 	@Test
 	public void testAnswerCards() {
-		
+	    Set<Card> solution = board.getSolution();
+	    assertEquals(3, solution.size());
+
+	    int roomCount = 0, weaponCount = 0, playerCount = 0;
+	    for (Card card : solution) {
+	        switch (card.getCardType()) {
+	            case ROOM:
+	                roomCount++;
+	                break;
+	            case WEAPON:
+	                weaponCount++;
+	                break;
+	            case PERSON:
+	                playerCount++;
+	                break;
+	        }
+	    }
+
+	    assertEquals(1, roomCount);
+	    assertEquals(1, weaponCount);
+	    assertEquals(1, playerCount);
 	}
 	
 	// tests even cards distibuted
 	@Test
 	public void testCardsDistribution() {
-		
+	    List<Player> players = board.getPlayers();
+	    int firstPlayerCardCount = players.get(0).getHand().size();
+
+	    for (Player player : players) {
+	    	int playerCardCount = player.getHand().size();
+	    	int difference = Math.abs(playerCardCount - firstPlayerCardCount);
+	    	assertTrue(difference <= 1);
+	    }
 	}
 	
 	// tests cards each only dealt once
 	@Test
 	public void testCardsUnique() {
-		
+	    Set<Card> allDealtCards = new HashSet<>();
+	    List<Player> players = board.getPlayers();
+
+	    for (Player player : players) {
+	        for (Card card : player.getHand()) {
+	            assertFalse(allDealtCards.contains(card));
+	            allDealtCards.add(card);
+	        }
+	    }
+
+	    for (Card card : board.getSolution()) {
+	        assertFalse(allDealtCards.contains(card));
+	    }
 	}
 }
