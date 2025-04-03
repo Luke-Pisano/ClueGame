@@ -474,6 +474,7 @@ public class Board {
 	
 	// get list of cards in deck
 	public List<Card> getDeck() {
+		Collections.shuffle(deck);
 		return deck;
 	}
 
