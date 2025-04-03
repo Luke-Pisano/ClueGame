@@ -6,7 +6,9 @@ public class Solution {
 	private Card weapon;
 	
 	
-	public Solution() {
-		// some constructor
+	public Solution(Card room, Card person, Card weapon) {
+		this.person = person;
+		this.room = room;
+		this.weapon = weapon;
 	}
 }
