@@ -5,12 +5,12 @@ import java.util.Set;
 
 public class ComputerPlayer extends Player {
 	private String type = "COMPUTER";
-	private Set<Card> seenCards = new HashSet<>();
 
 	public ComputerPlayer(String name, String color, int row, int column) {
 		super(name, color, row, column);
 	}
 
+	@Override
 	public Solution createSuggestion() {
 		// Create a suggestion based on the computer player's hand and the game state
 		// TODO Check implementation of suggestion algorithm
@@ -19,8 +19,8 @@ public class ComputerPlayer extends Player {
 		Card person = null;
 		Card weapon = null;
 		for (Card card : board.getDeck()) {
-			if (!seenCards.contains(card) && (room == null || person == null || weapon == null)) {
-				if (card.getCardName().equals(board.getRoom(board.getCell(getRow(), getColumn())).getName())) {
+			if (!this.seenCards.contains(card) && (room == null || person == null || weapon == null)) {
+				if (card.getCardName().equals(board.getRoom(board.getCell(this.row, this.column)).getName())) {
 					room = card;
 				} else if (card.getCardType() == CardType.PERSON) {
 					person = card;
@@ -42,8 +42,16 @@ public class ComputerPlayer extends Player {
 		return targets.iterator().next();
 	}
 
-	public void updateSeenCards(Card card) {
-		seenCards.add(card);
+	@Override
+	public Card disproveSuggestion(Solution suggestion) {
+		// Disprove the suggestion if possible
+		for (Card card : getHand()) {
+			if (card.equals(suggestion.getRoom()) || card.equals(suggestion.getPerson()) || card.equals(suggestion.getWeapon())) {
+				updateSeenCards(card);
+				return card;
+			}
+		}
+		return null;
 	}
 
 	public String getType() {
