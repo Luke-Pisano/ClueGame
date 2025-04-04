@@ -211,7 +211,7 @@ public class FileInitTests {
 	// tests 3 cards pulled for solution
 	@Test
 	public void testAnswerCards() {
-	    Set<Card> solution = board.getSolution();
+	    List<Card> solution = board.getSolution();
 	    assertEquals(3, solution.size());
 
 	    int roomCount = 0, weaponCount = 0, playerCount = 0;

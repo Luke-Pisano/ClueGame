@@ -1,6 +1,9 @@
 package clueGame;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class ComputerPlayer extends Player {
@@ -45,11 +48,19 @@ public class ComputerPlayer extends Player {
 	@Override
 	public Card disproveSuggestion(Solution suggestion) {
 		// Disprove the suggestion if possible
+		List<Card> possibleCards = new ArrayList<>();
+		
 		for (Card card : getHand()) {
 			if (card.equals(suggestion.getRoom()) || card.equals(suggestion.getPerson()) || card.equals(suggestion.getWeapon())) {
 				updateSeenCards(card);
-				return card;
+				possibleCards.add(card);
 			}
+		}
+		
+		if(possibleCards.size() > 0) {
+			Collections.shuffle(possibleCards);
+			return(possibleCards.get(0));
+			
 		}
 		return null;
 	}

@@ -26,8 +26,8 @@ public class Board {
 	private List<Player> players = new ArrayList<>(); // stores players in a list
 	private List<String> weapons = new ArrayList<>(); // stores weapons in a list
 	private List<Card> deck = new ArrayList<>(); // stores all game cards
-	private Set<Card> solution; // stores the solution cards
-
+	private List<Card> solution; // stores the solution cards
+	private Solution theAnswer; // stores the answer object
 	
 	private static Board theInstance = new Board();
 	// constructor is private to ensure only one can be created
@@ -48,14 +48,14 @@ public class Board {
 	 * initialize the board (since we are using singleton pattern)
 	 */
 	public void initialize() {
+		theAnswer = null;
 		for (int row = 0; row < numRows; row++) {
 			for (int col = 0; col < numColumns; col++) {
 				grid[row][col] = new BoardCell(row, col, 'X');
 			}
 		}
 		try {
-			deck.clear();
-			players.clear();
+			clearData();
 			loadSetupConfig();
 			loadLayoutConfig();
 			deal();
@@ -64,6 +64,15 @@ public class Board {
 		}
 	}
 
+	/**
+	 * Method to clear data if needed
+	 */
+	public void clearData() {
+		players.clear();
+		weapons.clear();
+		deck.clear();
+		theAnswer = null;
+	}
 	/**
 	 * Loads txt setup config file with space and room information
 	 * @throws BadConfigFormatException if file format is incorrect
@@ -400,7 +409,8 @@ public class Board {
         List<Card> shuffledDeck = new ArrayList<>(deck);
         Collections.shuffle(shuffledDeck);
 
-        solution = new HashSet<>();
+        solution = new ArrayList<>();
+        
         Card room = null, weapon = null, person = null;
 
         Iterator<Card> iterator = shuffledDeck.iterator();
@@ -420,7 +430,11 @@ public class Board {
                 iterator.remove();
             }
         }
-
+        
+        if (solution.size() == 3) {
+        	theAnswer = new Solution(solution.get(0), solution.get(1), solution.get(2));
+        }
+        
         int playerCount = players.size();
         int playerIndex = 0;
 
@@ -430,6 +444,29 @@ public class Board {
 				playerIndex = (playerIndex + 1) % playerCount;
 			}
 		}
+	}
+	
+	public Card handleSuggestion(Solution suggestion, Player suggestingPlayer) {
+		int playerIndex = players.indexOf(suggestingPlayer);
+
+	    for (int i = 1; i < players.size(); i++) {
+	        int index = (playerIndex + i) % players.size();
+	        Player currentPlayer = players.get(index);
+
+	        Card cardToDisprove = currentPlayer.disproveSuggestion(suggestion);
+	        if (cardToDisprove != null) {
+	            return cardToDisprove;
+	        }
+	    }
+	    return null;
+	}
+	
+	public void setSolution(Card room, Card person, Card weapon) {
+		theAnswer = new Solution(room, person, weapon);
+	}
+	
+	public void setPlayer(Player player) {
+		players.add(player);
 	}
 	
 	public Room getRoom(char c) {
@@ -474,12 +511,16 @@ public class Board {
 	
 	// get list of cards in deck
 	public List<Card> getDeck() {
-		Collections.shuffle(deck);
+		//Collections.shuffle(deck); // breaks tests when shuffled again
 		return deck;
 	}
 
-	// get solution to game
-	public Set<Card> getSolution() {
-		return solution;
+	// get answer to game
+	public Solution getAnswer() {
+		return theAnswer;
 	}
+	
+	public List<Card> getSolution() {
+ 		return solution;
+ 	}
 }
