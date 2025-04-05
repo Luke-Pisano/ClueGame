@@ -52,7 +52,7 @@ public class ComputerPlayer extends Player {
 	    Collections.shuffle(unseenWeapons);
 
 		
-		return new Solution(roomCard, unseenPeople.get(0), unseenWeapons.get(0))
+		return new Solution(roomCard, unseenPeople.get(0), unseenWeapons.get(0));
 
 	}
 	
