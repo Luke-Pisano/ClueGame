@@ -450,7 +450,7 @@ public class Board {
 		int playerIndex = players.indexOf(suggestingPlayer);
 
 	    for (int i = 1; i < players.size(); i++) {
-	        int index = (playerIndex + i) % players.size();
+	    	int index = (playerIndex + i) % players.size();
 	        Player currentPlayer = players.get(index);
 
 	        Card cardToDisprove = currentPlayer.disproveSuggestion(suggestion);
