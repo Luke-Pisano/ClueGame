@@ -15,34 +15,92 @@ public class ComputerPlayer extends Player {
 
 	@Override
 	public Solution createSuggestion() {
-		// Create a suggestion based on the computer player's hand and the game state
-		// TODO Check implementation of suggestion algorithm
 		Board board = Board.getInstance();
-		Card room = null;
-		Card person = null;
-		Card weapon = null;
-		for (Card card : board.getDeck()) {
-			if (!this.seenCards.contains(card) && (room == null || person == null || weapon == null)) {
-				if (card.getCardName().equals(board.getRoom(board.getCell(this.row, this.column)).getName())) {
-					room = card;
-				} else if (card.getCardType() == CardType.PERSON) {
-					person = card;
-				} else if (card.getCardType() == CardType.WEAPON) {
-					weapon = card;
-				}
-			}
-		}
-		if (room == null || person == null || weapon == null) {
-			// If we can't make a suggestion, return null
-			return null;
-		}
-		return new Solution(room, person, weapon);
-	}
+		
+		BoardCell currentCell = board.getCell(getRow(), getColumn());
+		String roomName = board.getRoom(currentCell).getName();
+		Card roomCard = new Card(roomName, CardType.ROOM);
+		
+		
+		List<Card> allPeople = new ArrayList<>();
+	    List<Card> allWeapons = new ArrayList<>();
+	    
+		List<Card> unseenPeople = new ArrayList<>();
+	    List<Card> unseenWeapons = new ArrayList<>();
+	    
+	    for (Card card : board.getDeck()) {
+	    	if (card.getCardType() == CardType.PERSON) {
+	    		allPeople.add(card);
+	    	} else if (card.getCardType() == CardType.WEAPON) {
+	    		allWeapons.add(card);
+	    	}
+	    }
+	    
+	    for (Card card : allPeople) {
+	        if (!seenCards.contains(card)) {
+	            unseenPeople.add(card);
+	        }
+	    }
 
+	    for (Card card : allWeapons) {
+	        if (!seenCards.contains(card)) {
+	            unseenWeapons.add(card);
+	        }
+	    }
+	    
+	    Collections.shuffle(unseenPeople);
+	    Collections.shuffle(unseenWeapons);
+
+	    
+		/*
+		 * 
+		 * Add random ness to select other cards based on random card which hasn't been seen
+		 * Have a set of type Cards of seen.
+		 */
+		
+		return new Solution(roomCard, unseenPeople.get(0), unseenWeapons.get(0));
+
+//		// Get current room based on player's location
+//		BoardCell currentCell = board.getCell(getRow(), getColumn());
+//		String roomName = board.getRoom(currentCell).getName();
+//
+//		Card roomCard = new Card(roomName, CardType.ROOM);
+//		List<Card> unseenPeople = new ArrayList<>();
+//		List<Card> unseenWeapons = new ArrayList<>();
+//
+//		// Loop through the deck
+//		for (Card card : board.getDeck()) {
+//			if (card.getCardType() == CardType.PERSON && !seenCards.contains(card)) {
+//				unseenPeople.add(card);
+//			} else if (card.getCardType() == CardType.WEAPON && !seenCards.contains(card)) {
+//				unseenWeapons.add(card);
+//			}
+//		}
+//
+//		// Make sure we have at least one unseen person and weapon
+//		if (roomCard == null || unseenPeople.isEmpty() || unseenWeapons.isEmpty()) {
+//			return null; // Can't create suggestion
+//		}
+//
+//		// Randomly pick one unseen person and weapon
+//		Collections.shuffle(unseenPeople);
+//		Collections.shuffle(unseenWeapons);
+//
+//		Card person = unseenPeople.get(0);
+//		Card weapon = unseenWeapons.get(0);
+
+
+	}
+	
 	public BoardCell selectTarget(Set<BoardCell> targets) {
-		// Select a target cell from the set of targets
-		// TODO Implement a strategy for selecting a target
-		return targets.iterator().next();
+	    List<BoardCell> targetList = new ArrayList<>(targets);
+	    for (BoardCell target : targetList) {
+	    	if(target.isRoomCenter()) {
+	    		return target;
+	    	}
+	    }
+	    Collections.shuffle(targetList); // randomizes the order
+	    return targetList.get(0); // return the first one from the shuffled list
 	}
 
 	@Override

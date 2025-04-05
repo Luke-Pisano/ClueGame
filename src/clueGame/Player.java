@@ -6,11 +6,12 @@ import java.util.List;
 import java.util.Set;
 
 public abstract class Player {
-	String name;
-	String color;
-	int row, column;
-	List<Card> hand = new ArrayList<>();
-	Set<Card> seenCards = new HashSet<>();
+	protected String name;
+	protected String color;
+	protected int row, column;
+	protected List<Card> hand = new ArrayList<>();
+	protected Set<Card> seenCards = new HashSet<>();
+	protected String currentRoom;
 	
 	public Player(String name, String color, int row, int column) {
 		this.name = name;
@@ -25,6 +26,14 @@ public abstract class Player {
 
 	public void updateHand(Card card) {
 		// some method
+	}
+	
+	public void setRoom(String roomName) {
+		currentRoom = roomName;
+	}
+	
+	public String getRoom() {
+		return currentRoom;
 	}
 	
 	public String getName() {
