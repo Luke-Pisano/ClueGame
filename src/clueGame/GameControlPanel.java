@@ -2,8 +2,15 @@ package clueGame;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 public class GameControlPanel extends JPanel{
+	
+	private JTextField turn;
+	private JTextField roll;
+	private JTextField guess;
+	private JTextField result;
+
 		/**
 		 * Constructor for the panel, it does 90% of the work
 		 */
@@ -31,18 +38,17 @@ public class GameControlPanel extends JPanel{
 			panel.setGuessResult( "So you have nothing?");
 		}
 
-		private void setGuessResult(String string) {
-			// TODO Auto-generated method stub
-			
+		private void setGuessResult(String result) {
+			this.result.setText(result);
 		}
 
-		private void setGuess(String string) {
-			// TODO Auto-generated method stub
-			
+		private void setGuess(String guess) {
+			this.guess.setText(guess);
 		}
 
-		private void setTurn(ComputerPlayer computerPlayer, int i) {
-			// TODO Auto-generated method stub
+		private void setTurn(ComputerPlayer computerPlayer, int roll) {
+			this.turn.setText(computerPlayer.getName());
+		    this.roll.setText(String.valueOf(roll));
 			
 		}
 }
