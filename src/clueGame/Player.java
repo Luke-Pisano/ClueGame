@@ -1,5 +1,6 @@
 package clueGame;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -41,7 +42,13 @@ public abstract class Player {
 	}
 	
 	public String getColor() {
-		return color;
+		try {
+			Color colorObj = (Color) Color.class.getField(color.toUpperCase()).get(null);
+			String hex = String.format("#%02x%02x%02x", colorObj.getRed(), colorObj.getGreen(), colorObj.getBlue());
+			return hex;
+		} catch(Exception e) {
+			return("Invalid Color");
+		}
 	}
 	
 	public int getRow() {

@@ -1,5 +1,6 @@
 package clueGame;
 
+import java.awt.Color;
 import java.awt.GridLayout;
 
 import javax.swing.JButton;
@@ -90,7 +91,7 @@ public class GameControlPanel extends JPanel{
 			frame.setVisible(true); // make it visible
 			
 			// test filling in the data
-			panel.setTurn(new ComputerPlayer( "Col. Mustard", "ORANGE", 0, 0), 5);
+			panel.setTurn(new ComputerPlayer( "Buffalo Bill", "RED", 0, 0), 5);
 			panel.setGuess( "I have no guess!");
 			panel.setGuessResult( "So you have nothing?");
 		}
@@ -107,6 +108,7 @@ public class GameControlPanel extends JPanel{
 		private void setTurn(ComputerPlayer computerPlayer, int roll) {
 			this.turn.setText(computerPlayer.getName());
 		    this.roll.setText(String.valueOf(roll));
+		    this.turn.setBackground(Color.decode(computerPlayer.getColor()));
 			
 		}
 }
