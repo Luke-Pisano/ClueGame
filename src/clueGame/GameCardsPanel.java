@@ -2,11 +2,7 @@ package clueGame;
 
 import java.awt.*;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.*;
 import javax.swing.border.TitledBorder;
 
 public class GameCardsPanel extends JPanel {
@@ -25,40 +21,45 @@ public class GameCardsPanel extends JPanel {
 		knownCards = new JPanel();
 		knownCards.setBorder(new TitledBorder("Known Cards"));
 		knownCards.setLayout(new GridLayout(3, 0));
-		knownCards.setMaximumSize(new Dimension(300, 750));
 
 		people = new JPanel();
 		people.setBorder(new TitledBorder("People"));
-		people.setLayout(new GridLayout(2, 0));
+		people.setLayout(new BoxLayout(people, BoxLayout.Y_AXIS));
 		knownCards.add(people);
 		peopleInHand = new JPanel();
 		peopleInHand.setBorder(new TitledBorder("People in Hand"));
-		peopleInHand.setPreferredSize(new Dimension(150, 100));
+		peopleInHand.setLayout(new BoxLayout(peopleInHand, BoxLayout.Y_AXIS));
+		peopleInHand.setPreferredSize(new Dimension(150, 50));
 		people.add(peopleInHand);
 		peopleSeen = new JPanel();
 		peopleSeen.setBorder(new TitledBorder("People Seen"));
+		peopleSeen.setLayout(new BoxLayout(peopleSeen, BoxLayout.Y_AXIS));
 		people.add(peopleSeen);
 
 		rooms = new JPanel();
 		rooms.setBorder(new TitledBorder("Rooms"));
-		rooms.setLayout(new GridLayout(2, 0));
+		rooms.setLayout(new BoxLayout(rooms, BoxLayout.Y_AXIS));
 		knownCards.add(rooms);
 		roomsInHand = new JPanel();
 		roomsInHand.setBorder(new TitledBorder("Rooms in Hand"));
+		roomsInHand.setLayout(new BoxLayout(roomsInHand, BoxLayout.Y_AXIS));
 		rooms.add(roomsInHand);
 		roomsSeen = new JPanel();
 		roomsSeen.setBorder(new TitledBorder("Rooms Seen"));
+		roomsSeen.setLayout(new BoxLayout(roomsSeen, BoxLayout.Y_AXIS));
 		rooms.add(roomsSeen);
 
 		weapons = new JPanel();
 		weapons.setBorder(new TitledBorder("Weapons"));
-		weapons.setLayout(new GridLayout(2, 0));
+		weapons.setLayout(new BoxLayout(weapons, BoxLayout.Y_AXIS));
 		knownCards.add(weapons);
 		weaponsInHand = new JPanel();
 		weaponsInHand.setBorder(new TitledBorder("Weapons in Hand"));
+		weaponsInHand.setLayout(new BoxLayout(weaponsInHand, BoxLayout.Y_AXIS));
 		weapons.add(weaponsInHand);
 		weaponsSeen = new JPanel();
 		weaponsSeen.setBorder(new TitledBorder("Weapons Seen"));
+		weaponsSeen.setLayout(new BoxLayout(weaponsSeen, BoxLayout.Y_AXIS));
 		weapons.add(weaponsSeen);
 
 		add(knownCards);
@@ -117,12 +118,24 @@ public class GameCardsPanel extends JPanel {
 		weaponsInHand.removeAll();
 		weaponsSeen.removeAll();
 
-		peopleInHand.add(new JTextField("NONE"));
-		peopleSeen.add(new JTextField("NONE"));
-		roomsInHand.add(new JTextField("NONE"));
-		roomsSeen.add(new JTextField("NONE"));
-		weaponsInHand.add(new JTextField("NONE"));
-		weaponsSeen.add(new JTextField("NONE"));
+		JTextField field = new JTextField("NONE");
+		field.setEditable(false);
+		peopleInHand.add(field);
+		field = new JTextField("NONE");
+		field.setEditable(false);
+		peopleSeen.add(field);
+		field = new JTextField("NONE");
+		field.setEditable(false);
+		roomsInHand.add(field);
+		field = new JTextField("NONE");
+		field.setEditable(false);
+		roomsSeen.add(field);
+		field = new JTextField("NONE");
+		field.setEditable(false);
+		weaponsInHand.add(field);
+		field = new JTextField("NONE");
+		field.setEditable(false);
+		weaponsSeen.add(field);
 
 		revalidate();
 		repaint();
@@ -139,6 +152,15 @@ public class GameCardsPanel extends JPanel {
 	}
 
 	public static void main(String[] args) {
+		// Test an empty panel
+		GameCardsPanel emptyPanel = new GameCardsPanel();  // create the panel
+		JFrame frame1 = new JFrame();  // create the frame
+		frame1.setContentPane(emptyPanel); // put the panel in the frame
+		frame1.setSize(300, 750);  // size the frame
+		frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allow it to close
+		frame1.setVisible(true); // make it visible
+
+		// Test a panel with filled in cards
 		GameCardsPanel panel = new GameCardsPanel();  // create the panel
 		JFrame frame = new JFrame();  // create the frame
 		frame.setContentPane(panel); // put the panel in the frame
