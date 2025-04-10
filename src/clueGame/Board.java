@@ -1,5 +1,7 @@
 package clueGame;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -12,7 +14,7 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.Set;
 
-public class Board {
+public class Board extends JPanel {
 	/*
 	 * variable and methods used for singleton pattern
 	 */
@@ -459,6 +461,10 @@ public class Board {
 	        }
 	    }
 	    return null;
+	}
+
+	public void paintComponent(Graphics g, int xPos, int yPos) {
+		super.paintComponent(g);
 	}
 	
 	public void setSolution(Card room, Card person, Card weapon) {

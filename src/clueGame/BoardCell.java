@@ -32,7 +32,6 @@ public class BoardCell {
 	}
 
 	/**
-	 *
 	 * @param adj BoardCell to be added to this cell's list of adjacent cells.
 	 */
 	public void addAdj(BoardCell adj) {
