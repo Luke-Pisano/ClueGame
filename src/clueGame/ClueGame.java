@@ -31,27 +31,6 @@ public class ClueGame extends JFrame {
 
         setVisible(true);
     }
-
-    /**
-     * Gets the size that the cell should have. Each cell is a square, so only one dimension is returned.
-     * @return the dimensions of the cell
-     */
-    public int getCellSize() {
-        // TODO fix logic
-        int minDim;
-        int cellDim;
-        if ((clueGame.getX() - cardsPanel.getX()) > (clueGame.getY() - controlPanel.getY())) {
-            minDim = clueGame.getY();
-        } else {
-            minDim = clueGame.getX();
-        }
-        if (board.getNumColumns() < board.getNumRows()) {
-            cellDim = minDim / board.getNumRows();
-        } else {
-            cellDim = minDim / board.getNumColumns();
-        }
-        return cellDim;
-    }
     
     public static void main(String[] args) {
         new ClueGame();
