@@ -32,7 +32,7 @@ public class GameControlPanel extends JPanel{
 	        // Current turn and roll
 	        JPanel turnRollPanel = new JPanel();
 	        turnRollPanel.setLayout(new GridLayout(2, 1));
-	        JLabel turnLabel = new JLabel("Whose turn?");
+	        JLabel turnLabel = new JLabel(" Whose turn?");
 	        turn = new JTextField(10);
 	        turn.setEditable(false);
 	        turnRollPanel.add(turnLabel);
