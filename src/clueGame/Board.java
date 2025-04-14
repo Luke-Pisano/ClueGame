@@ -462,10 +462,48 @@ public class Board extends JPanel {
 	    }
 	    return null;
 	}
+	
+	 @Override
+	    protected void paintComponent(Graphics graphics) {
+	        super.paintComponent(graphics);
+	        int cellWidth = getWidth() / numColumns;
+	        int cellHeight = getHeight() / numRows;
+	        int cellDimension = Math.min(cellWidth, cellHeight);
 
-	public void paintComponent(Graphics g, int xPos, int yPos) {
-		super.paintComponent(g);
-	}
+	        // Display all of the cells
+	        for (int row = 0; row < numRows; row++) {
+	            for (int col = 0; col < numColumns; col++) {
+	                grid[row][col].draw(graphics, row, col, cellDimension);
+	            }
+	        }
+	        
+	        // Display all players
+	        for (Player p : players) {
+	            p.draw(graphics, cellDimension);
+	        }
+
+	        // Write names above rooms centered at label
+	        for (int row = 0; row < numRows; row++) {
+	            for (int col = 0; col < numColumns; col++) {
+	                BoardCell cell = grid[row][col];
+	                if (cell.isLabel()) {
+	                	String roomName = getRoom(cell.getInitial()).getName();
+	                    int positionCol = col * cellDimension;
+	                    int positionRow = row * cellDimension;
+
+	                    FontMetrics metrics = graphics.getFontMetrics();
+	                    int textWidth = metrics.stringWidth(roomName);
+	                    int textHeight = metrics.getHeight();
+
+	                    int textCol = positionCol + (cellDimension - textWidth) / 2;
+	                    int textRow = positionRow + (cellDimension + textHeight / 2) / 2;
+
+	                    graphics.setColor(Color.BLUE);
+	                    graphics.drawString(roomName, textCol, textRow);
+	                }
+	            }
+	        }
+	    }
 	
 	public void setSolution(Card room, Card person, Card weapon) {
 		theAnswer = new Solution(room, person, weapon);

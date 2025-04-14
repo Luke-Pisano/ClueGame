@@ -1,5 +1,7 @@
 package clueGame;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -30,6 +32,35 @@ public class BoardCell {
 		this.secretPassage = '0';
 		this.isOccupied = false;
 	}
+	
+	public void draw(Graphics graphics, int row, int col, int cellDimension) {
+        int positionCol = col * cellDimension;
+        int positionRow = row * cellDimension;
+
+        if (initial == 'W') {
+            graphics.setColor(Color.YELLOW);
+            graphics.fillRect(positionCol, positionRow, cellDimension, cellDimension);
+            graphics.setColor(Color.BLACK);
+            graphics.drawRect(positionCol, positionRow, cellDimension, cellDimension);
+        } else if (initial == 'X'){
+        	graphics.setColor(Color.BLACK);
+            graphics.fillRect(positionCol, positionRow, cellDimension, cellDimension);
+        } else {
+            graphics.setColor(Color.GRAY);
+            graphics.fillRect(positionCol, positionRow, cellDimension, cellDimension);
+        }
+
+        if (doorDirection != DoorDirection.NONE) {
+            graphics.setColor(Color.BLUE);
+            switch (doorDirection) {
+                case UP -> graphics.fillRect(positionCol, positionRow - 5, cellDimension, 5);
+                case DOWN -> graphics.fillRect(positionCol, positionRow + 5 + cellDimension - 5, cellDimension, 5);
+                case LEFT -> graphics.fillRect(positionCol - 5, positionRow, 5, cellDimension);
+                case RIGHT -> graphics.fillRect(positionCol + cellDimension, positionRow, 5, cellDimension);
+			default -> throw new IllegalArgumentException("Unexpected value: " + doorDirection);
+            }
+        }
+    }
 
 	/**
 	 * @param adj BoardCell to be added to this cell's list of adjacent cells.
