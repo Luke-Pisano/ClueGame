@@ -174,9 +174,9 @@ public class FileInitTests {
 		assertEquals("Calamity Jane", players.get(2).getName());
 		assertEquals("Jesse James", players.get(5).getName());
 
-		assertEquals("RED", players.get(1).getColor());
-		assertEquals("YELLOW", players.get(3).getColor());
-		assertEquals("ORANGE", players.get(5).getColor());
+		assertEquals("#ff0000", players.get(1).getColor());
+		assertEquals("#ffff00", players.get(3).getColor());
+		assertEquals("#ffc800", players.get(5).getColor());
 		
 		assertEquals("HUMAN", players.get(0).getType());
 		assertEquals("COMPUTER", players.get(2).getType());

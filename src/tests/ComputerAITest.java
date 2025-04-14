@@ -30,7 +30,7 @@ public class ComputerAITest {
 
 		// Check if the player is initialized correctly
 		assertEquals("AI", computerPlayer.getName());
-		assertEquals("Blue", computerPlayer.getColor());
+		assertEquals("#0000ff", computerPlayer.getColor());
 		assertEquals(0, computerPlayer.getRow());
 		assertEquals(0, computerPlayer.getColumn());
 
