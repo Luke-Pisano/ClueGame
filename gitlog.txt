@@ -1,5 +1,41 @@
-I, Luke Pisano, certify that I participated equitably in the creation of assignment C20A, dated 04/04.
-I, Mark Duffalo, certify that I participated equitably in the creation of assignment C20A, dated 04/04.
+I, Luke Pisano, certify that I participated equitably in the creation of assignment C21A-1, dated 04/14.
+I, Mark Duffalo, certify that I participated equitably in the creation of assignment C21A-1, dated 04/14.
+
+commit a677739bf138cd0ae9d04a83c154a77adaaeba24
+Author: Luke Pisano <79476828+Luke-Pisano@users.noreply.github.com>
+Date:   Mon Apr 14 13:27:54 2025 -0600
+
+    Fixed tests failing
+
+commit 712ab6a17b2a17266e7744d984ae86834ccf15f5
+Author: Luke Pisano <79476828+Luke-Pisano@users.noreply.github.com>
+Date:   Tue Apr 8 10:57:47 2025 -0600
+
+    Added the color background extra credit
+
+commit b1b07ff22b15fe367de86f062fb50ceb03b1e569
+Author: Luke Pisano <79476828+Luke-Pisano@users.noreply.github.com>
+Date:   Tue Apr 8 10:48:33 2025 -0600
+
+    Added panel
+
+commit 67dc1baa19a85ce34e70a6171395643514bac84e
+Author: Luke Pisano <79476828+Luke-Pisano@users.noreply.github.com>
+Date:   Tue Apr 8 10:01:41 2025 -0600
+
+    Added setters
+
+commit 32e60446ab3d3152bae0838643fd8c581f6388ca
+Author: Luke Pisano <79476828+Luke-Pisano@users.noreply.github.com>
+Date:   Tue Apr 8 09:56:43 2025 -0600
+
+    Inital file created
+
+commit 7c92fadc999eb6366bbbfa02fec75e7c98af6a6b
+Author: Luke Pisano <79476828+Luke-Pisano@users.noreply.github.com>
+Date:   Fri Apr 4 21:24:28 2025 -0600
+
+    added gitlog
 
 commit 8fcde3849ff2cb01255a654d067d606f6ac4bc55
 Author: Luke Pisano <79476828+Luke-Pisano@users.noreply.github.com>
