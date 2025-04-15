@@ -4,6 +4,7 @@ import clueGame.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.awt.Color;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -30,7 +31,7 @@ public class ComputerAITest {
 
 		// Check if the player is initialized correctly
 		assertEquals("AI", computerPlayer.getName());
-		assertEquals("#0000ff", computerPlayer.getColor());
+		assertEquals(Color.BLUE, computerPlayer.getColor());
 		assertEquals(0, computerPlayer.getRow());
 		assertEquals(0, computerPlayer.getColumn());
 

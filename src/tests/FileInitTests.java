@@ -8,6 +8,7 @@ package tests;
 // Assert.assertEquals
 import static org.junit.Assert.*;
 
+import java.awt.Color;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -174,9 +175,9 @@ public class FileInitTests {
 		assertEquals("Calamity Jane", players.get(2).getName());
 		assertEquals("Jesse James", players.get(5).getName());
 
-		assertEquals("#ff0000", players.get(1).getColor());
-		assertEquals("#ffff00", players.get(3).getColor());
-		assertEquals("#ffc800", players.get(5).getColor());
+		assertEquals(Color.RED, players.get(1).getColor());
+		assertEquals(Color.YELLOW, players.get(3).getColor());
+		assertEquals(Color.ORANGE, players.get(5).getColor());
 		
 		assertEquals("HUMAN", players.get(0).getType());
 		assertEquals("COMPUTER", players.get(2).getType());
