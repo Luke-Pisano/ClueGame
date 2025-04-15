@@ -105,7 +105,7 @@ public class GameCardsPanel extends JPanel {
 				weaponsSeen.add(textField);
 				break;
 		}
-		textField.setBackground(Color.decode(player.getColor()));
+		textField.setBackground(player.getColor());
 		revalidate();
 		repaint();
 	}

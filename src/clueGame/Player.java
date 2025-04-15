@@ -9,19 +9,17 @@ import java.util.Set;
 
 public abstract class Player {
 	protected String name;
-	protected String color;
+	protected Color color;
 	protected int row, column;
 	protected List<Card> hand = new ArrayList<>();
 	protected Set<Card> seenCards = new HashSet<>();
 	protected String currentRoom;
-	protected Color colorObj;
 	
-	public Player(String name, String color, int row, int column) {
+	public Player(String name, String inputColor, int row, int column) {
 		this.name = name;
-		this.color = color;
 		this.row = row;
 		this.column = column;
-		convertColor();
+		convertColor(inputColor);
 	}
 
 	public abstract Solution createSuggestion();
@@ -35,15 +33,15 @@ public abstract class Player {
 	public void draw(Graphics graphics, int cellDimension) {
         int positionCol = column * cellDimension;
         int positionRow = row * cellDimension;
-        graphics.setColor(colorObj);
+        graphics.setColor(color);
         graphics.fillOval(positionCol + 5, positionRow + 5, cellDimension - 10, cellDimension - 10);
         graphics.setColor(Color.BLACK);
         graphics.drawOval(positionCol + 5, positionRow + 5, cellDimension - 10, cellDimension - 10);
     }
 	
-	public void convertColor() {
+	public void convertColor(String inputColor) {
 		try {
-			colorObj = (Color) Color.class.getField(color.toUpperCase()).get(null);
+			color = (Color) Color.class.getField(inputColor.toUpperCase()).get(null);
 		} catch(Exception e) {
 			System.out.println(System.out);
 		}
@@ -61,13 +59,8 @@ public abstract class Player {
 		return name;
 	}
 	
-	public String getColor() {
-		try {
-			String hex = String.format("#%02x%02x%02x", colorObj.getRed(), colorObj.getGreen(), colorObj.getBlue());
-			return hex;
-		} catch(Exception e) {
-			return("Invalid Color");
-		}
+	public Color getColor() {
+		return color;
 	}
 	
 	public int getRow() {
