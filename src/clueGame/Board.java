@@ -447,7 +447,13 @@ public class Board extends JPanel {
 			}
 		}
 	}
-	
+
+	/**
+	 * Handles a suggestion made by a player.
+	 * @param suggestion The suggestion made by the player.
+	 * @param suggestingPlayer The player who made the suggestion.
+	 * @return The card that disproves the suggestion, or null if no player can disprove it.
+	 */
 	public Card handleSuggestion(Solution suggestion, Player suggestingPlayer) {
 		int playerIndex = players.indexOf(suggestingPlayer);
 
@@ -462,48 +468,52 @@ public class Board extends JPanel {
 	    }
 	    return null;
 	}
-	
-	 @Override
-	    protected void paintComponent(Graphics graphics) {
-	        super.paintComponent(graphics);
-	        int cellWidth = getWidth() / numColumns;
-	        int cellHeight = getHeight() / numRows;
-	        int cellDimension = Math.min(cellWidth, cellHeight);
 
-	        // Display all of the cells
-	        for (int row = 0; row < numRows; row++) {
-	            for (int col = 0; col < numColumns; col++) {
-	                grid[row][col].draw(graphics, row, col, cellDimension);
-	            }
-	        }
-	        
-	        // Display all players
-	        for (Player p : players) {
-	            p.draw(graphics, cellDimension);
-	        }
+	/**
+	 * Paints all of the components on the board.
+	 * @param graphics the <code>Graphics</code> object to protect
+	 */
+	@Override
+	protected void paintComponent(Graphics graphics) {
+		super.paintComponent(graphics);
+		int cellWidth = getWidth() / numColumns;
+		int cellHeight = getHeight() / numRows;
+		int cellDimension = Math.min(cellWidth, cellHeight);
 
-	        // Write names above rooms centered at label
-	        for (int row = 0; row < numRows; row++) {
-	            for (int col = 0; col < numColumns; col++) {
-	                BoardCell cell = grid[row][col];
-	                if (cell.isLabel()) {
-	                	String roomName = getRoom(cell.getInitial()).getName();
-	                    int positionCol = col * cellDimension;
-	                    int positionRow = row * cellDimension;
+		// Display all of the cells
+		for (int row = 0; row < numRows; row++) {
+			for (int col = 0; col < numColumns; col++) {
+				grid[row][col].draw(graphics, row, col, cellDimension);
+			}
+		}
 
-	                    FontMetrics metrics = graphics.getFontMetrics();
-	                    int textWidth = metrics.stringWidth(roomName);
-	                    int textHeight = metrics.getHeight();
+		// Display all players
+		for (Player p : players) {
+			p.draw(graphics, cellDimension);
+		}
 
-	                    int textCol = positionCol + (cellDimension - textWidth) / 2;
-	                    int textRow = positionRow + (cellDimension + textHeight / 2) / 2;
+		// Write names above rooms centered at label
+		for (int row = 0; row < numRows; row++) {
+			for (int col = 0; col < numColumns; col++) {
+				BoardCell cell = grid[row][col];
+				if (cell.isLabel()) {
+					String roomName = getRoom(cell.getInitial()).getName();
+					int positionCol = col * cellDimension;
+					int positionRow = row * cellDimension;
 
-	                    graphics.setColor(Color.BLUE);
-	                    graphics.drawString(roomName, textCol, textRow);
-	                }
-	            }
-	        }
-	    }
+					FontMetrics metrics = graphics.getFontMetrics();
+					int textWidth = metrics.stringWidth(roomName);
+					int textHeight = metrics.getHeight();
+
+					int textCol = positionCol + (cellDimension - textWidth) / 2;
+					int textRow = positionRow + (cellDimension + textHeight / 2) / 2;
+
+					graphics.setColor(Color.BLUE);
+					graphics.drawString(roomName, textCol, textRow);
+				}
+			}
+		}
+	}
 	
 	public void setSolution(Card room, Card person, Card weapon) {
 		theAnswer = new Solution(room, person, weapon);

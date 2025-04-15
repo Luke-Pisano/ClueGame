@@ -67,6 +67,10 @@ public class GameCardsPanel extends JPanel {
 		initializeLists();
 	}
 
+	/**
+	 * Adds a card to the player's hand.
+	 * @param card the card to add.
+	 */
 	public void addInHandCard(Card card) {
 		JTextField textField = new JTextField(card.getCardName());
 		textField.setEditable(false);
@@ -88,6 +92,11 @@ public class GameCardsPanel extends JPanel {
 		repaint();
 	}
 
+	/**
+	 * Adds a card to the seen cards.
+	 * @param card the card to add.
+	 * @param player the player who saw the card.
+	 */
 	public void addSeenCard(Card card, Player player) {
 		JTextField textField = new JTextField(card.getCardName());
 		textField.setEditable(false);
@@ -110,6 +119,9 @@ public class GameCardsPanel extends JPanel {
 		repaint();
 	}
 
+	/**
+	 * Clears all lists and initializes them to "NONE".
+	 */
 	public void initializeLists() {
 		peopleInHand.removeAll();
 		peopleSeen.removeAll();
@@ -141,6 +153,10 @@ public class GameCardsPanel extends JPanel {
 		repaint();
 	}
 
+	/**
+	 * Removes the "NONE" text field from the specified panel if it exists.
+	 * @param panel the panel to remove "NONE" from.
+	 */
 	public void removeNone(JPanel panel) {
 		JTextField field = (JTextField) panel.getComponent(0);
 		if (field.getText().equals("NONE")) {

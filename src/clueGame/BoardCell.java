@@ -32,7 +32,14 @@ public class BoardCell {
 		this.secretPassage = '0';
 		this.isOccupied = false;
 	}
-	
+
+	/**
+	 * Draws the cell on the board.
+	 * @param graphics
+	 * @param row The row location of the cell.
+	 * @param col The column location of the cell.
+	 * @param cellDimension The dimension of the cell. (width and height)
+	 */
 	public void draw(Graphics graphics, int row, int col, int cellDimension) {
         int positionCol = col * cellDimension;
         int positionRow = row * cellDimension;
