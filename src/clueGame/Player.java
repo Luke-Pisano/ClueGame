@@ -27,10 +27,6 @@ public abstract class Player {
 	public abstract Solution createSuggestion();
 
 	public abstract Card disproveSuggestion(Solution suggestion);
-
-	public void updateHand(Card card) {
-		// some method
-	}
 	
 	public void draw(Graphics graphics, int cellDimension) {
         int positionCol = column * cellDimension;
