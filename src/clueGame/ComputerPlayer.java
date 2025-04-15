@@ -13,6 +13,13 @@ public class ComputerPlayer extends Player {
 		super(name, color, row, column);
 	}
 
+	/**
+	 * Creates a suggestion for the computer player.
+	 * The suggestion consists of a room, a person, and a weapon.
+	 * The room is the current room of the player.
+	 * The person and weapon are randomly selected from the unseen cards.
+	 * @return A Solution object containing the suggestion.
+	 */
 	@Override
 	public Solution createSuggestion() {
 		Board board = Board.getInstance();
@@ -55,7 +62,14 @@ public class ComputerPlayer extends Player {
 		return new Solution(roomCard, unseenPeople.get(0), unseenWeapons.get(0));
 
 	}
-	
+
+	/**
+	 * Selects a target cell from the set of targets.
+	 * The target is selected randomly, but if there are any room center cells,
+	 * one of them is selected first.
+	 * @param targets The set of target cells.
+	 * @return A BoardCell object representing the selected target.
+	 */
 	public BoardCell selectTarget(Set<BoardCell> targets) {
 	    List<BoardCell> targetList = new ArrayList<>(targets);
 	    for (BoardCell target : targetList) {
@@ -67,6 +81,11 @@ public class ComputerPlayer extends Player {
 	    return targetList.get(0); // return the first one from the shuffled list
 	}
 
+	/**
+	 * Disproves a suggestion made by another player.
+	 * @param suggestion The suggestion to be disproved.
+	 * @return A Card object representing the card that disproves the suggestion,
+	 */
 	@Override
 	public Card disproveSuggestion(Solution suggestion) {
 		// Disprove the suggestion if possible

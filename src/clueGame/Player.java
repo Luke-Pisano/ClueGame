@@ -27,7 +27,12 @@ public abstract class Player {
 	public abstract Solution createSuggestion();
 
 	public abstract Card disproveSuggestion(Solution suggestion);
-	
+
+	/**
+	 * Draws the player on the board.
+	 * @param graphics The graphics object to draw on.
+	 * @param cellDimension The dimension of the cell. (width and height)
+	 */
 	public void draw(Graphics graphics, int cellDimension) {
         int positionCol = column * cellDimension;
         int positionRow = row * cellDimension;
@@ -36,7 +41,10 @@ public abstract class Player {
         graphics.setColor(Color.BLACK);
         graphics.drawOval(positionCol + 5, positionRow + 5, cellDimension - 10, cellDimension - 10);
     }
-	
+
+	/**
+	 * Converts the color string to a Color object.
+	 */
 	public void convertColor() {
 		try {
 			colorObj = (Color) Color.class.getField(color.toUpperCase()).get(null);

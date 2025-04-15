@@ -35,7 +35,7 @@ public class BoardCell {
 
 	/**
 	 * Draws the cell on the board.
-	 * @param graphics
+	 * @param graphics The graphics object to draw on.
 	 * @param row The row location of the cell.
 	 * @param col The column location of the cell.
 	 * @param cellDimension The dimension of the cell. (width and height)
