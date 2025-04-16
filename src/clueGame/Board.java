@@ -470,7 +470,7 @@ public class Board extends JPanel {
 	}
 
 	/**
-	 * Paints all of the components on the board.
+	 * Paints all the components on the board.
 	 * @param graphics the <code>Graphics</code> object to protect
 	 */
 	@Override
