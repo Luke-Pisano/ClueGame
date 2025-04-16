@@ -12,12 +12,21 @@ public class HumanPlayer extends Player {
 		super(name, color, row, column);
 	}
 
+	/**
+	 * Creates a suggestion for the human player.
+	 * @return A Solution object containing the suggestion.
+	 */
 	@Override
 	public Solution createSuggestion() {
 		// TODO: Implement the logic to create a suggestion
 		return null;
 	}
 
+	/**
+	 * Disproves a suggestion made by another player.
+	 * @param suggestion The suggestion to be disproved.
+	 * @return The card that disproves the suggestion, or null if the player cannot disprove it.
+	 */
 	@Override
 	public Card disproveSuggestion(Solution suggestion) {
 		// TODO: Implement the logic to disprove a suggestion

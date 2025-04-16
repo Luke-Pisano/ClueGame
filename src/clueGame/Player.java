@@ -39,7 +39,11 @@ public abstract class Player {
         graphics.setColor(Color.BLACK);
         graphics.drawOval(positionCol + 5, positionRow + 5, cellDimension - 10, cellDimension - 10);
     }
-	
+
+	/**
+	 * Converts a string input to a Color object.
+	 * @param inputColor The color name as a string.
+	 */
 	public void convertColor(String inputColor) {
 		try {
 			color = (Color) Color.class.getField(inputColor.toUpperCase()).get(null);
