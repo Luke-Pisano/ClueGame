@@ -518,6 +518,15 @@ public class Board extends JPanel {
 	public void setSolution(Card room, Card person, Card weapon) {
 		theAnswer = new Solution(room, person, weapon);
 	}
+
+	public HumanPlayer getHumanPlayer() {
+		for (Player player : players) {
+			if (player instanceof HumanPlayer) {
+				return (HumanPlayer) player;
+			}
+		}
+		return null;
+	}
 	
 	public void setPlayer(Player player) {
 		players.add(player);
