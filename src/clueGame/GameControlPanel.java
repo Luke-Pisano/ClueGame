@@ -2,15 +2,13 @@ package clueGame;
 
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.*;
 import javax.swing.border.TitledBorder;
 
-public class GameControlPanel extends JPanel{
+public class GameControlPanel extends JPanel {
 	
 	private JTextField turn;
 	private JTextField roll;
@@ -47,7 +45,23 @@ public class GameControlPanel extends JPanel{
 
 	        // Buttons
 	        next = new JButton("Next Player");
+			ActionListener nextListener = new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// Handle next player action
+					System.out.println("Next player button clicked");
+				}
+			};
+			next.addActionListener(nextListener);
 	        accusation = new JButton("Make Accusation");
+			ActionListener accusationListener = new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// Handle next player action
+					System.out.println("Accusation button clicked");
+				}
+			};
+			accusation.addActionListener(accusationListener);
 
 	        topPanel.add(turnRollPanel);
 	        topPanel.add(rollPanel);
@@ -78,7 +92,6 @@ public class GameControlPanel extends JPanel{
 	        add(bottomPanel);
 		}
 		
-		
 		/**
 		 * Main to test the panel
 		 */
@@ -94,6 +107,8 @@ public class GameControlPanel extends JPanel{
 			panel.setTurn(new ComputerPlayer( "Buffalo Bill", "RED", 0, 0), 5);
 			panel.setGuess( "I have no guess!");
 			panel.setGuessResult( "So you have nothing?");
+
+
 		}
 
 		// setters for information for panel
@@ -107,8 +122,8 @@ public class GameControlPanel extends JPanel{
 
 		private void setTurn(ComputerPlayer computerPlayer, int roll) {
 			this.turn.setText(computerPlayer.getName());
-		    this.roll.setText(String.valueOf(roll));
-		    this.turn.setBackground(computerPlayer.getColor());
-			
+			this.roll.setText(String.valueOf(roll));
+			this.turn.setBackground(computerPlayer.getColor());
+
 		}
 }
