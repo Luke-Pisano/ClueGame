@@ -475,15 +475,7 @@ public class Board extends JPanel {
 	private boolean unfinished = false;
 	private int playerIndex = 0;
 	
-	public void handleNextPlayer() {
-		if (unfinished) {
-			// need to change to throw error
-			System.out.println("error");
-		}
-		
-        int playerCount = players.size();
-        playerIndex = (playerIndex + 1) % playerCount;
-				
+	public void handleTurn() {
 		int diceRoll = (int)(random.nextInt(6) + 1);
 		
 		Player currentPlayer = players.get(playerIndex);
@@ -492,39 +484,38 @@ public class Board extends JPanel {
 		
 		calcTargets(grid[currentPlayer.getRow()][currentPlayer.getColumn()], diceRoll);
 		
-		
-		for (BoardCell[] row : grid) {
-	        for (BoardCell cell : row) {
-	            cell.setTarget(false);
-	        }
-	    }
-		
-		for (BoardCell cell : targets) {
-	        cell.setTarget(true);
-	    }
-		repaint();
-		
-		if (currentPlayer.getType() == "HUMAN") {	
+		if (currentPlayer.getType() == "HUMAN") {
+			for (BoardCell[] row : grid) {
+		        for (BoardCell cell : row) {
+		            cell.setTarget(false);
+		        }
+		    }
+			
+			for (BoardCell cell : targets) {
+		        cell.setTarget(true);
+		    }
+			repaint();
+			//unfinished = true;
+			
 			System.out.println("Human's turn");
 		} else {
+			// do accusation implemented later
+			// move player randomly
 			System.out.println("Computer's turn");
+			// make suggestion
+		}
+	}
+	
+	public void handleNextPlayer() {
+		if (unfinished) {
+			// need to change to throw error
+			System.out.println("error");
 		}
 		
-		
-		
-		
-		// update game control pannel
-		
-		// is new player human
-		// if yes 
-			// display targets
-			// flag unfinished
-		// if no 
-			// do accusation
-			// do move 
-			// make suggestion
-		
-		System.out.println("Next player button clicked");
+        int playerCount = players.size();
+        playerIndex = (playerIndex + 1) % playerCount;
+        
+        handleTurn();
 	}
 	/**
 	 * Paints all the components on the board.

@@ -39,5 +39,6 @@ public class ClueGame extends JFrame {
                 + "Can you find the solution\n"
                 + "before the computer players?\n\n"
                 + "Click OK to start the game.", "Welcome to Clue").showSplash();
+        board.handleTurn();
     }
 }
