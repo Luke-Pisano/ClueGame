@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -30,7 +31,8 @@ public class Board extends JPanel {
 	private List<Card> deck = new ArrayList<>(); // stores all game cards
 	private List<Card> solution; // stores the solution cards
 	private Solution theAnswer; // stores the answer object
-	
+    private Random random = new Random(System.nanoTime());
+
 	private static Board theInstance = new Board();
 	// constructor is private to ensure only one can be created
 	private Board() {
@@ -471,27 +473,30 @@ public class Board extends JPanel {
 
 	// will move this at the top when done
 	private boolean unfinished = false;
-	private int currentPlayer = 0;
+	private int playerIndex = 0;
 	
 	public void handleNextPlayer() {
-		// is current human player finished 
-		// if true continue otherwise throw error
 		if (unfinished) {
+			// need to change to throw error
 			System.out.println("error");
 		}
 		
         int playerCount = players.size();
-		currentPlayer = (currentPlayer + 1) % playerCount;
-
-		if (players.get(currentPlayer).getType() == "HUMAN") {	
+        playerIndex = (playerIndex + 1) % playerCount;
+				
+		int diceRoll = (int)(random.nextInt(6) + 1);
+		
+		Player currentPlayer = players.get(playerIndex);
+		
+		calcTargets(grid[currentPlayer.getRow()][currentPlayer.getColumn()], diceRoll);
+		
+		
+		if (currentPlayer.getType() == "HUMAN") {	
 			System.out.println("Human's turn");
 		} else {
 			System.out.println("Computer's turn");
 		}
 		
-		// update current player
-		// roll the dice (random number)
-		// calculate the targets
 		// update game control pannel
 		
 		// is new player human
