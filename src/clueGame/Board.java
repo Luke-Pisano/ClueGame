@@ -31,7 +31,8 @@ public class Board extends JPanel {
 	private List<Card> deck = new ArrayList<>(); // stores all game cards
 	private List<Card> solution; // stores the solution cards
 	private Solution theAnswer; // stores the answer object
-    private Random random = new Random(System.nanoTime());
+	private Random random = new Random(System.nanoTime());
+	private GameControlPanel controlPanel;
 
 	private static Board theInstance = new Board();
 	// constructor is private to ensure only one can be created
@@ -96,26 +97,26 @@ public class Board extends JPanel {
 
 				String type = tokens.get(0);
 
-	            if (!type.equals("Room") && !type.equals("Space") && !type.equals("Player") && !type.equals("Weapon")) {
-	                throw new BadConfigFormatException("Invalid type " + type);
-	            }
+				if (!type.equals("Room") && !type.equals("Space") && !type.equals("Player") && !type.equals("Weapon")) {
+					throw new BadConfigFormatException("Invalid type " + type);
+				}
 
 				if(type.equals("Room") || type.equals("Space")) {
 					String name = tokens.get(1);
-		            char character = tokens.get(2).charAt(0);
+					char character = tokens.get(2).charAt(0);
 					roomMap.put(character, new Room(name));
 					if(type.equals("Room")) {
 						deck.add(new Card(name, CardType.ROOM));
 					}
 				}
-				
+
 				if(type.equals("Player")) {
 					String playerName = tokens.get(1);
 					String playerColor = tokens.get(2);
 					String playerType = tokens.get(3);
 					int playerRow = Integer.parseInt(tokens.get(4));
 					int playerCol = Integer.parseInt(tokens.get(5));
-					
+
 					if(playerType.equals("HUMAN")) {
 						players.add(new HumanPlayer(playerName, playerColor, playerRow, playerCol));
 					} else {
@@ -123,12 +124,12 @@ public class Board extends JPanel {
 					}
 					deck.add(new Card(playerName, CardType.PERSON));
 				}
-				
+
 				if(type.equals("Weapon")) {
 					weapons.add(tokens.get(1));
 					deck.add(new Card(tokens.get(1), CardType.WEAPON));
 				}
-				
+
 			}
 			input.close();
 		} catch (FileNotFoundException e) {
@@ -190,35 +191,35 @@ public class Board extends JPanel {
 							if (cellContent.length() > 1) {
 								char specialChar = cellContent.charAt(0) == '\uFEFF' && cellContent.length() > 2
 										? cellContent.charAt(2)
-										: (cellContent.length() > 1 ? cellContent.charAt(1) : roomInitial);
+												: (cellContent.length() > 1 ? cellContent.charAt(1) : roomInitial);
 
 								switch (specialChar) {
-									case ('<'):
-										temp.setDoorDirection(DoorDirection.LEFT);
-										break;
-									case ('>'):
-										temp.setDoorDirection(DoorDirection.RIGHT);
-										break;
-									case ('^'):
-										temp.setDoorDirection(DoorDirection.UP);
-										break;
-									case ('v'):
-										temp.setDoorDirection(DoorDirection.DOWN);
-										break;
-									case ('#'):
-										temp.setRoomLabel(true);
-										roomMap.get(roomInitial).setLabelCell(temp);
-										break;
-									case ('*'):
-										temp.setRoomCenter(true);
-										roomMap.get(roomInitial).setCenterCell(temp);
-										break;
-									default:
-										// If length > 1 and no other cases occur, this cell must be a secret passage
-										if (specialChar != roomInitial) {
-											temp.setSecretPassage(specialChar);
-										}
-										break;
+								case ('<'):
+									temp.setDoorDirection(DoorDirection.LEFT);
+								break;
+								case ('>'):
+									temp.setDoorDirection(DoorDirection.RIGHT);
+								break;
+								case ('^'):
+									temp.setDoorDirection(DoorDirection.UP);
+								break;
+								case ('v'):
+									temp.setDoorDirection(DoorDirection.DOWN);
+								break;
+								case ('#'):
+									temp.setRoomLabel(true);
+								roomMap.get(roomInitial).setLabelCell(temp);
+								break;
+								case ('*'):
+									temp.setRoomCenter(true);
+								roomMap.get(roomInitial).setCenterCell(temp);
+								break;
+								default:
+									// If length > 1 and no other cases occur, this cell must be a secret passage
+									if (specialChar != roomInitial) {
+										temp.setSecretPassage(specialChar);
+									}
+									break;
 								}
 							}
 
@@ -291,34 +292,6 @@ public class Board extends JPanel {
 					if (cell.isDoorway()) {
 						BoardCell centerCell;
 						switch (cell.getDoorDirection()) {
-							case UP:
-								cell.addAdj(getRoom(grid[row - 1][col].getInitial()).getCenterCell());
-								centerCell = getRoom(grid[row - 1][col].getInitial()).getCenterCell();
-								centerCell.addAdj(cell);
-								break;
-							case DOWN:
-								cell.addAdj(getRoom(grid[row + 1][col].getInitial()).getCenterCell());
-								centerCell = getRoom(grid[row + 1][col].getInitial()).getCenterCell();
-								centerCell.addAdj(cell);
-								break;
-							case LEFT:
-								cell.addAdj(getRoom(grid[row][col - 1].getInitial()).getCenterCell());
-								centerCell = getRoom(grid[row][col - 1].getInitial()).getCenterCell();
-								centerCell.addAdj(cell);
-								break;
-							case RIGHT:
-								cell.addAdj(getRoom(grid[row][col + 1].getInitial()).getCenterCell());
-								centerCell = getRoom(grid[row][col + 1].getInitial()).getCenterCell();
-								centerCell.addAdj(cell);
-								break;
-							default:
-								break;
-						}
-					}
-
-				} else if (cell.isDoorway()) {
-					BoardCell centerCell;
-					switch (cell.getDoorDirection()) {
 						case UP:
 							cell.addAdj(getRoom(grid[row - 1][col].getInitial()).getCenterCell());
 							centerCell = getRoom(grid[row - 1][col].getInitial()).getCenterCell();
@@ -341,6 +314,34 @@ public class Board extends JPanel {
 							break;
 						default:
 							break;
+						}
+					}
+
+				} else if (cell.isDoorway()) {
+					BoardCell centerCell;
+					switch (cell.getDoorDirection()) {
+					case UP:
+						cell.addAdj(getRoom(grid[row - 1][col].getInitial()).getCenterCell());
+						centerCell = getRoom(grid[row - 1][col].getInitial()).getCenterCell();
+						centerCell.addAdj(cell);
+						break;
+					case DOWN:
+						cell.addAdj(getRoom(grid[row + 1][col].getInitial()).getCenterCell());
+						centerCell = getRoom(grid[row + 1][col].getInitial()).getCenterCell();
+						centerCell.addAdj(cell);
+						break;
+					case LEFT:
+						cell.addAdj(getRoom(grid[row][col - 1].getInitial()).getCenterCell());
+						centerCell = getRoom(grid[row][col - 1].getInitial()).getCenterCell();
+						centerCell.addAdj(cell);
+						break;
+					case RIGHT:
+						cell.addAdj(getRoom(grid[row][col + 1].getInitial()).getCenterCell());
+						centerCell = getRoom(grid[row][col + 1].getInitial()).getCenterCell();
+						centerCell.addAdj(cell);
+						break;
+					default:
+						break;
 					}
 					if (row > 0 && grid[row - 1][col].getInitial() == 'W') cell.addAdj(grid[row - 1][col]);
 					if (row < numRows - 1 && grid[row + 1][col].getInitial() == 'W') cell.addAdj(grid[row + 1][col]);
@@ -410,37 +411,37 @@ public class Board extends JPanel {
 	 * deal method for cards after setup
 	 */
 	public void deal() {
-        List<Card> shuffledDeck = new ArrayList<>(deck);
-        Collections.shuffle(shuffledDeck);
+		List<Card> shuffledDeck = new ArrayList<>(deck);
+		Collections.shuffle(shuffledDeck);
 
-        solution = new ArrayList<>();
-        
-        Card room = null, weapon = null, person = null;
+		solution = new ArrayList<>();
 
-        Iterator<Card> iterator = shuffledDeck.iterator();
-        while (iterator.hasNext() && (room == null || weapon == null || person == null)) {
-            Card card = iterator.next();
-            if (card.getCardType() == CardType.ROOM && room == null) {
-                room = card;
-                solution.add(room);
-                iterator.remove();
-            } else if (card.getCardType() == CardType.WEAPON && weapon == null) {
-                weapon = card;
-                solution.add(weapon);
-                iterator.remove();
-            } else if (card.getCardType() == CardType.PERSON && person == null) {
-                person = card;
-                solution.add(person);
-                iterator.remove();
-            }
-        }
-        
-        if (solution.size() == 3) {
-        	theAnswer = new Solution(solution.get(0), solution.get(1), solution.get(2));
-        }
-        
-        int playerCount = players.size();
-        int playerIndex = 0;
+		Card room = null, weapon = null, person = null;
+
+		Iterator<Card> iterator = shuffledDeck.iterator();
+		while (iterator.hasNext() && (room == null || weapon == null || person == null)) {
+			Card card = iterator.next();
+			if (card.getCardType() == CardType.ROOM && room == null) {
+				room = card;
+				solution.add(room);
+				iterator.remove();
+			} else if (card.getCardType() == CardType.WEAPON && weapon == null) {
+				weapon = card;
+				solution.add(weapon);
+				iterator.remove();
+			} else if (card.getCardType() == CardType.PERSON && person == null) {
+				person = card;
+				solution.add(person);
+				iterator.remove();
+			}
+		}
+
+		if (solution.size() == 3) {
+			theAnswer = new Solution(solution.get(0), solution.get(1), solution.get(2));
+		}
+
+		int playerCount = players.size();
+		int playerIndex = 0;
 
 		if (playerCount > 0) {
 			for (Card card : shuffledDeck) {
@@ -459,63 +460,62 @@ public class Board extends JPanel {
 	public Card handleSuggestion(Solution suggestion, Player suggestingPlayer) {
 		int playerIndex = players.indexOf(suggestingPlayer);
 
-	    for (int i = 1; i < players.size(); i++) {
-	    	int index = (playerIndex + i) % players.size();
-	        Player currentPlayer = players.get(index);
+		for (int i = 1; i < players.size(); i++) {
+			int index = (playerIndex + i) % players.size();
+			Player currentPlayer = players.get(index);
 
-	        Card cardToDisprove = currentPlayer.disproveSuggestion(suggestion);
-	        if (cardToDisprove != null) {
-	            return cardToDisprove;
-	        }
-	    }
-	    return null;
+			Card cardToDisprove = currentPlayer.disproveSuggestion(suggestion);
+			if (cardToDisprove != null) {
+				return cardToDisprove;
+			}
+		}
+		return null;
 	}
 
 	// will move this at the top when done
 	private boolean unfinished = false;
 	private int playerIndex = 0;
-	
+
 	public void handleTurn() {
 		int diceRoll = (int)(random.nextInt(6) + 1);
 		
 		Player currentPlayer = players.get(playerIndex);
-		
-		
-		
+
+		controlPanel.setTurn(currentPlayer, diceRoll);
+
 		calcTargets(grid[currentPlayer.getRow()][currentPlayer.getColumn()], diceRoll);
-		
+
 		for (BoardCell[] row : grid) {
-	        for (BoardCell cell : row) {
-	            cell.setTarget(false);
-	        }
-	    }
-		
+			for (BoardCell cell : row) {
+				cell.setTarget(false);
+			}
+		}
+
 		if (currentPlayer.getType() == "HUMAN") {
 			for (BoardCell cell : targets) {
-		        cell.setTarget(true);
-		    }
+				cell.setTarget(true);
+			}
 			repaint();
-			//unfinished = true;
-			} else {
+			// unfinished = true; // need logic to set this to false after player does things
+		} else {
 			// do accusation implemented later
-			// move player randomly
 			BoardCell targetCell = currentPlayer.selectTarget(targets);
 			currentPlayer.setPosition(targetCell.getRow(), targetCell.getCol());
 			repaint();
 			// make suggestion
 		}
 	}
-	
+
 	public void handleNextPlayer() {
 		if (unfinished) {
 			// need to change to throw error
 			System.out.println("error");
 		}
-		
-        int playerCount = players.size();
-        playerIndex = (playerIndex + 1) % playerCount;
-        
-        handleTurn();
+
+		int playerCount = players.size();
+		playerIndex = (playerIndex + 1) % playerCount;
+
+		handleTurn();
 	}
 	/**
 	 * Paints all the components on the board.
@@ -562,7 +562,7 @@ public class Board extends JPanel {
 			}
 		}
 	}
-	
+
 	public void setSolution(Card room, Card person, Card weapon) {
 		theAnswer = new Solution(room, person, weapon);
 	}
@@ -575,11 +575,11 @@ public class Board extends JPanel {
 		}
 		return null;
 	}
-	
+
 	public void setPlayer(Player player) {
 		players.add(player);
 	}
-	
+
 	public Room getRoom(char c) {
 		return roomMap.get(c);
 	}
@@ -609,17 +609,17 @@ public class Board extends JPanel {
 	public Set<BoardCell> getTargets() {
 		return targets;
 	}
-	
+
 	// get list of players
 	public List<Player> getPlayers() {
 		return players;
 	}
-	
+
 	// get list of weapons
 	public List<String> getWeapons() {
 		return weapons;
 	}
-	
+
 	// get list of cards in deck
 	public List<Card> getDeck() {
 		//Collections.shuffle(deck); // breaks tests when shuffled again
@@ -630,8 +630,12 @@ public class Board extends JPanel {
 	public Solution getAnswer() {
 		return theAnswer;
 	}
-	
+
 	public List<Card> getSolution() {
- 		return solution;
- 	}
+		return solution;
+	}
+
+	public void setControlPanel(GameControlPanel panel) {
+		controlPanel = panel;
+	}
 }

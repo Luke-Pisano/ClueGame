@@ -119,7 +119,7 @@ public class GameControlPanel extends JPanel {
 			this.guess.setText(guess);
 		}
 
-		private void setTurn(ComputerPlayer computerPlayer, int roll) {
+		public void setTurn(Player computerPlayer, int roll) {
 			this.turn.setText(computerPlayer.getName());
 			this.roll.setText(String.valueOf(roll));
 			this.turn.setBackground(computerPlayer.getColor());
