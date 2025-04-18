@@ -488,14 +488,30 @@ public class Board extends JPanel {
 		
 		Player currentPlayer = players.get(playerIndex);
 		
+		
+		
 		calcTargets(grid[currentPlayer.getRow()][currentPlayer.getColumn()], diceRoll);
 		
+		
+		for (BoardCell[] row : grid) {
+	        for (BoardCell cell : row) {
+	            cell.setTarget(false);
+	        }
+	    }
+		
+		for (BoardCell cell : targets) {
+	        cell.setTarget(true);
+	    }
+		repaint();
 		
 		if (currentPlayer.getType() == "HUMAN") {	
 			System.out.println("Human's turn");
 		} else {
 			System.out.println("Computer's turn");
 		}
+		
+		
+		
 		
 		// update game control pannel
 		

@@ -16,6 +16,8 @@ public class BoardCell {
 	private char secretPassage;
 	private Set<BoardCell> adjList = new HashSet<>();
 
+	private boolean isTarget = false;
+	
 	/**
 	 *
 	 * @param row Row coordinate of cell.
@@ -44,7 +46,12 @@ public class BoardCell {
         int positionCol = col * cellDimension;
         int positionRow = row * cellDimension;
 
-        if (initial == 'W') {
+        if (isTarget) {
+        	graphics.setColor(Color.CYAN);
+            graphics.fillRect(positionCol, positionRow, cellDimension, cellDimension);
+            graphics.setColor(Color.BLACK);
+            graphics.drawRect(positionCol, positionRow, cellDimension, cellDimension);
+        } else if (initial == 'W') {
             graphics.setColor(Color.YELLOW);
             graphics.fillRect(positionCol, positionRow, cellDimension, cellDimension);
             graphics.setColor(Color.BLACK);
@@ -107,7 +114,10 @@ public class BoardCell {
 	public boolean isLabel() {
 		return roomLabel;
 	}
-
+	public boolean isTarget() {
+	    return isTarget;
+	}
+	
 	public boolean isRoomCenter() {
 		return roomCenter;
 	}
@@ -116,6 +126,10 @@ public class BoardCell {
 		return secretPassage;
 	}
 
+	public void setTarget(boolean value) {
+	    isTarget = value;
+	}
+	
 	public void setDoorDirection(DoorDirection dir) {
 		doorDirection = dir;
 	}
