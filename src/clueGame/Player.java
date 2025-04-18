@@ -89,4 +89,11 @@ public abstract class Player {
 	public void updateSeenCards(Card card) {
 		seenCards.add(card);
 	}
+	
+	public void setPosition(int row, int column) {
+		this.row = row;
+		this.column = column;
+	}
+
+	protected abstract BoardCell selectTarget(Set<BoardCell> targets);
 }

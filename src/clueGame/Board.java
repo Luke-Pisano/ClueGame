@@ -484,24 +484,24 @@ public class Board extends JPanel {
 		
 		calcTargets(grid[currentPlayer.getRow()][currentPlayer.getColumn()], diceRoll);
 		
+		for (BoardCell[] row : grid) {
+	        for (BoardCell cell : row) {
+	            cell.setTarget(false);
+	        }
+	    }
+		
 		if (currentPlayer.getType() == "HUMAN") {
-			for (BoardCell[] row : grid) {
-		        for (BoardCell cell : row) {
-		            cell.setTarget(false);
-		        }
-		    }
-			
 			for (BoardCell cell : targets) {
 		        cell.setTarget(true);
 		    }
 			repaint();
 			//unfinished = true;
-			
-			System.out.println("Human's turn");
-		} else {
+			} else {
 			// do accusation implemented later
 			// move player randomly
-			System.out.println("Computer's turn");
+			BoardCell targetCell = currentPlayer.selectTarget(targets);
+			currentPlayer.setPosition(targetCell.getRow(), targetCell.getCol());
+			repaint();
 			// make suggestion
 		}
 	}
