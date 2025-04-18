@@ -476,6 +476,18 @@ public class Board extends JPanel {
 	private boolean unfinished = false;
 	private int playerIndex = 0;
 
+	private void highlightEntireRoom(char roomInitial) {
+		for (int row = 0; row < numRows; row++) {
+			for (int col = 0; col < numColumns; col++) {
+				BoardCell cell = grid[row][col];
+				if (cell.getInitial() == roomInitial) {
+					cell.setHighlightRoom(true);
+				}
+			}
+		}
+		repaint();
+	}
+	
 	public void handleTurn() {
 		int diceRoll = (int)(random.nextInt(6) + 1);
 		
@@ -488,12 +500,17 @@ public class Board extends JPanel {
 		for (BoardCell[] row : grid) {
 			for (BoardCell cell : row) {
 				cell.setTarget(false);
+				cell.setHighlightRoom(false);
 			}
 		}
 
 		if (currentPlayer.getType() == "HUMAN") {
 			for (BoardCell cell : targets) {
 				cell.setTarget(true);
+				if (cell.isRoomCenter()) {
+					char roomInitial = cell.getInitial();
+					highlightEntireRoom(roomInitial);
+				}
 			}
 			repaint();
 			// unfinished = true; // need logic to set this to false after player does things

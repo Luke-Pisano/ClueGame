@@ -15,6 +15,7 @@ public class BoardCell {
 	private boolean isOccupied;
 	private char secretPassage;
 	private Set<BoardCell> adjList = new HashSet<>();
+	private boolean highlightRoom = false;
 
 	private boolean isTarget = false;
 	
@@ -46,12 +47,18 @@ public class BoardCell {
         int positionCol = col * cellDimension;
         int positionRow = row * cellDimension;
 
-        if (isTarget) {
+        if (isTarget && !roomCenter) {
         	graphics.setColor(Color.CYAN);
             graphics.fillRect(positionCol, positionRow, cellDimension, cellDimension);
             graphics.setColor(Color.BLACK);
             graphics.drawRect(positionCol, positionRow, cellDimension, cellDimension);
-        } else if (initial == 'W') {
+        } else if (highlightRoom) {
+        	graphics.setColor(Color.CYAN);
+            graphics.fillRect(positionCol, positionRow, cellDimension, cellDimension);
+            //graphics.setColor(Color.BLACK);
+            //graphics.drawRect(positionCol, positionRow, cellDimension, cellDimension);
+        }
+        else if (initial == 'W') {
             graphics.setColor(Color.YELLOW);
             graphics.fillRect(positionCol, positionRow, cellDimension, cellDimension);
             graphics.setColor(Color.BLACK);
@@ -67,10 +74,10 @@ public class BoardCell {
         if (doorDirection != DoorDirection.NONE) {
             graphics.setColor(Color.BLUE);
             switch (doorDirection) {
-                case UP -> graphics.fillRect(positionCol, positionRow - 5, cellDimension, 5);
-                case DOWN -> graphics.fillRect(positionCol, positionRow + 5 + cellDimension - 5, cellDimension, 5);
-                case LEFT -> graphics.fillRect(positionCol - 5, positionRow, 5, cellDimension);
-                case RIGHT -> graphics.fillRect(positionCol + cellDimension, positionRow, 5, cellDimension);
+                case UP -> graphics.fillRect(positionCol, positionRow, cellDimension, 5);
+                case DOWN -> graphics.fillRect(positionCol, positionRow + cellDimension - 5, cellDimension, 5);
+                case LEFT -> graphics.fillRect(positionCol, positionRow, 5, cellDimension);
+                case RIGHT -> graphics.fillRect(positionCol + cellDimension - 5, positionRow, 5, cellDimension);
 			default -> throw new IllegalArgumentException("Unexpected value: " + doorDirection);
             }
         }
@@ -148,6 +155,10 @@ public class BoardCell {
 
 	public void setOccupied(boolean val) {
 		isOccupied = val;
+	}
+	
+	public void setHighlightRoom(boolean highlightRoom) {
+	    this.highlightRoom = highlightRoom;
 	}
 
 	public boolean getOccupied() {

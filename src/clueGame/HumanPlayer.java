@@ -52,4 +52,10 @@ public class HumanPlayer extends Player {
 	public String getType() {
 		return type;
 	}
+
+	@Override
+	protected BoardCell selectTarget(Set<BoardCell> targets) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
