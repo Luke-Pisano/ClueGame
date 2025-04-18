@@ -469,6 +469,42 @@ public class Board extends JPanel {
 	    return null;
 	}
 
+	// will move this at the top when done
+	private boolean unfinished = false;
+	private int currentPlayer = 0;
+	
+	public void handleNextPlayer() {
+		// is current human player finished 
+		// if true continue otherwise throw error
+		if (unfinished) {
+			System.out.println("error");
+		}
+		
+        int playerCount = players.size();
+		currentPlayer = (currentPlayer + 1) % playerCount;
+
+		if (players.get(currentPlayer).getType() == "HUMAN") {	
+			System.out.println("Human's turn");
+		} else {
+			System.out.println("Computer's turn");
+		}
+		
+		// update current player
+		// roll the dice (random number)
+		// calculate the targets
+		// update game control pannel
+		
+		// is new player human
+		// if yes 
+			// display targets
+			// flag unfinished
+		// if no 
+			// do accusation
+			// do move 
+			// make suggestion
+		
+		System.out.println("Next player button clicked");
+	}
 	/**
 	 * Paints all the components on the board.
 	 * @param graphics the <code>Graphics</code> object to protect

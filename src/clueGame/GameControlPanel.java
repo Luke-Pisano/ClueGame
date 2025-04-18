@@ -48,8 +48,7 @@ public class GameControlPanel extends JPanel {
 			ActionListener nextListener = new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					// Handle next player action
-					System.out.println("Next player button clicked");
+					Board.getInstance().handleNextPlayer();
 				}
 			};
 			next.addActionListener(nextListener);
