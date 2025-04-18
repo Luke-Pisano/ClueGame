@@ -498,12 +498,24 @@ public class Board extends JPanel {
 			repaint();
 			// unfinished = true; // need logic to set this to false after player does things
 		} else {
-			// do accusation implemented later
+			makeAccusation(); // implement later
+			
 			BoardCell targetCell = currentPlayer.selectTarget(targets);
 			currentPlayer.setPosition(targetCell.getRow(), targetCell.getCol());
 			repaint();
-			// make suggestion
+			
+			makeSuggestion(); // implement later
 		}
+	}
+
+	private void makeSuggestion() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void makeAccusation() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	public void handleNextPlayer() {
