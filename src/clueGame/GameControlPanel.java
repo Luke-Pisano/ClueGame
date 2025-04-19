@@ -48,7 +48,11 @@ public class GameControlPanel extends JPanel {
 			ActionListener nextListener = new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					Board.getInstance().handleNextPlayer();
+					try {
+						Board.getInstance().handleNextPlayer();
+					} catch (TurnNotFinishedException e1) {
+						new SplashScreen("Turn not finished", "Error").showSplash();
+					}
 				}
 			};
 			next.addActionListener(nextListener);
