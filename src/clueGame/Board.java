@@ -578,7 +578,7 @@ public class Board extends JPanel {
 					}
 				}
 				repaint();
-			} else if (getRoom(clickedCell.getInitial()).getCenterCell().isTarget()) {
+			} else if (getRoom(clickedCell.getInitial()).getCenterCell() != null && getRoom(clickedCell.getInitial()).getCenterCell().isTarget()) {
 				char roomInitial = clickedCell.getInitial();
 				BoardCell roomCenter = getRoom(roomInitial).getCenterCell();
 				currentPlayer.setPosition(roomCenter.getRow(), roomCenter.getCol());
