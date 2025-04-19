@@ -2,6 +2,8 @@ package clueGame;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -54,6 +56,18 @@ public class Board extends JPanel {
 	 */
 	public void initialize() {
 		theAnswer = null;
+		addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int cellWidth = getWidth() / numColumns;
+				int cellHeight = getHeight() / numRows;
+
+				int clickedColumn = e.getX() / cellWidth;
+				int clickedRow = e.getY() / cellHeight;
+
+				handleMouseClick(clickedRow, clickedColumn);
+			}
+		});
 		for (int row = 0; row < numRows; row++) {
 			for (int col = 0; col < numColumns; col++) {
 				grid[row][col] = new BoardCell(row, col, 'X');
@@ -473,7 +487,11 @@ public class Board extends JPanel {
 	}
 
 	// will move this at the top when done
-	private boolean unfinished = false;
+	private boolean unfinished = true;
+	Player currentPlayer = null;
+	public void setFinished(boolean finished) {
+		unfinished = !finished;
+	}
 	private int playerIndex = 0;
 
 	private void highlightEntireRoom(char roomInitial) {
@@ -491,7 +509,7 @@ public class Board extends JPanel {
 	public void handleTurn() {
 		int diceRoll = (int)(random.nextInt(6) + 1);
 		
-		Player currentPlayer = players.get(playerIndex);
+		currentPlayer = players.get(playerIndex);
 
 		controlPanel.setTurn(currentPlayer, diceRoll);
 
@@ -504,8 +522,9 @@ public class Board extends JPanel {
 			}
 		}
 
-		if (currentPlayer.getType() == "HUMAN") {
+		if (currentPlayer.getType().equals("HUMAN")) {
 			for (BoardCell cell : targets) {
+				unfinished = true;
 				cell.setTarget(true);
 				if (cell.isRoomCenter()) {
 					char roomInitial = cell.getInitial();
@@ -535,10 +554,9 @@ public class Board extends JPanel {
 		
 	}
 
-	public void handleNextPlayer() {
+	public void handleNextPlayer() throws TurnNotFinishedException {
 		if (unfinished) {
-			// need to change to throw error
-			System.out.println("error");
+			throw new TurnNotFinishedException("Turn not finished");
 		}
 
 		int playerCount = players.size();
@@ -546,6 +564,38 @@ public class Board extends JPanel {
 
 		handleTurn();
 	}
+
+	private void handleMouseClick(int clickedRow, int clickedColumn) {
+		BoardCell clickedCell = grid[clickedRow][clickedColumn];
+		if (currentPlayer instanceof HumanPlayer) {
+			if (clickedCell.isTarget()) {
+				currentPlayer.setPosition(clickedRow, clickedColumn);
+				unfinished = false;
+				for (BoardCell[] row : grid) {
+					for (BoardCell cell : row) {
+						cell.setTarget(false);
+						cell.setHighlightRoom(false);
+					}
+				}
+				repaint();
+			} else if (getRoom(clickedCell.getInitial()).getCenterCell().isTarget()) {
+				char roomInitial = clickedCell.getInitial();
+				BoardCell roomCenter = getRoom(roomInitial).getCenterCell();
+				currentPlayer.setPosition(roomCenter.getRow(), roomCenter.getCol());
+				unfinished = false;
+				for (BoardCell[] row : grid) {
+					for (BoardCell cell : row) {
+						cell.setTarget(false);
+						cell.setHighlightRoom(false);
+					}
+				}
+				repaint();
+			} else {
+				new SplashScreen("Invalid cell clicked", "Error").showSplash();
+			}
+		}
+	}
+
 	/**
 	 * Paints all the components on the board.
 	 * @param graphics the <code>Graphics</code> object to protect
