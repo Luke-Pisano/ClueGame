@@ -35,6 +35,9 @@ public class Board extends JPanel {
 	private Solution theAnswer; // stores the answer object
 	private Random random = new Random(System.nanoTime());
 	private GameControlPanel controlPanel;
+	private boolean unfinished = true;
+	Player currentPlayer = null;
+	private int playerIndex = 0;
 
 	private static Board theInstance = new Board();
 	// constructor is private to ensure only one can be created
@@ -486,14 +489,10 @@ public class Board extends JPanel {
 		return null;
 	}
 
-	// will move this at the top when done
-	private boolean unfinished = true;
-	Player currentPlayer = null;
-	public void setFinished(boolean finished) {
-		unfinished = !finished;
-	}
-	private int playerIndex = 0;
-
+	/**
+	 * Highlights the entire room on the board.
+	 * @param roomInitial The initial of the room to highlight.
+	 */
 	private void highlightEntireRoom(char roomInitial) {
 		for (int row = 0; row < numRows; row++) {
 			for (int col = 0; col < numColumns; col++) {
@@ -505,7 +504,10 @@ public class Board extends JPanel {
 		}
 		repaint();
 	}
-	
+
+	/**
+	 * Handles the turn for the current player.
+	 */
 	public void handleTurn() {
 		int diceRoll = (int)(random.nextInt(6) + 1);
 		
@@ -532,7 +534,6 @@ public class Board extends JPanel {
 				}
 			}
 			repaint();
-			// unfinished = true; // need logic to set this to false after player does things
 		} else {
 			makeAccusation(); // implement later
 			
@@ -554,6 +555,10 @@ public class Board extends JPanel {
 		
 	}
 
+	/**
+	 * Handles the next player's turn.
+	 * @throws TurnNotFinishedException if the current player's turn is not finished.
+	 */
 	public void handleNextPlayer() throws TurnNotFinishedException {
 		if (unfinished) {
 			throw new TurnNotFinishedException("Turn not finished");
@@ -565,6 +570,11 @@ public class Board extends JPanel {
 		handleTurn();
 	}
 
+	/**
+	 * Handles mouse click events on the board.
+	 * @param clickedRow The row of the clicked cell.
+	 * @param clickedColumn The column of the clicked cell.
+	 */
 	private void handleMouseClick(int clickedRow, int clickedColumn) {
 		BoardCell clickedCell = grid[clickedRow][clickedColumn];
 		if (currentPlayer instanceof HumanPlayer) {
