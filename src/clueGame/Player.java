@@ -11,12 +11,13 @@ import java.util.Set;
 public abstract class Player {
 	protected String name;
 	protected Color color;
-	protected int row, column;
+	protected int row;
+	protected int column;
 	protected List<Card> hand = new ArrayList<>();
 	protected Set<Card> seenCards = new HashSet<>();
 	protected String currentRoom;
 	
-	public Player(String name, String inputColor, int row, int column) {
+	protected Player(String name, String inputColor, int row, int column) {
 		this.name = name;
 		this.row = row;
 		this.column = column;
@@ -41,7 +42,7 @@ public abstract class Player {
 			}
 		}
 		
-		if(possibleCards.size() > 0) {
+		if(!possibleCards.isEmpty()) {
 			Collections.shuffle(possibleCards);
 			return(possibleCards.get(0));
 			
