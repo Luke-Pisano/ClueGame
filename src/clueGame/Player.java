@@ -3,6 +3,7 @@ package clueGame;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -24,8 +25,29 @@ public abstract class Player {
 
 	public abstract Solution createSuggestion();
 
-	public abstract Card disproveSuggestion(Solution suggestion);
-
+	/**
+	 * Disproves a suggestion made by another player.
+	 * @param suggestion The suggestion to be disproved.
+	 * @return A Card object representing the card that disproves the suggestion,
+	 */
+	public Card disproveSuggestion(Solution suggestion) {
+		// Disprove the suggestion if possible
+		List<Card> possibleCards = new ArrayList<>();
+		
+		for (Card card : getHand()) {
+			if (card.equals(suggestion.getRoom()) || card.equals(suggestion.getPerson()) || card.equals(suggestion.getWeapon())) {
+				updateSeenCards(card);
+				possibleCards.add(card);
+			}
+		}
+		
+		if(possibleCards.size() > 0) {
+			Collections.shuffle(possibleCards);
+			return(possibleCards.get(0));
+			
+		}
+		return null;
+	}
 	/**
 	 * Draws the player on the board.
 	 * @param graphics The graphics object to draw on.
