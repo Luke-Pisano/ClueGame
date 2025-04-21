@@ -546,11 +546,17 @@ public class Board extends JPanel {
 		}
 	}
 
+	/**
+	 * Method will be implemented to handle the creation of making a suggestion
+	 */
 	private void makeSuggestion() {
 		// TODO Auto-generated method stub
 		
 	}
 
+	/**
+	 * Method will be implemented to handle the creation of making an accusation
+	 */
 	private void makeAccusation() {
 		// TODO Auto-generated method stub
 		
