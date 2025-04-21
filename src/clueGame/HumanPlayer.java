@@ -22,33 +22,6 @@ public class HumanPlayer extends Player {
 		return null;
 	}
 
-	/**
-	 * Disproves a suggestion made by another player.
-	 * @param suggestion The suggestion to be disproved.
-	 * @return The card that disproves the suggestion, or null if the player cannot disprove it.
-	 */
-	@Override
-	public Card disproveSuggestion(Solution suggestion) {
-		// TODO: Implement the logic to disprove a suggestion
-		// TODO: Disproves random for now
-		// Disprove the suggestion if possible
-		List<Card> possibleCards = new ArrayList<>();
-		
-		for (Card card : getHand()) {
-			if (card.equals(suggestion.getRoom()) || card.equals(suggestion.getPerson()) || card.equals(suggestion.getWeapon())) {
-				updateSeenCards(card);
-				possibleCards.add(card);
-			}
-		}
-		
-		if(possibleCards.size() > 0) {
-			Collections.shuffle(possibleCards);
-			return(possibleCards.get(0));
-			
-		}
-		return null;
-	}
-
 	public String getType() {
 		return type;
 	}

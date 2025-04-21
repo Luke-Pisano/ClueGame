@@ -81,31 +81,6 @@ public class ComputerPlayer extends Player {
 	    return targetList.get(0); // return the first one from the shuffled list
 	}
 
-	/**
-	 * Disproves a suggestion made by another player.
-	 * @param suggestion The suggestion to be disproved.
-	 * @return A Card object representing the card that disproves the suggestion,
-	 */
-	@Override
-	public Card disproveSuggestion(Solution suggestion) {
-		// Disprove the suggestion if possible
-		List<Card> possibleCards = new ArrayList<>();
-		
-		for (Card card : getHand()) {
-			if (card.equals(suggestion.getRoom()) || card.equals(suggestion.getPerson()) || card.equals(suggestion.getWeapon())) {
-				updateSeenCards(card);
-				possibleCards.add(card);
-			}
-		}
-		
-		if(possibleCards.size() > 0) {
-			Collections.shuffle(possibleCards);
-			return(possibleCards.get(0));
-			
-		}
-		return null;
-	}
-
 	public String getType() {
 		return type;
 	}
