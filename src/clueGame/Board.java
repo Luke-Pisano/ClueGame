@@ -607,6 +607,9 @@ public class Board extends JPanel {
 					}
 				}
 				repaint();
+				
+				SuggestionPanel suggestion = new SuggestionPanel(getRoom(roomInitial));
+		        suggestion.setVisible(true);
 			} else {
 				new SplashScreen("Invalid cell clicked", "Error").showSplash();
 			}
