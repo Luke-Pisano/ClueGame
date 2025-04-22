@@ -8,9 +8,8 @@ import java.awt.geom.Point2D;
 
 public class ClueGame extends JFrame {
     private static Board board = Board.getInstance();
-    JFrame clueGame = new JFrame();
-    GameCardsPanel cardsPanel = new GameCardsPanel();
-    GameControlPanel controlPanel = new GameControlPanel();
+    GameCardsPanel cardsPanel;
+    GameControlPanel controlPanel;
 
     public ClueGame() {
     	setTitle("Clue Game");
