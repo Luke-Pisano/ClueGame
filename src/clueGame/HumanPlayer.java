@@ -1,8 +1,5 @@
 package clueGame;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.Set;
 
 public class HumanPlayer extends Player {
@@ -41,7 +38,7 @@ public class HumanPlayer extends Player {
 			}
 		}
 		
-		if(!possibleCards.isEmpty()) {
+		if(possibleCards.size() > 0) {
 			Collections.shuffle(possibleCards);
 			return(possibleCards.get(0));
 			

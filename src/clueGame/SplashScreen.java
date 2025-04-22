@@ -18,8 +18,9 @@ public class SplashScreen extends JOptionPane {
     }
 
     /**
-     * Creates a dialog with the specified title and message.
-     * Used only for testing purposes in main method.
+     * This method displays a dialog box "splash screen"
+     * with a specified title which is loaded in via the
+     * constructor at object creation
      */
     public void showSplash() {
         JDialog dialog = createDialog(title);

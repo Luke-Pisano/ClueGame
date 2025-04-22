@@ -3,6 +3,7 @@ package clueGame;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -10,12 +11,13 @@ import java.util.Set;
 public abstract class Player {
 	protected String name;
 	protected Color color;
-	protected int row, column;
+	protected int row;
+	protected int column;
 	protected List<Card> hand = new ArrayList<>();
 	protected Set<Card> seenCards = new HashSet<>();
 	protected String currentRoom;
 	
-	public Player(String name, String inputColor, int row, int column) {
+	protected Player(String name, String inputColor, int row, int column) {
 		this.name = name;
 		this.row = row;
 		this.column = column;
@@ -24,8 +26,29 @@ public abstract class Player {
 
 	public abstract Solution createSuggestion();
 
-	public abstract Card disproveSuggestion(Solution suggestion);
-
+	/**
+	 * Disproves a suggestion made by another player.
+	 * @param suggestion The suggestion to be disproved.
+	 * @return A Card object representing the card that disproves the suggestion,
+	 */
+	public Card disproveSuggestion(Solution suggestion) {
+		// Disprove the suggestion if possible
+		List<Card> possibleCards = new ArrayList<>();
+		
+		for (Card card : getHand()) {
+			if (card.equals(suggestion.getRoom()) || card.equals(suggestion.getPerson()) || card.equals(suggestion.getWeapon())) {
+				updateSeenCards(card);
+				possibleCards.add(card);
+			}
+		}
+		
+		if(!possibleCards.isEmpty()) {
+			Collections.shuffle(possibleCards);
+			return(possibleCards.get(0));
+			
+		}
+		return null;
+	}
 	/**
 	 * Draws the player on the board.
 	 * @param graphics The graphics object to draw on.
@@ -48,7 +71,7 @@ public abstract class Player {
 		try {
 			color = (Color) Color.class.getField(inputColor.toUpperCase()).get(null);
 		} catch(Exception e) {
-			System.out.println(System.out);
+			System.err.println("Invalid color");
 		}
 	}
 	

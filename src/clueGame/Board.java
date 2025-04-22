@@ -82,6 +82,7 @@ public class Board extends JPanel {
 			loadLayoutConfig();
 			deal();
 		} catch (BadConfigFormatException e) {
+			System.err.println("Bad Config Format");
 			System.err.println(e.getMessage());
 		}
 	}
@@ -150,7 +151,7 @@ public class Board extends JPanel {
 			}
 			input.close();
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			System.err.println("Setup config file not found.");
 		}
 	}
 
@@ -254,7 +255,7 @@ public class Board extends JPanel {
 				calcAdj();
 			}
 		} catch (FileNotFoundException e) {
-			System.err.println(e.getMessage());
+			System.err.println("Layout config file not found.");
 		}
 	}
 
@@ -545,11 +546,17 @@ public class Board extends JPanel {
 		}
 	}
 
+	/**
+	 * Method will be implemented to handle the creation of making a suggestion
+	 */
 	private void makeSuggestion() {
 		// TODO Auto-generated method stub
 		
 	}
 
+	/**
+	 * Method will be implemented to handle the creation of making an accusation
+	 */
 	private void makeAccusation() {
 		// TODO Auto-generated method stub
 		
