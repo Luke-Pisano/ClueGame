@@ -41,7 +41,7 @@ public class HumanPlayer extends Player {
 			}
 		}
 		
-		if(possibleCards.size() > 0) {
+		if(!possibleCards.isEmpty()) {
 			Collections.shuffle(possibleCards);
 			return(possibleCards.get(0));
 			
