@@ -4,7 +4,7 @@ import javax.swing.*;
 
 public class SplashScreen extends JOptionPane {
     private static final long serialVersionUID = 1L;
-    private String title;
+    private final String title;
 
     /**
      * Creates a splash screen with the specified message and title.
