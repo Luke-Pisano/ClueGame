@@ -112,6 +112,10 @@ public abstract class Player {
 	public void updateSeenCards(Card card) {
 		seenCards.add(card);
 	}
+
+	public Set<Card> getSeenCards() {
+		return seenCards;
+	}
 	
 	public void setPosition(int row, int column) {
 		this.row = row;
