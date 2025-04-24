@@ -18,6 +18,7 @@ public class BoardCell {
 	private boolean highlightRoom = false;
 
 	private boolean isTarget = false;
+	private boolean isSecretPassage = false;
 	
 	/**
 	 *
@@ -55,8 +56,6 @@ public class BoardCell {
         } else if (highlightRoom) {
         	graphics.setColor(Color.CYAN);
             graphics.fillRect(positionCol, positionRow, cellDimension, cellDimension);
-            //graphics.setColor(Color.BLACK);
-            //graphics.drawRect(positionCol, positionRow, cellDimension, cellDimension);
         }
         else if (initial == 'W') {
             graphics.setColor(Color.YELLOW);
@@ -66,11 +65,15 @@ public class BoardCell {
         } else if (initial == 'X'){
         	graphics.setColor(Color.BLACK);
             graphics.fillRect(positionCol, positionRow, cellDimension, cellDimension);
-        } else {
+        } else if (isSecretPassage){
+        	graphics.setColor(Color.RED);
+            graphics.fillRect(positionCol, positionRow, cellDimension, cellDimension);
+            graphics.setColor(Color.BLACK);
+            graphics.drawRect(positionCol, positionRow, cellDimension, cellDimension);
+		} else {
             graphics.setColor(Color.GRAY);
             graphics.fillRect(positionCol, positionRow, cellDimension, cellDimension);
         }
-
         if (doorDirection != DoorDirection.NONE) {
             graphics.setColor(Color.BLUE);
             switch (doorDirection) {
@@ -143,6 +146,7 @@ public class BoardCell {
 
 	public void setSecretPassage(char passage) {
 		secretPassage = passage;
+		isSecretPassage = true;
 	}
 
 	public void setRoomLabel(boolean val) {

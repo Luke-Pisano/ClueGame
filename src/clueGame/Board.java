@@ -783,6 +783,7 @@ public class Board extends JPanel {
 			new SplashScreen("Sorry, not correct. You lose!", "Game Over").showSplash();
 		}
 		System.out.println("The correct solution was: [" + getSolution().get(0).getCardName() + ", " + getSolution().get(1).getCardName() + ", " + getSolution().get(2).getCardName() + "]");
+		System.exit(0);
 	}
 
 	public void handleComputerAccusation() {
