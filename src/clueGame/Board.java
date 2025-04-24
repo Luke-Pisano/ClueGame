@@ -516,11 +516,9 @@ public class Board extends JPanel {
 	 * Handles the turn for the current player.
 	 */
 	public void handleTurn() {
+		int diceRoll = random.nextInt(6) + 1;
 		currentPlayer = players.get(playerIndex);
-		gameCardsPanel.updateCards(currentPlayer);
-		
-		int diceRoll = (int)(random.nextInt(6) + 1);
-		
+
 		controlPanel.setTurn(currentPlayer, diceRoll);
 
 		calcTargets(grid[currentPlayer.getRow()][currentPlayer.getColumn()], diceRoll);
@@ -533,6 +531,7 @@ public class Board extends JPanel {
 		}
 
 		if (currentPlayer.getType().equals("HUMAN")) {
+			gameCardsPanel.updateCards(currentPlayer);
 			for (BoardCell cell : targets) {
 				unfinished = true;
 				cell.setTarget(true);
