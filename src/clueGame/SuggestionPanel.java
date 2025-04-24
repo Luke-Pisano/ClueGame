@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 
 public class SuggestionPanel extends JDialog {
     private static final long serialVersionUID = 1L;
+    private Solution selectedSuggestion = null;
 
     /**
      * Creates a suggestion panel with the specified message and title.
@@ -54,7 +55,16 @@ public class SuggestionPanel extends JDialog {
         submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+            	String roomName = (String) roomSuggestion.getSelectedItem();
+                String personName = (String) playerSuggestion.getSelectedItem();
+                String weaponName = (String) weaponSuggestion.getSelectedItem();
 
+                Card room = new Card(roomName, CardType.ROOM);
+                Card person = new Card(personName, CardType.PERSON);
+                Card weapon = new Card(weaponName, CardType.WEAPON);
+
+                selectedSuggestion = new Solution(room, person, weapon);
+                dispose();
             }
         });
         buttonPanel.add(submitButton);
@@ -70,6 +80,10 @@ public class SuggestionPanel extends JDialog {
         add(buttonPanel, BorderLayout.SOUTH);
     }
 
+    public Solution getSuggestion() {
+        return selectedSuggestion;
+    }
+    
     public static void main(String[] args) {
         SuggestionPanel suggestion = new SuggestionPanel(new Room("Kitchen"));
         suggestion.setVisible(true);

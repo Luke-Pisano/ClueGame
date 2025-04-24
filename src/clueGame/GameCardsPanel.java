@@ -152,6 +152,19 @@ public class GameCardsPanel extends JPanel {
 		revalidate();
 		repaint();
 	}
+	
+	public void updateCards(Player player) {
+		initializeLists();
+
+		for (Card card : player.getHand()) {
+			addInHandCard(card);
+		}
+
+		for (Card card : player.getSeenCards()) {
+			addSeenCard(card, player);
+		}
+	}
+
 
 	/**
 	 * Removes the "NONE" text field from the specified panel if it exists.

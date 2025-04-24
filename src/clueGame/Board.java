@@ -35,6 +35,7 @@ public class Board extends JPanel {
 	private Solution theAnswer; // stores the answer object
 	private Random random = new Random(System.nanoTime());
 	private GameControlPanel controlPanel;
+	private GameCardsPanel gameCardsPanel;
 	private boolean unfinished = true;
 	Player currentPlayer = null;
 	private int playerIndex = 0;
@@ -488,6 +489,7 @@ public class Board extends JPanel {
 
 			Card cardToDisprove = currentPlayer.disproveSuggestion(suggestion);
 			if (cardToDisprove != null) {
+				suggestingPlayer.updateSeenCards(cardToDisprove);
 				return cardToDisprove;
 			}
 		}
@@ -630,8 +632,22 @@ public class Board extends JPanel {
 				}
 				repaint();
 				
-				SuggestionPanel suggestion = new SuggestionPanel(getRoom(roomInitial));
-		        suggestion.setVisible(true);
+				SuggestionPanel suggestionPanel = new SuggestionPanel(getRoom(roomInitial));
+				suggestionPanel.setVisible(true);
+		        
+		        Solution suggestion = suggestionPanel.getSuggestion();
+
+				if (suggestion != null) {
+				    Card revealedCard = handleSuggestion(suggestion, currentPlayer);
+				    if (revealedCard != null) {
+				        System.out.println("Suggestion disproved with: " + revealedCard.getCardName());
+				    } else {
+				        System.out.println("No one could disprove the suggestion.");
+				    }
+				}
+				
+				gameCardsPanel.updateCards(currentPlayer);
+				
 			} else {
 				new SplashScreen("Invalid cell clicked", "Error").showSplash();
 			}
@@ -695,6 +711,10 @@ public class Board extends JPanel {
 
 	public void setPlayer(Player player) {
 		players.add(player);
+	}
+	
+	public void setGameCardsPanel(GameCardsPanel panel) {
+		this.gameCardsPanel = panel;
 	}
 
 	public Room getRoom(char c) {
