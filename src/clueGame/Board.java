@@ -516,10 +516,11 @@ public class Board extends JPanel {
 	 * Handles the turn for the current player.
 	 */
 	public void handleTurn() {
+		currentPlayer = players.get(playerIndex);
+		gameCardsPanel.updateCards(currentPlayer);
+		
 		int diceRoll = (int)(random.nextInt(6) + 1);
 		
-		currentPlayer = players.get(playerIndex);
-
 		controlPanel.setTurn(currentPlayer, diceRoll);
 
 		calcTargets(grid[currentPlayer.getRow()][currentPlayer.getColumn()], diceRoll);
