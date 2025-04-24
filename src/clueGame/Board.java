@@ -780,12 +780,14 @@ public class Board extends JPanel {
 		if (accusation.myEquals(theAnswer)) {
 			new SplashScreen("You win!", "Congratulations").showSplash();
 		} else {
-			new SplashScreen("You lose!", "Game Over").showSplash();
+			new SplashScreen("Sorry, not correct. You lose!", "Game Over").showSplash();
 		}
 		System.out.println("The correct solution was: [" + getSolution().get(0).getCardName() + ", " + getSolution().get(1).getCardName() + ", " + getSolution().get(2).getCardName() + "]");
 	}
 
 	public void handleComputerAccusation() {
-
+		if (currentPlayer.getSeenCards().size() + currentPlayer.getHand().size() == deck.size() - 3) {
+			new SplashScreen(currentPlayer.getName() + " has found the solution. You lose!", "Game Over");
+		}
 	}
 }
