@@ -576,8 +576,12 @@ public class Board extends JPanel {
 	 * Method will be implemented to handle the creation of making an accusation
 	 */
 	public void makeAccusation() {
-		AccusationPanel accusationPanel = new AccusationPanel();
-		accusationPanel.setVisible(true);
+		if (currentPlayer.getType().equals("HUMAN")) {
+			AccusationPanel accusationPanel = new AccusationPanel();
+			accusationPanel.setVisible(true);
+		} else {
+			handleComputerAccusation();
+		}
 	}
 
 	/**
@@ -759,5 +763,9 @@ public class Board extends JPanel {
 			new SplashScreen("You lose!", "Game Over").showSplash();
 		}
 		System.out.println("The correct solution was: [" + getSolution().get(0).getCardName() + ", " + getSolution().get(1).getCardName() + ", " + getSolution().get(2).getCardName() + "]");
+	}
+
+	public void handleComputerAccusation() {
+
 	}
 }
