@@ -113,11 +113,11 @@ public class GameControlPanel extends JPanel {
 		}
 
 		// setters for information for panel
-		private void setGuessResult(String result) {
+		public void setGuessResult(String result) {
 			this.result.setText(result);
 		}
 
-		private void setGuess(String guess) {
+		public void setGuess(String guess) {
 			this.guess.setText(guess);
 		}
 

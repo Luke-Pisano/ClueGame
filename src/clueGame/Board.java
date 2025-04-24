@@ -481,6 +481,11 @@ public class Board extends JPanel {
 	 * @return The card that disproves the suggestion, or null if no player can disprove it.
 	 */
 	public Card handleSuggestion(Solution suggestion, Player suggestingPlayer) {
+		String personGuess = suggestion.getPerson().getCardName();
+		String roomGuess = suggestion.getRoom().getCardName();
+		String weaponGuess = suggestion.getWeapon().getCardName();
+		controlPanel.setGuess(personGuess + ", " + roomGuess + ", " + weaponGuess);
+		
 		int playerIndex = players.indexOf(suggestingPlayer);
 
 		String suggestedPlayerName = suggestion.getPerson().getCardName();
@@ -511,10 +516,17 @@ public class Board extends JPanel {
 		for (int i = 1; i < players.size(); i++) {
 			int index = (playerIndex + i) % players.size();
 			Player currentPlayer = players.get(index);
-
+			
 			Card cardToDisprove = currentPlayer.disproveSuggestion(suggestion);
 			if (cardToDisprove != null) {
 				suggestingPlayer.updateSeenCards(cardToDisprove);
+				if (playerIndex == 0) {
+					gameCardsPanel.addSeenCard(cardToDisprove, currentPlayer);
+					controlPanel.setGuessResult(cardToDisprove.getCardName());
+					repaint();
+				} else {
+					controlPanel.setGuessResult("Suggestion disproven!");
+				}
 				return cardToDisprove;
 			}
 		}
@@ -556,7 +568,6 @@ public class Board extends JPanel {
 		}
 
 		if (currentPlayer.getType().equals("HUMAN")) {
-			gameCardsPanel.updateCards(currentPlayer);
 			for (BoardCell cell : targets) {
 				unfinished = true;
 				cell.setTarget(true);
@@ -666,10 +677,7 @@ public class Board extends JPanel {
 
 				if (suggestion != null) {
 				    handleSuggestion(suggestion, currentPlayer);
-				}
-				
-				gameCardsPanel.updateCards(currentPlayer);
-				
+				}				
 			} else {
 				new SplashScreen("Invalid cell clicked", "Error").showSplash();
 			}
@@ -737,6 +745,11 @@ public class Board extends JPanel {
 	
 	public void setGameCardsPanel(GameCardsPanel panel) {
 		this.gameCardsPanel = panel;
+		
+		for(Card card : players.get(0).getHand()) {
+			gameCardsPanel.addInHandCard(card);
+		}
+		repaint();
 	}
 
 	public Room getRoom(char c) {

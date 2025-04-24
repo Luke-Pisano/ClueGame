@@ -4,6 +4,8 @@ import java.awt.*;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GameCardsPanel extends JPanel {
 	private JPanel knownCards;
@@ -16,6 +18,7 @@ public class GameCardsPanel extends JPanel {
 	private JPanel weapons;
 	private JPanel weaponsInHand;
 	private JPanel weaponsSeen;
+	private List<Card> addedCards = new ArrayList<>(); // stores all cards added to panel
 
 	public GameCardsPanel() {
 		knownCards = new JPanel();
@@ -28,7 +31,8 @@ public class GameCardsPanel extends JPanel {
 		knownCards.add(people);
 		peopleInHand = new JPanel();
 		peopleInHand.setBorder(new TitledBorder("People in Hand"));
-		peopleInHand.setLayout(new BoxLayout(peopleInHand, BoxLayout.Y_AXIS));
+		//peopleInHand.setLayout(new BoxLayout(peopleInHand, BoxLayout.Y_AXIS));
+		peopleInHand.setLayout(new GridLayout(0, 1));
 		peopleInHand.setPreferredSize(new Dimension(150, 50));
 		people.add(peopleInHand);
 		peopleSeen = new JPanel();
@@ -71,7 +75,7 @@ public class GameCardsPanel extends JPanel {
 	 * Adds a card to the player's hand.
 	 * @param card the card to add.
 	 */
-	public void addInHandCard(Card card) {
+	public void addInHandCard(Card card) {	
 		JTextField textField = new JTextField(card.getCardName());
 		textField.setEditable(false);
 		switch (card.getCardType()) {
@@ -98,6 +102,11 @@ public class GameCardsPanel extends JPanel {
 	 * @param player the player who saw the card.
 	 */
 	public void addSeenCard(Card card, Player player) {
+		for (Card singleCard : addedCards) {
+			if (singleCard.equals(card)) {
+				return;
+			}
+		}
 		JTextField textField = new JTextField(card.getCardName());
 		textField.setEditable(false);
 		switch (card.getCardType()) {
@@ -117,6 +126,7 @@ public class GameCardsPanel extends JPanel {
 		textField.setBackground(player.getColor());
 		revalidate();
 		repaint();
+		addedCards.add(card);
 	}
 
 	/**
@@ -152,19 +162,6 @@ public class GameCardsPanel extends JPanel {
 		revalidate();
 		repaint();
 	}
-	
-	public void updateCards(Player player) {
-		initializeLists();
-
-		for (Card card : player.getHand()) {
-			addInHandCard(card);
-		}
-
-		for (Card card : player.getSeenCards()) {
-			addSeenCard(card, player);
-		}
-	}
-
 
 	/**
 	 * Removes the "NONE" text field from the specified panel if it exists.
