@@ -59,8 +59,7 @@ public class GameControlPanel extends JPanel {
 			ActionListener accusationListener = new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					// Handle next player action
-					System.out.println("Accusation button clicked");
+					Board.getInstance().makeAccusation();
 				}
 			};
 			accusation.addActionListener(accusationListener);
