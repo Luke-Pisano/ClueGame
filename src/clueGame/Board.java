@@ -498,7 +498,6 @@ public class Board extends JPanel {
 	        for (Map.Entry<Character, Room> entry : roomMap.entrySet()) {
 	        	Room room = entry.getValue();
 	        	if(room.getName().equals(suggestedRoomName)) {
-	        		System.out.println(room.getName());
 	        		BoardCell roomCenterCell = room.getCenterCell();
 	        		int xPosition = roomCenterCell.getCol();
 	        		int yPosition = roomCenterCell.getRow();
@@ -600,8 +599,6 @@ public class Board extends JPanel {
 	private void makeSuggestion() {
 		Solution suggestion = currentPlayer.createSuggestion();
 		handleSuggestion(suggestion, currentPlayer);
-		System.out.println(suggestion.getPerson().getCardName());
-
 	}
 
 	/**

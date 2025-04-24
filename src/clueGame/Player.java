@@ -57,6 +57,7 @@ public abstract class Player {
 	public void draw(Graphics graphics, int cellDimension) {
         int positionCol = column * cellDimension;
         int positionRow = row * cellDimension;
+        
         graphics.setColor(color);
         graphics.fillOval(positionCol + 5, positionRow + 5, cellDimension - 10, cellDimension - 10);
         graphics.setColor(Color.BLACK);
