@@ -547,19 +547,32 @@ public class Board extends JPanel {
 	}
 
 	/**
+	 * Get the card associated with the given name.
+	 * @param cardName - the name of the card being searched for.
+	 * @return - the card with the given name.
+	 */
+	public static Card toCard(String cardName) {
+		for(Card card : getInstance().getDeck()) {
+			if (card.getCardName().equals(cardName)) {
+				return card;
+			}
+		}
+		return null;
+	}
+
+	/**
 	 * Method will be implemented to handle the creation of making a suggestion
 	 */
 	private void makeSuggestion() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	/**
 	 * Method will be implemented to handle the creation of making an accusation
 	 */
-	private void makeAccusation() {
+	public void makeAccusation() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	/**
@@ -729,5 +742,14 @@ public class Board extends JPanel {
 
 	public void setControlPanel(GameControlPanel panel) {
 		controlPanel = panel;
+	}
+
+	public void handleAccusation(Solution accusation) {
+		if (accusation.equals(theAnswer)) {
+			new SplashScreen("You win!", "Congratulations").showSplash();
+		} else {
+			new SplashScreen("You lose!", "Game Over").showSplash();
+		}
+
 	}
 }
