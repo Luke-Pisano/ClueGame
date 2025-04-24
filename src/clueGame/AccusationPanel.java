@@ -12,8 +12,8 @@ public class AccusationPanel extends JDialog {
      * Creates a suggestion panel with the specified message and title.
      *
      */
-    public AccusationPanel(Room room) {
-        setTitle("Make your suggestion");
+    public AccusationPanel() {
+        setTitle("Make your accusation");
         setModal(true);
         setLayout(new BorderLayout());
         setSize(300, 200);
@@ -84,7 +84,7 @@ public class AccusationPanel extends JDialog {
     }
 
     public static void main(String[] args) {
-        AccusationPanel suggestion = new AccusationPanel(new Room("Kitchen"));
-        suggestion.setVisible(true);
+        AccusationPanel accusation = new AccusationPanel();
+        accusation.setVisible(true);
     }
 }

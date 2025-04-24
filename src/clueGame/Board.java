@@ -435,27 +435,31 @@ public class Board extends JPanel {
 		solution = new ArrayList<>();
 
 		Card room = null, weapon = null, person = null;
+		Card answerRoom = null, answerWeapon = null, answerPerson = null;
 
 		Iterator<Card> iterator = shuffledDeck.iterator();
 		while (iterator.hasNext() && (room == null || weapon == null || person == null)) {
 			Card card = iterator.next();
 			if (card.getCardType() == CardType.ROOM && room == null) {
 				room = card;
+				answerRoom = card;
 				solution.add(room);
 				iterator.remove();
 			} else if (card.getCardType() == CardType.WEAPON && weapon == null) {
 				weapon = card;
+				answerWeapon = card;
 				solution.add(weapon);
 				iterator.remove();
 			} else if (card.getCardType() == CardType.PERSON && person == null) {
 				person = card;
+				answerPerson = card;
 				solution.add(person);
 				iterator.remove();
 			}
 		}
 
 		if (solution.size() == 3) {
-			theAnswer = new Solution(solution.get(0), solution.get(1), solution.get(2));
+			theAnswer = new Solution(answerRoom, answerPerson, answerWeapon);
 		}
 
 		int playerCount = players.size();
@@ -572,7 +576,8 @@ public class Board extends JPanel {
 	 * Method will be implemented to handle the creation of making an accusation
 	 */
 	public void makeAccusation() {
-		// TODO Auto-generated method stub
+		AccusationPanel accusationPanel = new AccusationPanel();
+		accusationPanel.setVisible(true);
 	}
 
 	/**
@@ -748,11 +753,11 @@ public class Board extends JPanel {
 	}
 
 	public void handleAccusation(Solution accusation) {
-		if (accusation.equals(theAnswer)) {
+		if (accusation.myEquals(theAnswer)) {
 			new SplashScreen("You win!", "Congratulations").showSplash();
 		} else {
 			new SplashScreen("You lose!", "Game Over").showSplash();
 		}
-
+		System.out.println("The correct solution was: [" + getSolution().get(0).getCardName() + ", " + getSolution().get(1).getCardName() + ", " + getSolution().get(2).getCardName() + "]");
 	}
 }
