@@ -483,6 +483,32 @@ public class Board extends JPanel {
 	public Card handleSuggestion(Solution suggestion, Player suggestingPlayer) {
 		int playerIndex = players.indexOf(suggestingPlayer);
 
+		String suggestedPlayerName = suggestion.getPerson().getCardName();
+		Player suggestedPlayer = null;
+		
+		for (Player player : players) {
+			if (player.getName().equals(suggestedPlayerName)) {
+				suggestedPlayer = player;
+				break;
+			}
+		}
+		 
+		if (suggestedPlayer != null) {
+			String suggestedRoomName = suggestion.getRoom().getCardName();
+	        for (Map.Entry<Character, Room> entry : roomMap.entrySet()) {
+	        	Room room = entry.getValue();
+	        	if(room.getName().equals(suggestedRoomName)) {
+	        		System.out.println(room.getName());
+	        		BoardCell roomCenterCell = room.getCenterCell();
+	        		int xPosition = roomCenterCell.getCol();
+	        		int yPosition = roomCenterCell.getRow();
+	    			suggestedPlayer.setPosition(yPosition, xPosition);
+	        		break;
+	        	}
+	        }
+			repaint();
+		}
+		
 		for (int i = 1; i < players.size(); i++) {
 			int index = (playerIndex + i) % players.size();
 			Player currentPlayer = players.get(index);
@@ -548,7 +574,9 @@ public class Board extends JPanel {
 			currentPlayer.setPosition(targetCell.getRow(), targetCell.getCol());
 			repaint();
 			
-			makeSuggestion(); // implement later
+			if (targetCell.isRoomCenter()) {
+				makeSuggestion();
+			}
 		}
 	}
 
@@ -570,7 +598,9 @@ public class Board extends JPanel {
 	 * Method will be implemented to handle the creation of making a suggestion
 	 */
 	private void makeSuggestion() {
-		// TODO Auto-generated method stub
+		Solution suggestion = currentPlayer.createSuggestion();
+		handleSuggestion(suggestion, currentPlayer);
+		System.out.println(suggestion.getPerson().getCardName());
 
 	}
 
@@ -638,12 +668,7 @@ public class Board extends JPanel {
 		        Solution suggestion = suggestionPanel.getSuggestion();
 
 				if (suggestion != null) {
-				    Card revealedCard = handleSuggestion(suggestion, currentPlayer);
-				    if (revealedCard != null) {
-				        System.out.println("Suggestion disproved with: " + revealedCard.getCardName());
-				    } else {
-				        System.out.println("No one could disprove the suggestion.");
-				    }
+				    handleSuggestion(suggestion, currentPlayer);
 				}
 				
 				gameCardsPanel.updateCards(currentPlayer);
