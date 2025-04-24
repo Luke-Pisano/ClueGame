@@ -528,6 +528,8 @@ public class Board extends JPanel {
 					controlPanel.setGuessResult("Suggestion disproven!");
 				}
 				return cardToDisprove;
+			} else {
+				controlPanel.setGuessResult("Not disproven!");
 			}
 		}
 		return null;
@@ -557,6 +559,9 @@ public class Board extends JPanel {
 		currentPlayer = players.get(playerIndex);
 
 		controlPanel.setTurn(currentPlayer, diceRoll);
+		controlPanel.setGuess("");
+		controlPanel.setGuessResult("");
+
 
 		calcTargets(grid[currentPlayer.getRow()][currentPlayer.getColumn()], diceRoll);
 
