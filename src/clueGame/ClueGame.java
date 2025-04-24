@@ -29,6 +29,7 @@ public class ClueGame extends JFrame {
         add(cardsPanel, BorderLayout.EAST);
 
         board.setControlPanel(controlPanel);
+        board.setGameCardsPanel(cardsPanel);
 
         setVisible(true);
     }
