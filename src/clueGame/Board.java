@@ -521,7 +521,7 @@ public class Board extends JPanel {
 			if (cardToDisprove != null) {
 				suggestingPlayer.updateSeenCards(cardToDisprove);
 				if (playerIndex == 0) {
-					gameCardsPanel.addSeenCard(cardToDisprove, suggestingPlayer);
+					gameCardsPanel.addSeenCard(cardToDisprove, players.get(i));
 					controlPanel.setGuessResult(cardToDisprove.getCardName());
 					repaint();
 				} else {
