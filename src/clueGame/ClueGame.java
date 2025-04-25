@@ -32,6 +32,8 @@ public class ClueGame extends JFrame {
         board.setGameCardsPanel(cardsPanel);
 
         setVisible(true);
+        
+        PlayMusic.playMusic();
     }
 
     public static void main(String[] args) {
