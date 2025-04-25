@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 public class ComputerPlayer extends Player {
 	private String type = "COMPUTER";
+	private Random random = new Random(System.nanoTime());
 
 	public ComputerPlayer(String name, String color, int row, int column) {
 		super(name, color, row, column);
@@ -74,7 +76,10 @@ public class ComputerPlayer extends Player {
 	    List<BoardCell> targetList = new ArrayList<>(targets);
 	    for (BoardCell target : targetList) {
 	    	if(target.isRoomCenter()) {
-	    		return target;
+	    		int randomNumber = random.nextInt(6) + 1;
+	    		if (randomNumber % 2 == 0 ) {
+		    		return target;	
+	    		}
 	    	}
 	    }
 	    Collections.shuffle(targetList); // randomizes the order

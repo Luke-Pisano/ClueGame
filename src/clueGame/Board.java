@@ -506,10 +506,10 @@ public class Board extends JPanel {
 	        		BoardCell roomCenterCell = room.getCenterCell();
 	        		int xPosition = roomCenterCell.getCol();
 	        		int yPosition = roomCenterCell.getRow();
-					Point start = new Point(suggestedPlayer.getColumn(), suggestedPlayer.getRow());
-					Point end = new Point(xPosition, yPosition);
-					animatePlayer(suggestedPlayer, start, end);
-					
+//					Point start = new Point(suggestedPlayer.getColumn(), suggestedPlayer.getRow());
+//					Point end = new Point(xPosition, yPosition);
+//					animatePlayer(suggestedPlayer, start, end);
+	        		suggestedPlayer.setPosition(yPosition, xPosition);
 	        		break;
 	        	}
 	        }
@@ -589,9 +589,10 @@ public class Board extends JPanel {
 			makeAccusation();
 			
 			BoardCell targetCell = currentPlayer.selectTarget(targets);
-			Point start = new Point(currentPlayer.getColumn(), currentPlayer.getRow());
-			Point end = new Point(targetCell.getCol(), targetCell.getRow());
-			animatePlayer(currentPlayer, start, end);
+//			Point start = new Point(currentPlayer.getColumn(), currentPlayer.getRow());
+//			Point end = new Point(targetCell.getCol(), targetCell.getRow());
+//			animatePlayer(currentPlayer, start, end);
+			currentPlayer.setPosition(targetCell.getRow(), targetCell.getCol());
 			
 			repaint();
 			
@@ -659,9 +660,10 @@ public class Board extends JPanel {
 		BoardCell clickedCell = grid[clickedRow][clickedColumn];
 		if (currentPlayer instanceof HumanPlayer) {
 			if (clickedCell.isTarget()) {
-				Point start = new Point(currentPlayer.getColumn(), currentPlayer.getRow());
-				Point end = new Point(clickedColumn, clickedRow);
-				animatePlayer(currentPlayer, start, end);
+				currentPlayer.setPosition(clickedRow, clickedColumn);
+//				Point start = new Point(currentPlayer.getColumn(), currentPlayer.getRow());
+//				Point end = new Point(clickedColumn, clickedRow);
+//				animatePlayer(currentPlayer, start, end);
 				unfinished = false;
 				for (BoardCell[] row : grid) {
 					for (BoardCell cell : row) {
@@ -674,9 +676,10 @@ public class Board extends JPanel {
 				char roomInitial = clickedCell.getInitial();
 				BoardCell roomCenter = getRoom(roomInitial).getCenterCell();
 				
-				Point start = new Point(currentPlayer.getColumn(), currentPlayer.getRow());
-				Point end = new Point(roomCenter.getCol(), roomCenter.getRow());
-				animatePlayer(currentPlayer, start, end);
+//				Point start = new Point(currentPlayer.getColumn(), currentPlayer.getRow());
+//				Point end = new Point(roomCenter.getCol(), roomCenter.getRow());
+//				animatePlayer(currentPlayer, start, end);
+				currentPlayer.setPosition(roomCenter.getRow(), roomCenter.getCol());
 				
 				unfinished = false;
 				for (BoardCell[] row : grid) {
@@ -858,15 +861,17 @@ public class Board extends JPanel {
 		if (accusation.myEquals(theAnswer)) {
 			new SplashScreen("You win!", "Congratulations").showSplash();
 		} else {
-			new SplashScreen("Sorry, not correct. You lose!", "Game Over").showSplash();
+			String solution = "The correct solution was: " + getSolution().get(0).getCardName() + " with the " + getSolution().get(1).getCardName() + " in the " + getSolution().get(2).getCardName();
+			new SplashScreen("Sorry, not correct. You lose! \n" + solution, "Game Over").showSplash();
+
 		}
-		System.out.println("The correct solution was: [" + getSolution().get(0).getCardName() + ", " + getSolution().get(1).getCardName() + ", " + getSolution().get(2).getCardName() + "]");
 		System.exit(0);
 	}
 
 	public void handleComputerAccusation() {
 		if (currentPlayer.getSeenCards().size() == deck.size() - 3) {
-			new SplashScreen(currentPlayer.getName() + " has made the correct accusation and won the game!", "Game Over").showSplash();
+			String solution = "The correct solution was: " + getSolution().get(0).getCardName() + " with the " + getSolution().get(1).getCardName() + " in the " + getSolution().get(2).getCardName();
+			new SplashScreen(currentPlayer.getName() + " has made the correct accusation and won the game! \n" + solution , "Game Over").showSplash();
 			System.exit(0);
 		}
 	}

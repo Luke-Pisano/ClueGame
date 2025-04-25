@@ -30,6 +30,5 @@ public class PlayMusic {
 	public static void playMusic() {
 		String filePath = "data/background_music.wav";
 		LoopMusic(filePath);
-		JOptionPane.showMessageDialog(null, "Press ok to stop playing");
 	}
 }
