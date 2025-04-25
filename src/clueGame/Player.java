@@ -72,7 +72,7 @@ public abstract class Player {
 		try {
 			color = (Color) Color.class.getField(inputColor.toUpperCase()).get(null);
 		} catch(Exception e) {
-			System.err.println("Invalid color");
+			System.err.println("Invalid color: " + inputColor);
 		}
 	}
 	
