@@ -26,7 +26,7 @@ Player, Johnathan Karsh, BLUE, HUMAN, 0, 7
 Player, Buffalo Bill, RED, COMPUTER, 0, 18
 Player, Calamity Jane, GREEN, COMPUTER, 11, 25
 Player, Wild Bill Hickok, YELLOW, COMPUTER, 15, 0
-Player, Annie Oakley, PURPLE, COMPUTER, 28, 7
+Player, Annie Oakley, MAGENTA, COMPUTER, 28, 7
 Player, Jesse James, ORANGE, COMPUTER, 28, 20
 //Weapons
 Weapon, Revolver
