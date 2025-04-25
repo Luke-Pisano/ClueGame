@@ -37,7 +37,7 @@ public class Board extends JPanel {
 	private GameControlPanel controlPanel;
 	private GameCardsPanel gameCardsPanel;
 	private boolean unfinished = true;
-	Player currentPlayer = null;
+	private Player currentPlayer = null;
 	private int playerIndex = 0;
 
 	private static Board theInstance = new Board();
@@ -506,7 +506,10 @@ public class Board extends JPanel {
 	        		BoardCell roomCenterCell = room.getCenterCell();
 	        		int xPosition = roomCenterCell.getCol();
 	        		int yPosition = roomCenterCell.getRow();
-	    			suggestedPlayer.setPosition(yPosition, xPosition);
+					Point start = new Point(suggestedPlayer.getColumn(), suggestedPlayer.getRow());
+					Point end = new Point(xPosition, yPosition);
+					animatePlayer(suggestedPlayer, start, end);
+					
 	        		break;
 	        	}
 	        }
@@ -515,7 +518,7 @@ public class Board extends JPanel {
 		
 		for (int i = 1; i < players.size(); i++) {
 			int index = (playerIndex + i) % players.size();
-			Player currentPlayer = players.get(index);
+			currentPlayer = players.get(index);
 			
 			Card cardToDisprove = currentPlayer.disproveSuggestion(suggestion);
 			if (cardToDisprove != null) {
@@ -583,10 +586,13 @@ public class Board extends JPanel {
 			}
 			repaint();
 		} else {
-			makeAccusation(); // implement later
+			makeAccusation();
 			
 			BoardCell targetCell = currentPlayer.selectTarget(targets);
-			currentPlayer.setPosition(targetCell.getRow(), targetCell.getCol());
+			Point start = new Point(currentPlayer.getColumn(), currentPlayer.getRow());
+			Point end = new Point(targetCell.getCol(), targetCell.getRow());
+			animatePlayer(currentPlayer, start, end);
+			
 			repaint();
 			
 			if (targetCell.isRoomCenter()) {
@@ -653,7 +659,9 @@ public class Board extends JPanel {
 		BoardCell clickedCell = grid[clickedRow][clickedColumn];
 		if (currentPlayer instanceof HumanPlayer) {
 			if (clickedCell.isTarget()) {
-				currentPlayer.setPosition(clickedRow, clickedColumn);
+				Point start = new Point(currentPlayer.getColumn(), currentPlayer.getRow());
+				Point end = new Point(clickedColumn, clickedRow);
+				animatePlayer(currentPlayer, start, end);
 				unfinished = false;
 				for (BoardCell[] row : grid) {
 					for (BoardCell cell : row) {
@@ -665,7 +673,11 @@ public class Board extends JPanel {
 			} else if (getRoom(clickedCell.getInitial()).getCenterCell() != null && getRoom(clickedCell.getInitial()).getCenterCell().isTarget()) {
 				char roomInitial = clickedCell.getInitial();
 				BoardCell roomCenter = getRoom(roomInitial).getCenterCell();
-				currentPlayer.setPosition(roomCenter.getRow(), roomCenter.getCol());
+				
+				Point start = new Point(currentPlayer.getColumn(), currentPlayer.getRow());
+				Point end = new Point(roomCenter.getCol(), roomCenter.getRow());
+				animatePlayer(currentPlayer, start, end);
+				
 				unfinished = false;
 				for (BoardCell[] row : grid) {
 					for (BoardCell cell : row) {
@@ -687,6 +699,32 @@ public class Board extends JPanel {
 				new SplashScreen("Invalid cell clicked", "Error").showSplash();
 			}
 		}
+	}
+	
+	public void animatePlayer(Player currentPlayer, Point start, Point end) {
+		int steps = 50;
+		int delay = 10;
+
+		Timer timer = new Timer(delay, null);
+		final int[] currentStep = {0};
+
+		timer.addActionListener(e -> {
+		    currentStep[0]++;
+		    double t = currentStep[0] / (double) steps;
+
+		    int newCol = (int) Math.round(start.x + t * (end.x - start.x));
+		    int newRow = (int) Math.round(start.y + t * (end.y - start.y));
+
+		    currentPlayer.setPosition(newRow, newCol);
+		    repaint();
+
+		    if (currentStep[0] >= steps) {
+		    	currentPlayer.setPosition(end.y, end.x);
+		        ((Timer) e.getSource()).stop();
+		    }
+		});
+
+		timer.start();
 	}
 
 	/**
