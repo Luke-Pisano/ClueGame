@@ -34,12 +34,8 @@ public class ClueGame extends JFrame {
         setVisible(true);
     }
 
-    public void endGame() {
-        this.setVisible(false);
-    }
-    
     public static void main(String[] args) {
-        ClueGame game = new ClueGame();
+        new ClueGame();
 
         new SplashScreen("You are " + board.getHumanPlayer().getName() + "\n\n"
                 + "Can you find the solution\n"
