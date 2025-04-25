@@ -1,6 +1,10 @@
 package clueGame;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class ComputerPlayer extends Player {
 	private String type = "COMPUTER";
@@ -68,10 +72,8 @@ public class ComputerPlayer extends Player {
 	 */
 	public BoardCell selectTarget(Set<BoardCell> targets) {
 	    List<BoardCell> targetList = new ArrayList<>(targets);
-		Random random = new Random();
-		System.out.println(random.nextBoolean());
 	    for (BoardCell target : targetList) {
-	    	if(target.isRoomCenter() && random.nextBoolean()) {
+	    	if(target.isRoomCenter()) {
 	    		return target;
 	    	}
 	    }
