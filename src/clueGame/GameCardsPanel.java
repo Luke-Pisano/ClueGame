@@ -21,52 +21,66 @@ public class GameCardsPanel extends JPanel {
 	private List<Card> addedCards = new ArrayList<>(); // stores all cards added to panel
 
 	public GameCardsPanel() {
+		setLayout(new BorderLayout());
+
 		knownCards = new JPanel();
 		knownCards.setBorder(new TitledBorder("Known Cards"));
-		knownCards.setLayout(new GridLayout(3, 0));
+		// Use BoxLayout for vertical arrangement
+		knownCards.setLayout(new BoxLayout(knownCards, BoxLayout.Y_AXIS));
 
+		// People Section
 		people = new JPanel();
 		people.setBorder(new TitledBorder("People"));
 		people.setLayout(new BoxLayout(people, BoxLayout.Y_AXIS));
 		knownCards.add(people);
+
 		peopleInHand = new JPanel();
 		peopleInHand.setBorder(new TitledBorder("People in Hand"));
-		//peopleInHand.setLayout(new BoxLayout(peopleInHand, BoxLayout.Y_AXIS));
-		peopleInHand.setLayout(new GridLayout(0, 1));
-		peopleInHand.setPreferredSize(new Dimension(150, 50));
+		peopleInHand.setLayout(new BoxLayout(peopleInHand, BoxLayout.Y_AXIS));
 		people.add(peopleInHand);
+
 		peopleSeen = new JPanel();
 		peopleSeen.setBorder(new TitledBorder("People Seen"));
 		peopleSeen.setLayout(new BoxLayout(peopleSeen, BoxLayout.Y_AXIS));
 		people.add(peopleSeen);
 
+		knownCards.add(Box.createVerticalStrut(10));
+
+		// Rooms Section
 		rooms = new JPanel();
 		rooms.setBorder(new TitledBorder("Rooms"));
 		rooms.setLayout(new BoxLayout(rooms, BoxLayout.Y_AXIS));
 		knownCards.add(rooms);
+
 		roomsInHand = new JPanel();
 		roomsInHand.setBorder(new TitledBorder("Rooms in Hand"));
 		roomsInHand.setLayout(new BoxLayout(roomsInHand, BoxLayout.Y_AXIS));
 		rooms.add(roomsInHand);
+
 		roomsSeen = new JPanel();
 		roomsSeen.setBorder(new TitledBorder("Rooms Seen"));
 		roomsSeen.setLayout(new BoxLayout(roomsSeen, BoxLayout.Y_AXIS));
 		rooms.add(roomsSeen);
 
+		knownCards.add(Box.createVerticalStrut(10));
+
+		// Weapons Section
 		weapons = new JPanel();
 		weapons.setBorder(new TitledBorder("Weapons"));
 		weapons.setLayout(new BoxLayout(weapons, BoxLayout.Y_AXIS));
 		knownCards.add(weapons);
+
 		weaponsInHand = new JPanel();
 		weaponsInHand.setBorder(new TitledBorder("Weapons in Hand"));
 		weaponsInHand.setLayout(new BoxLayout(weaponsInHand, BoxLayout.Y_AXIS));
 		weapons.add(weaponsInHand);
+
 		weaponsSeen = new JPanel();
 		weaponsSeen.setBorder(new TitledBorder("Weapons Seen"));
 		weaponsSeen.setLayout(new BoxLayout(weaponsSeen, BoxLayout.Y_AXIS));
 		weapons.add(weaponsSeen);
 
-		add(knownCards);
+		add(knownCards, BorderLayout.CENTER);
 
 		initializeLists();
 	}
