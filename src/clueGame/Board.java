@@ -827,8 +827,9 @@ public class Board extends JPanel {
 	}
 
 	public void handleComputerAccusation() {
-		if (currentPlayer.getSeenCards().size() + currentPlayer.getHand().size() == deck.size() - 3) {
-			new SplashScreen(currentPlayer.getName() + " has found the solution. You lose!", "Game Over");
+		if (currentPlayer.getSeenCards().size() == deck.size() - 3) {
+			new SplashScreen(currentPlayer.getName() + " has made the correct accusation and won the game!", "Game Over").showSplash();
+			System.exit(0);
 		}
 	}
 }
