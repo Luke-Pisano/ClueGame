@@ -13,10 +13,6 @@ public class Room {
 		this.name = name;
 	}
 
-	public Room(String name2, boolean equals) {
-		// TODO Do we need this?
-	}
-
 	public String getName() {
 		return name;
 	}

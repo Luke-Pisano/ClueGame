@@ -18,7 +18,6 @@ public class HumanPlayer extends Player {
 	 */
 	@Override
 	public Solution createSuggestion() {
-		// TODO: Implement the logic to create a suggestion
 		return null;
 	}
 
@@ -29,8 +28,6 @@ public class HumanPlayer extends Player {
 	 */
 	@Override
 	public Card disproveSuggestion(Solution suggestion) {
-		// TODO: Implement the logic to disprove a suggestion
-		// TODO: Disproves random for now
 		// Disprove the suggestion if possible
 		List<Card> possibleCards = new ArrayList<>();
 		
@@ -55,7 +52,6 @@ public class HumanPlayer extends Player {
 
 	@Override
 	protected BoardCell selectTarget(Set<BoardCell> targets) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }
