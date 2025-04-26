@@ -506,10 +506,10 @@ public class Board extends JPanel {
 	        		BoardCell roomCenterCell = room.getCenterCell();
 	        		int xPosition = roomCenterCell.getCol();
 	        		int yPosition = roomCenterCell.getRow();
-//					Point start = new Point(suggestedPlayer.getColumn(), suggestedPlayer.getRow());
-//					Point end = new Point(xPosition, yPosition);
-//					animatePlayer(suggestedPlayer, start, end);
-	        		suggestedPlayer.setPosition(yPosition, xPosition);
+					Point start = new Point(suggestedPlayer.getColumn(), suggestedPlayer.getRow());
+					Point end = new Point(xPosition, yPosition);
+					animatePlayer(suggestedPlayer, start, end);
+//	        		suggestedPlayer.setPosition(yPosition, xPosition);
 	        		break;
 	        	}
 	        }
@@ -589,10 +589,10 @@ public class Board extends JPanel {
 			makeAccusation();
 			
 			BoardCell targetCell = currentPlayer.selectTarget(targets);
-//			Point start = new Point(currentPlayer.getColumn(), currentPlayer.getRow());
-//			Point end = new Point(targetCell.getCol(), targetCell.getRow());
-//			animatePlayer(currentPlayer, start, end);
-			currentPlayer.setPosition(targetCell.getRow(), targetCell.getCol());
+			Point start = new Point(currentPlayer.getColumn(), currentPlayer.getRow());
+			Point end = new Point(targetCell.getCol(), targetCell.getRow());
+			animatePlayer(currentPlayer, start, end);
+//			currentPlayer.setPosition(targetCell.getRow(), targetCell.getCol());
 			
 			repaint();
 			
@@ -660,10 +660,10 @@ public class Board extends JPanel {
 		BoardCell clickedCell = grid[clickedRow][clickedColumn];
 		if (currentPlayer instanceof HumanPlayer) {
 			if (clickedCell.isTarget()) {
-				currentPlayer.setPosition(clickedRow, clickedColumn);
-//				Point start = new Point(currentPlayer.getColumn(), currentPlayer.getRow());
-//				Point end = new Point(clickedColumn, clickedRow);
-//				animatePlayer(currentPlayer, start, end);
+//				currentPlayer.setPosition(clickedRow, clickedColumn);
+				Point start = new Point(currentPlayer.getColumn(), currentPlayer.getRow());
+				Point end = new Point(clickedColumn, clickedRow);
+				animatePlayer(currentPlayer, start, end);
 				unfinished = false;
 				for (BoardCell[] row : grid) {
 					for (BoardCell cell : row) {
@@ -676,10 +676,10 @@ public class Board extends JPanel {
 				char roomInitial = clickedCell.getInitial();
 				BoardCell roomCenter = getRoom(roomInitial).getCenterCell();
 				
-//				Point start = new Point(currentPlayer.getColumn(), currentPlayer.getRow());
-//				Point end = new Point(roomCenter.getCol(), roomCenter.getRow());
-//				animatePlayer(currentPlayer, start, end);
-				currentPlayer.setPosition(roomCenter.getRow(), roomCenter.getCol());
+				Point start = new Point(currentPlayer.getColumn(), currentPlayer.getRow());
+				Point end = new Point(roomCenter.getCol(), roomCenter.getRow());
+				animatePlayer(currentPlayer, start, end);
+//				currentPlayer.setPosition(roomCenter.getRow(), roomCenter.getCol());
 				
 				unfinished = false;
 				for (BoardCell[] row : grid) {
@@ -705,29 +705,30 @@ public class Board extends JPanel {
 	}
 	
 	public void animatePlayer(Player currentPlayer, Point start, Point end) {
-		int steps = 50;
-		int delay = 10;
+		int steps = 10, delay = 1;
+	    Timer timer = new Timer(delay, null);
+	    final int[] currentStep = {0};
 
-		Timer timer = new Timer(delay, null);
-		final int[] currentStep = {0};
+	    timer.addActionListener(e -> {
+	        currentStep[0]++;
+	        double t = (double) currentStep[0] / steps;
 
-		timer.addActionListener(e -> {
-		    currentStep[0]++;
-		    double t = currentStep[0] / (double) steps;
+	        // Use smoother interpolation (e.g., easing function)
+	        double easedT = t * t * (3 - 2 * t); // Smoothstep interpolation
 
-		    int newCol = (int) Math.round(start.x + t * (end.x - start.x));
-		    int newRow = (int) Math.round(start.y + t * (end.y - start.y));
+	        int newCol = (int) Math.round(start.x + easedT * (end.x - start.x));
+	        int newRow = (int) Math.round(start.y + easedT * (end.y - start.y));
 
-		    currentPlayer.setPosition(newRow, newCol);
-		    repaint();
+	        currentPlayer.setPosition(newRow, newCol);
+	        SwingUtilities.invokeLater(this::repaint); // Ensure thread safety for UI updates
 
-		    if (currentStep[0] >= steps) {
-		    	currentPlayer.setPosition(end.y, end.x);
-		        ((Timer) e.getSource()).stop();
-		    }
-		});
+	        if (currentStep[0] >= steps) {
+	            currentPlayer.setPosition(end.y, end.x);
+	            ((Timer) e.getSource()).stop();
+	        }
+	    });
 
-		timer.start();
+	    timer.start();
 	}
 
 	/**
