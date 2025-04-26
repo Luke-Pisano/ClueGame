@@ -110,7 +110,7 @@ public class Board extends JPanel {
 
 				ArrayList<String> tokens = tokenize(line, ", ");
 
-				if (line.substring(0,2).equals("//")) {
+				if (line.startsWith("//")) {
 					continue;
 				}
 

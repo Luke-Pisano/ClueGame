@@ -3,8 +3,6 @@ package clueGame;
 import javax.swing.*;
 
 import java.awt.BorderLayout;
-import java.awt.geom.Dimension2D;
-import java.awt.geom.Point2D;
 
 public class ClueGame extends JFrame {
     private static Board board = Board.getInstance();
