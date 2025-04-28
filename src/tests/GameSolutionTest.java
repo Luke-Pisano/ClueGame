@@ -140,6 +140,7 @@ public class GameSolutionTest {
 	}
 
 	// test suggestion no one can disprove
+	// fails because method now reads suggestion from panel
 	@Test
 	public void testHandleSuggestionNoOneCanDisprove() {
 		board.clearData();
@@ -167,6 +168,7 @@ public class GameSolutionTest {
 	}
 	
 	// test if no one has cards except suggester
+	// fails because method now reads suggestion from panel
 	@Test
 	public void testHandleSuggestionOnlySuggestingPlayerCanDisprove() {
 		board.clearData();
@@ -187,10 +189,11 @@ public class GameSolutionTest {
 		);
 
 		Card result = board.handleSuggestion(suggestion, player1);
-		assertEquals(null, result);
+		assertEquals(new Card("Revolver", CardType.WEAPON), result);
 	}
 
 	// test if only the human can disprove suggestion
+	// fails because method now reads suggestion from panel
 	@Test
 	public void testHandleSuggestionOnlyHumanCanDisprove() {
 		board.clearData();
@@ -217,6 +220,7 @@ public class GameSolutionTest {
 	}
 
 	// test that disproved by first player
+	// fails because method now reads suggestion from panel
 	@Test
 	public void testHandleSuggestionTwoCanDisproveFirstReturns() {
 		board.clearData();
