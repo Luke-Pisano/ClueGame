@@ -509,7 +509,7 @@ public class Board extends JPanel {
 					Point start = new Point(suggestedPlayer.getColumn(), suggestedPlayer.getRow());
 					Point end = new Point(xPosition, yPosition);
 					animatePlayer(suggestedPlayer, start, end);
-//	        		suggestedPlayer.setPosition(yPosition, xPosition);
+	        		suggestedPlayer.setPosition(yPosition, xPosition);
 	        		break;
 	        	}
 	        }
@@ -592,7 +592,7 @@ public class Board extends JPanel {
 			Point start = new Point(currentPlayer.getColumn(), currentPlayer.getRow());
 			Point end = new Point(targetCell.getCol(), targetCell.getRow());
 			animatePlayer(currentPlayer, start, end);
-//			currentPlayer.setPosition(targetCell.getRow(), targetCell.getCol());
+			currentPlayer.setPosition(targetCell.getRow(), targetCell.getCol());
 			
 			repaint();
 			
@@ -660,7 +660,7 @@ public class Board extends JPanel {
 		BoardCell clickedCell = grid[clickedRow][clickedColumn];
 		if (currentPlayer instanceof HumanPlayer) {
 			if (clickedCell.isTarget()) {
-//				currentPlayer.setPosition(clickedRow, clickedColumn);
+				currentPlayer.setPosition(clickedRow, clickedColumn);
 				Point start = new Point(currentPlayer.getColumn(), currentPlayer.getRow());
 				Point end = new Point(clickedColumn, clickedRow);
 				animatePlayer(currentPlayer, start, end);
@@ -679,7 +679,7 @@ public class Board extends JPanel {
 				Point start = new Point(currentPlayer.getColumn(), currentPlayer.getRow());
 				Point end = new Point(roomCenter.getCol(), roomCenter.getRow());
 				animatePlayer(currentPlayer, start, end);
-//				currentPlayer.setPosition(roomCenter.getRow(), roomCenter.getCol());
+				currentPlayer.setPosition(roomCenter.getRow(), roomCenter.getCol());
 				
 				unfinished = false;
 				for (BoardCell[] row : grid) {
