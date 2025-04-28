@@ -660,10 +660,10 @@ public class Board extends JPanel {
 		BoardCell clickedCell = grid[clickedRow][clickedColumn];
 		if (currentPlayer instanceof HumanPlayer) {
 			if (clickedCell.isTarget()) {
-				currentPlayer.setPosition(clickedRow, clickedColumn);
 				Point start = new Point(currentPlayer.getColumn(), currentPlayer.getRow());
 				Point end = new Point(clickedColumn, clickedRow);
 				animatePlayer(currentPlayer, start, end);
+				currentPlayer.setPosition(clickedRow, clickedColumn);
 				unfinished = false;
 				for (BoardCell[] row : grid) {
 					for (BoardCell cell : row) {
